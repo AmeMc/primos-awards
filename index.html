@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primos Awards 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:       #c9a84c;
+      --gold-light: #e8d08a;
+      --gold-dark:  #8a6a20;
+      --cream:      #f5ede0;
+      --black:      #080808;
+      --deep:       #0d0a06;
+      --ink:        #1a1510;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── INTRO OVERLAY ─────────────────────────────────────── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Radial shimmer */
+    #intro::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Scanlines texture */
+    #intro::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.15) 2px,
+        rgba(0,0,0,0.15) 4px
+      );
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .intro-seal {
+      opacity: 0;
+      animation: sealAppear 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+      filter: drop-shadow(0 0 40px rgba(201,168,76,0.35)) drop-shadow(0 8px 30px rgba(0,0,0,0.8));
+    }
+
+    @keyframes sealAppear {
+      0%   { opacity: 0; transform: scale(0.3) translateY(40px); }
+      60%  { opacity: 1; transform: scale(1.04) translateY(-4px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Pedestal glow pulse */
+    .oscar-glow {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 20px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.4) 0%, transparent 70%);
+      animation: glowPulse 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; transform: translateX(-50%) scaleX(1); }
+      50%       { opacity: 1;   transform: translateX(-50%) scaleX(1.2); }
+    }
+
+    .intro-seal-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Intro text block */
+    .intro-text {
+      margin-top: 3rem;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+    .intro-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.45em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .intro-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(160deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(201,168,76,0.35));
+    }
+    .intro-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(245,237,224,0.5);
+      letter-spacing: 0.25em;
+      margin-top: 0.4rem;
+    }
+
+    /* Enter button */
+    .intro-enter {
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 2.2s forwards;
+    }
+    .btn-enter {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.45);
+      padding: 1rem 3rem;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    .btn-enter::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.15) 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .btn-enter:hover { border-color: var(--gold); color: var(--gold-light); letter-spacing: 0.5em; }
+    .btn-enter:hover::before { opacity: 1; }
+
+    /* Horizontal lines */
+    .intro-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.5), transparent);
+      margin: 0 auto 1rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.9s forwards;
+    }
+
+    /* Intro exit */
+    #intro.exit {
+      animation: introExit 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+    @keyframes introExit {
+      0%   { opacity: 1; transform: scale(1); }
+      40%  { opacity: 1; transform: scale(1.03); }
+      100% { opacity: 0; transform: scale(1.08); pointer-events: none; }
+    }
+
+    /* ── MAIN CONTENT ──────────────────────────────────────── */
+    #main {
+      opacity: 0;
+      transition: opacity 0.8s ease 0.3s;
+    }
+    #main.visible { opacity: 1; }
+
+    /* ── NOISE OVERLAY ──────────────────────────────────────── */
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── HEADER ──────────────────────────────────────────────── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem;
+      overflow: hidden;
+    }
+
+    /* Starfield bg */
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(201,168,76,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 15%, rgba(201,168,76,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 70%, rgba(201,168,76,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 80%, rgba(201,168,76,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 55%, rgba(201,168,76,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 50%, rgba(201,168,76,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 90%, rgba(201,168,76,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 35%, rgba(201,168,76,0.6) 0%, transparent 100%),
+        radial-gradient(ellipse 100% 60% at 50% 0%, rgba(201,168,76,0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(201,168,76,0.03) 0%, transparent 70%),
+        linear-gradient(180deg, #0d0a06 0%, #080808 100%);
+    }
+
+    /* Center glow */
+    header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-content { position: relative; z-index: 2; }
+
+    .header-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .header-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: rgba(201,168,76,0.4);
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+    }
+    .header-ornament::before,
+    .header-ornament::after {
+      content: '';
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
+    }
+    .header-ornament span {
+      font-family: 'Cinzel', serif;
+      color: rgba(201,168,76,0.5);
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+    }
+
+    .main-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(170deg, var(--gold-light) 0%, var(--gold) 40%, #b8922e 75%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 4px 40px rgba(201,168,76,0.25)) drop-shadow(0 0 80px rgba(201,168,76,0.12));
+      letter-spacing: 0.04em;
+    }
+
+    .main-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: rgba(245,237,224,0.55);
+      letter-spacing: 0.2em;
+      margin-top: 0.8rem;
+      font-weight: 300;
+    }
+
+    /* Countdown */
+    .countdown-wrapper {
+      margin-top: 4rem;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+    }
+
+    .cd-num {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1;
+      position: relative;
+    }
+
+    .cd-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.45rem;
+      letter-spacing: 0.4em;
+      color: rgba(201,168,76,0.5);
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    .cd-sep {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: rgba(201,168,76,0.25);
+      margin-top: 0.2rem;
+      line-height: 1;
+    }
+
+    /* Date badge */
+    .event-date {
+      margin-top: 2.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.45em;
+      color: rgba(201,168,76,0.5);
+      text-transform: uppercase;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0.4;
+      animation: float 2.5s ease-in-out infinite;
+    }
+    .scroll-hint span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.45rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.7), transparent);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── DIVIDER ──────────────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
+    }
+    .divider-line {
+      flex: 1;
+      max-width: 400px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+    }
+    .divider-gem {
+      width: 8px;
+      height: 8px;
+      transform: rotate(45deg);
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(201,168,76,0.5);
+    }
+
+    /* ── SECTIONS ──────────────────────────────────────────── */
+    section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.55em;
+      color: var(--gold);
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 600;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── VOTE CARD ──────────────────────────────────────────── */
+    .vote-card {
+      background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, rgba(26,21,16,0.6) 100%);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 2px;
+      padding: 3rem;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Corner ornaments */
+    .vote-card::before,
+    .vote-card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: rgba(201,168,76,0.5);
+      border-style: solid;
+    }
+    .vote-card::before {
+      top: 12px; left: 12px;
+      border-width: 1px 0 0 1px;
+    }
+    .vote-card::after {
+      bottom: 12px; right: 12px;
+      border-width: 0 1px 1px 0;
+    }
+
+    /* Second pair of corners via wrapper */
+    .vote-card-inner {
+      position: relative;
+    }
+    .vote-card-inner::before,
+    .vote-card-inner::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: rgba(201,168,76,0.5);
+      border-style: solid;
+    }
+    .vote-card-inner::before {
+      top: -2.9rem; right: -2.9rem;
+      border-width: 1px 1px 0 0;
+    }
+    .vote-card-inner::after {
+      bottom: 0; left: 0;
+      border-width: 0 0 1px 1px;
+      bottom: -0.1px;
+      left: -0.1px;
+    }
+
+    /* Form elements */
+    .field-group { margin-bottom: 2rem; }
+
+    .field-label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.45em;
+      color: rgba(201,168,76,0.7);
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+
+    .field-input,
+    .field-select {
+      width: 100%;
+      background: rgba(8,8,8,0.6);
+      border: none;
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      padding: 0.7rem 0;
+      outline: none;
+      transition: border-color 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+
+    .field-input:focus,
+    .field-select:focus {
+      border-bottom-color: var(--gold);
+      background: transparent;
+    }
+
+    .field-input::placeholder {
+      color: rgba(245,237,224,0.2);
+      font-style: italic;
+    }
+
+    .field-select option {
+      background: #1a1510;
+      color: var(--cream);
+    }
+
+    /* Select arrow */
+    .select-wrapper {
+      position: relative;
+    }
+    .select-wrapper::after {
+      content: '◆';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(201,168,76,0.5);
+      font-size: 0.5rem;
+      pointer-events: none;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      margin-top: 1rem;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      padding: 1.1rem 2rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.05) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-submit:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      box-shadow: 0 0 30px rgba(201,168,76,0.15);
+      letter-spacing: 0.65em;
+    }
+    .btn-submit:hover::before { transform: translateX(0); }
+    .btn-submit:active { transform: scale(0.98); }
+
+    /* ── CATEGORIES ──────────────────────────────────────────── */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5px;
+      margin-top: 2rem;
+    }
+
+    .cat-item {
+      background: rgba(201,168,76,0.03);
+      border: 1px solid rgba(201,168,76,0.12);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .cat-item:hover { border-color: rgba(201,168,76,0.4); }
+    .cat-item:hover::before { opacity: 1; }
+
+    .cat-emoji {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 1rem;
+      filter: grayscale(0.3);
+    }
+
+    .cat-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+    }
+
+    /* ── CHAT ──────────────────────────────────────────────── */
+
+    /* Floating icon button — always visible */
+    .chat-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 52px;
+      height: 52px;
+      background: rgba(8,8,8,0.95);
+      border: 1px solid rgba(201,168,76,0.45);
+      color: var(--gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    .chat-fab:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(201,168,76,0.25), 0 4px 24px rgba(0,0,0,0.5);
+    }
+    .chat-fab svg { transition: transform 0.3s; }
+    .chat-fab.open svg { transform: rotate(45deg); }
+
+    /* Unread dot */
+    .chat-fab .unread-dot {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 8px; height: 8px;
+      background: #e8d08a;
+      border-radius: 50%;
+      border: 1.5px solid #080808;
+      display: none;
+    }
+    .chat-fab.has-unread .unread-dot { display: block; }
+
+    /* Panel */
+    .chat-panel {
+      position: fixed;
+      bottom: 6rem;
+      right: 2rem;
+      width: 320px;
+      background: rgba(8,8,8,0.97);
+      border: 1px solid rgba(201,168,76,0.25);
+      z-index: 199;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+      transform-origin: bottom right;
+      transform: scale(0.85) translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease;
+    }
+    .chat-panel.open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .chat-header {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .chat-status {
+      width: 6px;
+      height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .chat-messages {
+      height: 180px;
+      overflow-y: auto;
+      padding: 1rem 1.2rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(201,168,76,0.2) transparent;
+    }
+    .chat-messages::-webkit-scrollbar { width: 3px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); }
+
+    .chat-msg { margin-bottom: 0.6rem; color: rgba(245,237,224,0.65); }
+    .chat-msg strong { color: var(--gold); font-weight: 600; }
+
+    .chat-input-area {
+      padding: 0.8rem 1.2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      padding: 0.3rem 0;
+      outline: none;
+    }
+    .chat-input::placeholder { color: rgba(245,237,224,0.25); font-style: italic; }
+    .chat-input:focus { border-bottom-color: var(--gold); }
+
+    .chat-send {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.7rem;
+      transition: all 0.3s;
+    }
+    .chat-send:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      position: relative;
+    }
+
+    .footer-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(245,237,224,0.3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── SUCCESS TOAST ──────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(8,8,8,0.95);
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      z-index: 9998;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .vote-card { padding: 2rem 1.5rem; }
+      .chat-panel { width: calc(100vw - 2rem); right: 1rem; bottom: 1rem; }
+      .cd-unit { min-width: 55px; }
+      .cd-num { font-size: 1.8rem; }
+      .intro-seal { width: 200px; height: 200px; }
+      .seal-monogram { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Noise overlay -->
+<div class="noise"></div>
+
+<!-- ── INTRO SCREEN ──────────────────────────────────────────── -->
+<div id="intro">
+
+  <!-- Floating particles -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.15" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="pg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#c9a84c"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <!-- Diagonal decorative lines -->
+    <line x1="0" y1="30%" x2="40%" y2="0" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+    <line x1="60%" y1="0" x2="100%" y2="40%" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+    <line x1="0" y1="70%" x2="40%" y2="100%" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+    <line x1="60%" y1="100%" x2="100%" y2="60%" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+  </svg>
+
+  <!-- The Oscar Statuette -->
+  <div class="intro-seal-wrap">
+    <div class="intro-seal">
+      <svg width="160" height="280" viewBox="0 0 160 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#8a6a20"/>
+            <stop offset="25%"  stop-color="#c9a84c"/>
+            <stop offset="50%"  stop-color="#e8d08a"/>
+            <stop offset="75%"  stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#8a6a20"/>
+          </linearGradient>
+          <linearGradient id="baseGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#6b5018"/>
+            <stop offset="40%"  stop-color="#c9a84c"/>
+            <stop offset="60%"  stop-color="#e8d08a"/>
+            <stop offset="100%" stop-color="#6b5018"/>
+          </linearGradient>
+          <linearGradient id="headGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#8a6a20"/>
+            <stop offset="35%"  stop-color="#e8d08a"/>
+            <stop offset="65%"  stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#8a6a20"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Base pedestal bottom -->
+        <rect x="20" y="248" width="120" height="18" rx="3" fill="url(#baseGrad)" filter="url(#glow)"/>
+        <!-- Base pedestal step -->
+        <rect x="32" y="234" width="96" height="16" rx="2" fill="url(#baseGrad)"/>
+        <!-- Base top platform -->
+        <rect x="44" y="222" width="72" height="14" rx="2" fill="url(#bodyGrad)"/>
+
+        <!-- Torso / body column -->
+        <path d="M58 222 L58 130 Q58 124 64 122 L80 118 L96 122 Q102 124 102 130 L102 222 Z" fill="url(#bodyGrad)" filter="url(#glow)"/>
+        <!-- Body highlight line -->
+        <line x1="80" y1="120" x2="80" y2="222" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+
+        <!-- Neck -->
+        <path d="M70 118 Q70 108 74 104 L80 100 L86 104 Q90 108 90 118 Z" fill="url(#headGrad)"/>
+
+        <!-- Head — stylized oval -->
+        <ellipse cx="80" cy="90" rx="22" ry="28" fill="url(#headGrad)" filter="url(#glow)"/>
+        <!-- Face sheen -->
+        <ellipse cx="74" cy="84" rx="7" ry="10" fill="rgba(255,255,255,0.1)"/>
+
+        <!-- Star / reel held by figure — iconic detail -->
+        <path d="M80 58 L83 68 L93 68 L85 74 L88 84 L80 78 L72 84 L75 74 L67 68 L77 68 Z"
+              fill="rgba(232,208,138,0.25)" stroke="#c9a84c" stroke-width="0.8"/>
+
+        <!-- Decorative film strip lines on body -->
+        <line x1="62" y1="160" x2="62" y2="200" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+        <line x1="98" y1="160" x2="98" y2="200" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+        <rect x="62" y="167" width="6" height="4" rx="0.5" fill="rgba(201,168,76,0.15)"/>
+        <rect x="62" y="177" width="6" height="4" rx="0.5" fill="rgba(201,168,76,0.15)"/>
+        <rect x="62" y="187" width="6" height="4" rx="0.5" fill="rgba(201,168,76,0.15)"/>
+        <rect x="92" y="167" width="6" height="4" rx="0.5" fill="rgba(201,168,76,0.15)"/>
+        <rect x="92" y="177" width="6" height="4" rx="0.5" fill="rgba(201,168,76,0.15)"/>
+        <rect x="92" y="187" width="6" height="4" rx="0.5" fill="rgba(201,168,76,0.15)"/>
+
+        <!-- PA text on base -->
+        <text x="80" y="244" font-family="Cinzel, serif" font-size="7" font-weight="700"
+              fill="rgba(8,8,8,0.8)" text-anchor="middle" letter-spacing="3">PRIMOS AWARDS</text>
+      </svg>
+    </div>
+    <div class="oscar-glow"></div>
+  </div>
+
+  <!-- Text -->
+  <div class="intro-text">
+    <div class="intro-eyebrow">La Gala · 2026</div>
+    <div class="intro-title">Primos Awards</div>
+    <div class="intro-year">La noche más memorable de la familia</div>
+  </div>
+
+  <!-- Line + Button -->
+  <div class="intro-line"></div>
+  <div class="intro-enter">
+    <button class="btn-enter" onclick="enterSite()">Entrar a la Gala</button>
+  </div>
+
+</div>
+
+<!-- ── MAIN SITE ──────────────────────────────────────────────── -->
+<div id="main">
+
+  <!-- HERO -->
+  <header>
+    <div class="header-content">
+      <div class="header-eyebrow">La Gala más importante · 2026</div>
+      <div class="header-ornament">
+        <span>✦ &nbsp; Primos Awards &nbsp; ✦</span>
+      </div>
+      <h1 class="main-title">Primos<br>Awards</h1>
+      <p class="main-subtitle">La noche más memorable de la familia</p>
+
+      <!-- Countdown -->
+      <div class="countdown-wrapper">
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-days">00</span>
+          <span class="cd-label">Días</span>
+        </div>
+        <span class="cd-sep">·</span>
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-hours">00</span>
+          <span class="cd-label">Horas</span>
+        </div>
+        <span class="cd-sep">·</span>
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-mins">00</span>
+          <span class="cd-label">Minutos</span>
+        </div>
+        <span class="cd-sep">·</span>
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-secs">00</span>
+          <span class="cd-label">Segundos</span>
+        </div>
+      </div>
+      <div class="event-date">Jueves 4 de Junio, 2026 · 20:00 hrs</div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Desplázate</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </header>
+
+  <!-- CATEGORIES SECTION -->
+  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+
+  <section class="fade-in">
+    <div class="section-label">Categorías oficiales</div>
+    <div class="section-title">Las Categorías en Juego</div>
+    <div class="categories-grid">
+      <div class="cat-item">
+        <span class="cat-emoji">🍞</span>
+        <span class="cat-name">Primo más Migajero</span>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">🍺</span>
+        <span class="cat-name">Primo más Sucha</span>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">🔥</span>
+        <span class="cat-name">Primo más Sabroso</span>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">✨</span>
+        <span class="cat-name">Prima más Sabrosa</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOTE SECTION -->
+  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+
+  <section class="fade-in">
+    <div class="section-label">Tu voz cuenta</div>
+    <div class="section-title">Emite tu Nominación</div>
+
+    <div class="vote-card">
+      <div class="vote-card-inner">
+        <div class="field-group">
+          <label class="field-label" for="votante">Tu nombre · El primo que vota</label>
+          <input class="field-input" type="text" id="votante" placeholder="Escribe tu nombre…" autocomplete="off">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="categoria">Categoría</label>
+          <div class="select-wrapper">
+            <select class="field-select" id="categoria">
+              <option value="Primo mas Migajero">Primo más Migajero 🍞</option>
+              <option value="Primo mas Sucha">Primo más Sucha 🍺</option>
+              <option value="Primo mas Sabroso">Primo más Sabroso 🔥</option>
+              <option value="Prima mas Sabrosa">Prima más Sabrosa ✨</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="nominado">¿A quién nominas?</label>
+          <input class="field-input" type="text" id="nominado" placeholder="Nombre del primo…" autocomplete="off">
+        </div>
+        <button class="btn-submit" onclick="votar()">
+          Enviar Nominación &nbsp; ✦
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+  <footer>
+    <div class="footer-title">Primos Awards</div>
+    <div class="footer-sub">La gala más importante de la familia · 2026<br><br>Developed by AMMC</div>
+  </footer>
+
+</div><!-- /main -->
+
+<!-- ── CHAT FAB ──────────────────────────────────────────────── -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" title="Chat de Primos">
+  <div class="unread-dot"></div>
+  <!-- Chat bubble icon -->
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<!-- ── CHAT PANEL ──────────────────────────────────────────────── -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <span class="chat-header-title">Chat de Primos</span>
+    <div class="chat-status"></div>
+  </div>
+  <div class="chat-messages" id="mensajes">
+    <div class="chat-msg"><strong>Sistema</strong> &nbsp;¡Bienvenidos a la Gala!</div>
+  </div>
+  <div class="chat-input-area">
+    <input class="chat-input" type="text" id="msgChat" placeholder="Di algo al grupo…" onkeydown="if(event.key==='Enter') mandarChat()">
+    <button class="chat-send" onclick="mandarChat()">→</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── PON TU LINK /exec DE APPS SCRIPT AQUÍ ─────────────────
+  var API = 'https://script.google.com/macros/s/AKfycbyo42auB-31-qnIqveJ4KU7--axjFZ6ZcfbznsxEPEAqPe_U-CO7qXg1eZgB0Z1pdLb/exec';
+ 
+
+  // ── Intro ─────────────────────────────────────────────────
+  function enterSite() {
+    document.getElementById('intro').classList.add('exit');
+    setTimeout(function() {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('main').classList.add('visible');
+      observeFadeIns();
+    }, 900);
+  }
+
+  // ── Countdown ─────────────────────────────────────────────
+  var eventDate = new Date('June 4, 2026 20:00:00').getTime();
+  function updateCd() {
+    var now  = Date.now();
+    var diff = eventDate - now;
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) {
+        document.getElementById(id).textContent = '00';
+      });
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000)  / 60000);
+    var s = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+  }
+  updateCd();
+  setInterval(updateCd, 1000);
+
+  // ── Toast ─────────────────────────────────────────────────
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3500);
+  }
+
+  // ── API helper — todo por GET (compatible con Apps Script) ──
+  function apiCall(params, onSuccess) {
+    var url = API + '?' + Object.keys(params).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+    }).join('&');
+    fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(data){ if (onSuccess) onSuccess(data); })
+      .catch(function(){});
+  }
+
+  // ── Vote ──────────────────────────────────────────────────
+  function votar() {
+    var votante   = document.getElementById('votante').value.trim();
+    var categoria = document.getElementById('categoria').value;
+    var nominado  = document.getElementById('nominado').value.trim();
+    if (!votante || !nominado) { showToast('Por favor llena todos los campos'); return; }
+    showToast('Enviando voto…');
+    apiCall({ action:'voto', votante:votante, categoria:categoria, nominado:nominado }, function(res){
+      showToast(res.msg || '¡Voto registrado!');
+      document.getElementById('nominado').value = '';
+    });
+  }
+
+  // ── Chat ──────────────────────────────────────────────────
+  var chatOpen = false;
+  var lastMsgCount = 0;
+  var localMsgs = [];
+
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+    document.getElementById('chatFab').classList.toggle('open', chatOpen);
+    if (chatOpen) {
+      document.getElementById('chatFab').classList.remove('has-unread');
+      setTimeout(function(){
+        var box = document.getElementById('mensajes');
+        box.scrollTop = box.scrollHeight;
+      }, 100);
+    }
+  }
+
+  function mandarChat() {
+    var user = document.getElementById('votante').value.trim() || 'Anónimo';
+    var msg  = document.getElementById('msgChat').value.trim();
+    if (!msg) return;
+    localMsgs.push([user, msg]);
+    renderMsgs(localMsgs);
+    document.getElementById('msgChat').value = '';
+    apiCall({ action:'chat', usuario:user, mensaje:msg }, function(res){
+      if (res.mensajes && Array.isArray(res.mensajes)) {
+        localMsgs = res.mensajes;
+        renderMsgs(localMsgs);
+      }
+    });
+  }
+
+  function renderMsgs(lista) {
+    if (!lista || lista.length === 0) return;
+    var box = document.getElementById('mensajes');
+    box.innerHTML = lista.map(function(m){
+      return '<div class="chat-msg"><strong>' + escHtml(String(m[0])) + '</strong> &nbsp;' + escHtml(String(m[1])) + '</div>';
+    }).join('');
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function startChatPoll() {
+    function poll() {
+      apiCall({ action:'mensajes' }, function(res){
+        if (!res.mensajes || !Array.isArray(res.mensajes)) return;
+        localMsgs = res.mensajes;
+        renderMsgs(localMsgs);
+        if (!chatOpen && res.mensajes.length > lastMsgCount) {
+          document.getElementById('chatFab').classList.add('has-unread');
+        }
+        lastMsgCount = res.mensajes.length;
+      });
+    }
+    poll();
+    setInterval(poll, 5000);
+  }
+
+  // ── Scroll reveal ─────────────────────────────────────────
+  function observeFadeIns() {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
+    startChatPoll();
+  }
+</script>
+</body>
+</html>
