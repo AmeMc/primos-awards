@@ -6,382 +6,224 @@
   <title>Primos Awards 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --gold:       #c9a84c;
-      --gold-light: #e8d08a;
-      --gold-dark:  #8a6a20;
-      --cream:      #f5ede0;
-      --black:      #080808;
-      --deep:       #0d0a06;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--black); color: var(--cream);
-      font-family: 'Cormorant Garamond', serif;
-      overflow-x: hidden; -webkit-text-size-adjust: 100%;
-    }
+    :root{--gold:#c9a84c;--gold-light:#e8d08a;--gold-dark:#8a6a20;--cream:#f5ede0;--black:#080808;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--cream);font-family:'Cormorant Garamond',serif;overflow-x:hidden;-webkit-text-size-adjust:100%;}
 
     /* NOISE */
-    .noise {
-      position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px;
-    }
+    .noise{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:200px;}
 
     /* INTRO */
-    #intro {
-      position: fixed; inset: 0; z-index: 9999; background: var(--black);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; overflow: hidden; padding: 2rem;
-    }
-    #intro::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    #intro::after {
-      content: ''; position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
-      pointer-events: none; opacity: 0.4;
-    }
-    .intro-deco-lines {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0.12;
-    }
-    .intro-seal {
-      opacity: 0; position: relative; z-index: 2;
-      animation: sealAppear 1.4s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
-      filter: drop-shadow(0 0 40px rgba(201,168,76,0.35)) drop-shadow(0 8px 30px rgba(0,0,0,0.8));
-    }
-    @keyframes sealAppear {
-      0%  { opacity:0; transform:scale(0.3) translateY(40px); }
-      60% { opacity:1; transform:scale(1.04) translateY(-4px); }
-      100%{ opacity:1; transform:scale(1) translateY(0); }
-    }
-    .oscar-glow {
-      position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 20px;
-      background: radial-gradient(ellipse, rgba(201,168,76,0.4) 0%, transparent 70%);
-      animation: glowPulse 2.5s ease-in-out infinite; pointer-events: none;
-    }
-    @keyframes glowPulse {
-      0%,100%{opacity:.5;transform:translateX(-50%) scaleX(1)}
-      50%{opacity:1;transform:translateX(-50%) scaleX(1.2)}
-    }
-    .intro-seal-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-    .intro-text {
-      margin-top: 2rem; text-align: center; opacity: 0; position: relative; z-index: 2;
-      animation: fadeUp 1s ease 1.4s forwards;
-    }
-    .intro-eyebrow {
-      font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.4em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem;
-    }
-    .intro-title {
-      font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 8vw, 4rem);
-      font-weight: 700; line-height: 1.1;
-      background: linear-gradient(160deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .intro-year {
-      font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-style: italic;
-      color: rgba(245,237,224,0.5); letter-spacing: 0.2em; margin-top: 0.4rem;
-    }
-    .intro-line {
-      width: 1px; height: 50px; position: relative; z-index: 2;
-      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.5), transparent);
-      margin: 0 auto 0.8rem; opacity: 0; animation: fadeUp 1s ease 1.9s forwards;
-    }
-    .intro-enter { margin-top: 2rem; opacity: 0; position: relative; z-index: 2; animation: fadeUp 1s ease 2.2s forwards; }
-    .btn-enter {
-      font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--gold); background: transparent;
-      border: 1px solid rgba(201,168,76,0.45); padding: 0.9rem 2.5rem;
-      cursor: pointer; transition: all 0.4s; -webkit-tap-highlight-color: transparent;
-    }
-    .btn-enter:hover, .btn-enter:active { border-color: var(--gold); color: var(--gold-light); }
-    #intro.exit { animation: introExit 1s cubic-bezier(0.76,0,0.24,1) forwards; }
-    @keyframes introExit {
-      0%  {opacity:1;transform:scale(1)}
-      40% {opacity:1;transform:scale(1.03)}
-      100%{opacity:0;transform:scale(1.08);pointer-events:none}
-    }
+    #intro{position:fixed;inset:0;z-index:9999;background:var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;padding:2rem;}
+    #intro::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none;}
+    #intro::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);pointer-events:none;opacity:.4;}
+    .intro-deco{position:absolute;inset:0;pointer-events:none;opacity:.12;}
+    .intro-seal{opacity:0;position:relative;z-index:2;animation:sealAppear 1.4s cubic-bezier(.22,1,.36,1) .3s forwards;filter:drop-shadow(0 0 40px rgba(201,168,76,.35)) drop-shadow(0 8px 30px rgba(0,0,0,.8));}
+    @keyframes sealAppear{0%{opacity:0;transform:scale(.3) translateY(40px)}60%{opacity:1;transform:scale(1.04) translateY(-4px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+    .oscar-glow{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:120px;height:20px;background:radial-gradient(ellipse,rgba(201,168,76,.4) 0%,transparent 70%);animation:glowPulse 2.5s ease-in-out infinite;pointer-events:none;}
+    @keyframes glowPulse{0%,100%{opacity:.5;transform:translateX(-50%) scaleX(1)}50%{opacity:1;transform:translateX(-50%) scaleX(1.2)}}
+    .intro-seal-wrap{position:relative;display:flex;align-items:center;justify-content:center;}
+    .intro-text{margin-top:2rem;text-align:center;opacity:0;position:relative;z-index:2;animation:fadeUp 1s ease 1.4s forwards;}
+    .intro-eyebrow{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;}
+    .intro-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,8vw,4rem);font-weight:700;line-height:1.1;background:linear-gradient(160deg,var(--gold-light) 0%,var(--gold) 45%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .intro-year{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,237,224,.5);letter-spacing:.2em;margin-top:.4rem;}
+    .intro-line{width:1px;height:50px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.5),transparent);margin:0 auto .8rem;opacity:0;position:relative;z-index:2;animation:fadeUp 1s ease 1.9s forwards;}
+    .intro-enter{margin-top:2rem;opacity:0;position:relative;z-index:2;animation:fadeUp 1s ease 2.2s forwards;}
+    .btn-enter{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid rgba(201,168,76,.45);padding:.9rem 2.5rem;cursor:pointer;transition:all .4s;-webkit-tap-highlight-color:transparent;}
+    .btn-enter:hover,.btn-enter:active{border-color:var(--gold);color:var(--gold-light);}
+    #intro.exit{animation:introExit 1s cubic-bezier(.76,0,.24,1) forwards;}
+    @keyframes introExit{0%{opacity:1;transform:scale(1)}40%{opacity:1;transform:scale(1.03)}100%{opacity:0;transform:scale(1.08);pointer-events:none}}
 
     /* MAIN */
-    #main { opacity: 0; transition: opacity 0.8s ease 0.3s; }
-    #main.visible { opacity: 1; }
+    #main{opacity:0;transition:opacity .8s ease .3s;}
+    #main.visible{opacity:1;}
 
     /* HEADER */
-    header {
-      position: relative; min-height: 100svh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 5rem 1.5rem 4rem; overflow: hidden;
-    }
-    header::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(1px 1px at 10% 20%, rgba(201,168,76,.6) 0%,transparent 100%),
-        radial-gradient(1px 1px at 80% 15%, rgba(201,168,76,.4) 0%,transparent 100%),
-        radial-gradient(1px 1px at 55% 70%, rgba(201,168,76,.5) 0%,transparent 100%),
-        radial-gradient(1px 1px at 30% 80%, rgba(201,168,76,.3) 0%,transparent 100%),
-        radial-gradient(1px 1px at 90% 55%, rgba(201,168,76,.5) 0%,transparent 100%),
-        radial-gradient(ellipse 100% 60% at 50% 0%, rgba(201,168,76,.04) 0%,transparent 70%),
-        linear-gradient(180deg,#0d0a06 0%,#080808 100%);
-    }
-    header::after {
-      content: ''; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      width: min(600px,100vw); height: min(600px,100vw);
-      background: radial-gradient(ellipse, rgba(201,168,76,.07) 0%,transparent 70%);
-      pointer-events: none;
-    }
-    .header-content { position: relative; z-index: 2; width: 100%; max-width: 600px; }
-    .header-eyebrow {
-      font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.4em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; opacity: .8;
-    }
-    .header-ornament {
-      display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.2rem;
-    }
-    .header-ornament::before,.header-ornament::after {
-      content:''; flex:1; max-width:80px; height:1px;
-      background: linear-gradient(to right,transparent,rgba(201,168,76,.5),transparent);
-    }
-    .header-ornament span { font-family:'Cinzel',serif; color:rgba(201,168,76,.5); font-size:.5rem; letter-spacing:.35em; }
-    .main-title {
-      font-family: 'Cinzel Decorative', serif; font-size: clamp(2.4rem,11vw,7.5rem);
-      font-weight: 700; line-height: 1; letter-spacing: 0.03em; word-break: break-word;
-      background: linear-gradient(170deg,var(--gold-light) 0%,var(--gold) 40%,#b8922e 75%,var(--gold-dark) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      filter: drop-shadow(0 4px 40px rgba(201,168,76,.25));
-    }
-    .main-subtitle {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(.9rem,3vw,1.3rem);
-      font-style: italic; color: rgba(245,237,224,.55); letter-spacing:.15em; margin-top:.8rem;
-    }
-    .phase-badge {
-      display: inline-block; margin-top: 1.5rem;
-      font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--black);
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      padding: 0.45rem 1.1rem;
-    }
-    .countdown-wrapper {
-      margin-top: 2.5rem; display: flex; gap: 0.3rem;
-      justify-content: center; align-items: flex-start;
-    }
-    .cd-unit { display:flex; flex-direction:column; align-items:center; min-width:56px; }
-    .cd-num { font-family:'Cinzel',serif; font-size:clamp(1.6rem,7vw,3.2rem); font-weight:600; color:var(--gold-light); line-height:1; }
-    .cd-label { font-family:'Cinzel',serif; font-size:.38rem; letter-spacing:.3em; color:rgba(201,168,76,.5); text-transform:uppercase; margin-top:.4rem; }
-    .cd-sep { font-family:'Cinzel',serif; font-size:clamp(1.3rem,5vw,2rem); color:rgba(201,168,76,.25); line-height:1; margin-top:.1rem; }
-    .event-date { margin-top:2rem; font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.32em; color:rgba(201,168,76,.5); text-transform:uppercase; padding:0 1rem; }
-    .scroll-hint {
-      position:absolute; bottom:1.8rem; left:50%; transform:translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:.5rem;
-      opacity:.4; animation:float 2.5s ease-in-out infinite;
-    }
-    .scroll-hint span { font-family:'Cinzel',serif; font-size:.38rem; letter-spacing:.38em; color:var(--gold); text-transform:uppercase; white-space:nowrap; }
-    .scroll-arrow { width:1px; height:32px; background:linear-gradient(to bottom,rgba(201,168,76,.7),transparent); }
-    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+    header{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 4rem;overflow:hidden;}
+    header::before{content:'';position:absolute;inset:0;background:radial-gradient(1px 1px at 10% 20%,rgba(201,168,76,.6) 0%,transparent 100%),radial-gradient(1px 1px at 80% 15%,rgba(201,168,76,.4) 0%,transparent 100%),radial-gradient(1px 1px at 55% 70%,rgba(201,168,76,.5) 0%,transparent 100%),radial-gradient(1px 1px at 30% 80%,rgba(201,168,76,.3) 0%,transparent 100%),radial-gradient(1px 1px at 90% 55%,rgba(201,168,76,.5) 0%,transparent 100%),radial-gradient(ellipse 100% 60% at 50% 0%,rgba(201,168,76,.04) 0%,transparent 70%),linear-gradient(180deg,#0d0a06 0%,#080808 100%);}
+    header::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(600px,100vw);height:min(600px,100vw);background:radial-gradient(ellipse,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none;}
+    .header-content{position:relative;z-index:2;width:100%;max-width:600px;}
+    .header-eyebrow{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;opacity:.8;}
+    .header-ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.2rem;}
+    .header-ornament::before,.header-ornament::after{content:'';flex:1;max-width:80px;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.5),transparent);}
+    .header-ornament span{font-family:'Cinzel',serif;color:rgba(201,168,76,.5);font-size:.55rem;letter-spacing:.35em;}
+    .main-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2.4rem,11vw,7.5rem);font-weight:700;line-height:1;letter-spacing:.03em;word-break:break-word;background:linear-gradient(170deg,var(--gold-light) 0%,var(--gold) 40%,#b8922e 75%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 4px 40px rgba(201,168,76,.25));}
+    .main-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,3vw,1.3rem);font-style:italic;color:rgba(245,237,224,.55);letter-spacing:.15em;margin-top:.8rem;}
+    .phase-badge{display:inline-block;margin-top:1.5rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--black);background:linear-gradient(135deg,var(--gold-light),var(--gold));padding:.45rem 1.1rem;}
+    .countdown-wrapper{margin-top:2.5rem;display:flex;gap:.3rem;justify-content:center;align-items:flex-start;}
+    .cd-unit{display:flex;flex-direction:column;align-items:center;min-width:56px;}
+    .cd-num{font-family:'Cinzel',serif;font-size:clamp(1.6rem,7vw,3.2rem);font-weight:600;color:var(--gold-light);line-height:1;}
+    .cd-label{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.3em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-top:.4rem;}
+    .cd-sep{font-family:'Cinzel',serif;font-size:clamp(1.3rem,5vw,2rem);color:rgba(201,168,76,.25);line-height:1;margin-top:.1rem;}
+    .event-date{margin-top:2rem;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.32em;color:rgba(201,168,76,.6);text-transform:uppercase;padding:0 1rem;}
+    .scroll-hint{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.4;animation:float 2.5s ease-in-out infinite;}
+    .scroll-hint span{font-family:'Cinzel',serif;font-size:.44rem;letter-spacing:.38em;color:var(--gold);text-transform:uppercase;white-space:nowrap;}
+    .scroll-arrow{width:1px;height:32px;background:linear-gradient(to bottom,rgba(201,168,76,.7),transparent);}
+    @keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
     /* DIVIDER */
-    .divider { display:flex; align-items:center; justify-content:center; gap:1rem; padding:0 1.5rem; }
-    .divider-line { flex:1; max-width:400px; height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent); }
-    .divider-gem { width:7px; height:7px; transform:rotate(45deg); background:var(--gold); box-shadow:0 0 10px rgba(201,168,76,.5); }
+    .divider{display:flex;align-items:center;justify-content:center;gap:1rem;padding:0 1.5rem;}
+    .divider-line{flex:1;max-width:400px;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent);}
+    .divider-gem{width:7px;height:7px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
 
     /* SECTIONS */
-    section { max-width: 680px; margin: 0 auto; padding: 3.5rem 1.25rem; }
-    .section-label { font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.5em; color:var(--gold); text-transform:uppercase; opacity:.7; margin-bottom:.6rem; }
-    .section-title { font-family:'Cinzel',serif; font-size:clamp(1.1rem,4vw,1.7rem); font-weight:600; color:var(--cream); letter-spacing:.04em; margin-bottom:2rem; }
+    section{max-width:680px;margin:0 auto;padding:3.5rem 1.25rem;}
+    .section-label{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;opacity:.8;margin-bottom:.6rem;}
+    .section-title{font-family:'Cinzel',serif;font-size:clamp(1.15rem,4vw,1.7rem);font-weight:600;color:var(--cream);letter-spacing:.04em;margin-bottom:2rem;}
 
-    /* IDENTITY CARD */
-    .identity-card {
-      background: linear-gradient(135deg,rgba(201,168,76,.04) 0%,rgba(26,21,16,.6) 100%);
-      border: 1px solid rgba(201,168,76,.2); padding: 1.75rem 1.25rem; position: relative;
-    }
-    .identity-card::before,.identity-card::after {
-      content:''; position:absolute; width:14px; height:14px;
-      border-color:rgba(201,168,76,.5); border-style:solid;
-    }
-    .identity-card::before { top:9px; left:9px; border-width:1px 0 0 1px; }
-    .identity-card::after  { bottom:9px; right:9px; border-width:0 1px 1px 0; }
+    /* CARD BASE */
+    .card{background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,rgba(26,21,16,.6) 100%);border:1px solid rgba(201,168,76,.2);padding:1.75rem 1.25rem;position:relative;}
+    .card::before,.card::after{content:'';position:absolute;width:14px;height:14px;border-color:rgba(201,168,76,.5);border-style:solid;}
+    .card::before{top:9px;left:9px;border-width:1px 0 0 1px;}
+    .card::after{bottom:9px;right:9px;border-width:0 1px 1px 0;}
 
-    /* Estado: mostrando nombre guardado */
-    .identity-welcome {
-      display: none; text-align: center;
-    }
-    .identity-welcome .welcome-name {
-      font-family: 'Cinzel Decorative', serif; font-size: clamp(1.1rem,4vw,1.6rem);
-      background: linear-gradient(135deg,var(--gold-light),var(--gold));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      margin-bottom: .4rem;
-    }
-    .identity-welcome .welcome-code {
-      font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .35em;
-      color: rgba(201,168,76,.55); text-transform: uppercase;
-    }
-    .identity-welcome .btn-change {
-      margin-top: 1rem; background:transparent; border:none; cursor:pointer;
-      font-family:'Cinzel',serif; font-size:.45rem; letter-spacing:.3em;
-      color:rgba(245,237,224,.3); text-transform:uppercase; text-decoration:underline;
-      -webkit-tap-highlight-color:transparent; padding:.3rem;
-    }
+    /* IDENTITY */
+    .identity-welcome{text-align:center;}
+    .welcome-name{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,4vw,1.6rem);background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem;}
+    .welcome-code{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;}
+    .identity-form p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,224,.6);margin-bottom:1.2rem;line-height:1.6;text-align:center;}
 
-    /* Estado: formulario de nombre */
-    .identity-form { display: block; }
-    .identity-form p {
-      font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic;
-      color:rgba(245,237,224,.6); margin-bottom:1.2rem; line-height:1.6; text-align:center;
-    }
-    .identity-input-row { display:flex; gap:.5rem; align-items:stretch; }
-    .name-input {
-      flex:1; background:rgba(8,8,8,.7); border:none;
-      border-bottom:1px solid rgba(201,168,76,.3); color:var(--cream);
-      font-family:'Cormorant Garamond',serif; font-size:1.1rem;
-      padding:.7rem .5rem; outline:none; transition:border-color .3s;
-      -webkit-appearance:none; border-radius:0;
-    }
-    .name-input:focus { border-bottom-color:var(--gold); }
-    .name-input::placeholder { color:rgba(245,237,224,.25); font-style:italic; }
-    .btn-ingresar {
-      background:transparent; border:1px solid rgba(201,168,76,.4); color:var(--gold);
-      font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.25em; text-transform:uppercase;
-      padding:0 1rem; cursor:pointer; transition:all .3s; white-space:nowrap;
-      -webkit-tap-highlight-color:transparent; min-height:44px;
-    }
-    .btn-ingresar:hover,.btn-ingresar:active { border-color:var(--gold); background:rgba(201,168,76,.08); }
+    /* APODO FORM (post-registro) */
+    .apodo-block{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.12);}
+    .apodo-block p{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.5);margin-bottom:.9rem;text-align:center;}
+
+    /* CODE LOGIN */
+    .code-login-toggle{margin-top:1rem;text-align:center;}
+    .link-btn{background:none;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;color:rgba(201,168,76,.5);text-transform:uppercase;text-decoration:underline;padding:.3rem;-webkit-tap-highlight-color:transparent;}
+    .link-btn:hover{color:var(--gold);}
+
+    /* NOMINADO BANNER */
+    .nominado-banner{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.3);padding:1.5rem 1.25rem;margin-bottom:1.5rem;position:relative;overflow:hidden;}
+    .nominado-banner::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.1) 25%,transparent 50%,rgba(201,168,76,.07) 75%,transparent);animation:auraSpin 6s linear infinite;}
+    .nominado-banner::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.88);z-index:0;}
+    .nominado-banner>*{position:relative;z-index:1;}
+    @keyframes auraSpin{to{transform:rotate(360deg)}}
+    .nominado-banner h4{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.25em;color:var(--gold-light);text-transform:uppercase;margin-bottom:.5rem;}
+    .nominado-banner ul{list-style:none;margin-bottom:1rem;}
+    .nominado-banner ul li{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.7);padding:.2rem 0;border-bottom:1px solid rgba(201,168,76,.08);}
+
+    /* FORM FIELDS */
+    .field-group{margin-bottom:1.4rem;}
+    .field-label{display:block;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:.55rem;}
+    .field-input,.field-select{width:100%;background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.08rem;padding:.65rem 0;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;border-radius:0;}
+    .field-input:focus,.field-select:focus{border-bottom-color:var(--gold);background:transparent;}
+    .field-input::placeholder{color:rgba(245,237,224,.22);font-style:italic;}
+    .field-select option{background:#1a1510;color:var(--cream);}
+    .select-wrapper{position:relative;}
+    .select-wrapper::after{content:'◆';position:absolute;right:0;top:50%;transform:translateY(-50%);color:rgba(201,168,76,.5);font-size:.48rem;pointer-events:none;}
+
+    /* AUTOCOMPLETE */
+    .autocomplete-wrap{position:relative;}
+    .autocomplete-list{position:absolute;top:100%;left:0;right:0;background:rgba(10,8,5,.98);border:1px solid rgba(201,168,76,.25);border-top:none;z-index:50;max-height:220px;overflow-y:auto;}
+    .autocomplete-item{padding:.75rem 1rem;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.8);border-bottom:1px solid rgba(201,168,76,.08);transition:background .2s;display:flex;flex-direction:column;gap:.15rem;}
+    .autocomplete-item:hover,.autocomplete-item:active,.autocomplete-item.selected{background:rgba(201,168,76,.1);}
+    .autocomplete-item .ac-name{color:var(--cream);}
+    .autocomplete-item .ac-apodo{font-size:.82rem;font-style:italic;color:rgba(201,168,76,.7);}
+    .autocomplete-empty{padding:.75rem 1rem;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);}
+
+    /* INPUT ROW */
+    .input-row{display:flex;gap:.5rem;align-items:stretch;}
+    .input-row .field-input{flex:1;}
+    .btn-sm{background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:0 1rem;cursor:pointer;transition:all .3s;white-space:nowrap;-webkit-tap-highlight-color:transparent;min-height:44px;}
+    .btn-sm:hover,.btn-sm:active{border-color:var(--gold);background:rgba(201,168,76,.08);}
+
+    .hint-text{font-family:'Cormorant Garamond',serif;font-size:.92rem;font-style:italic;color:rgba(245,237,224,.42);margin-bottom:1.2rem;}
+    .btn-submit{width:100%;margin-top:.3rem;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;padding:.95rem 1.5rem;cursor:pointer;transition:all .4s;-webkit-tap-highlight-color:transparent;min-height:48px;}
+    .btn-submit:hover,.btn-submit:active{border-color:var(--gold);color:var(--gold-light);box-shadow:0 0 25px rgba(201,168,76,.12);}
 
     /* CATEGORIES */
-    .categories-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; }
-    .cat-item {
-      background:rgba(201,168,76,.03); border:1px solid rgba(201,168,76,.1);
-      padding:1.1rem .9rem; text-align:center; transition:all .3s;
-      -webkit-tap-highlight-color:transparent;
-    }
-    .cat-item:hover,.cat-item:active { border-color:rgba(201,168,76,.35); background:rgba(201,168,76,.06); }
-    .cat-emoji { font-size:1.5rem; display:block; margin-bottom:.45rem; }
-    .cat-name { font-family:'Cinzel',serif; font-size:.46rem; letter-spacing:.13em; color:var(--gold); text-transform:uppercase; display:block; line-height:1.4; }
+    .categories-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;}
+    .cat-item{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);padding:1.1rem .9rem;text-align:center;transition:all .3s;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden;}
+    .cat-item:hover,.cat-item:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07);}
+    .cat-emoji{font-size:1.5rem;display:block;margin-bottom:.45rem;}
+    .cat-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;display:block;line-height:1.4;}
+    .cat-item.special{grid-column:1/-1;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.22);overflow:hidden;}
+    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent 0%,rgba(201,168,76,.12) 25%,transparent 50%,rgba(201,168,76,.08) 75%,transparent 100%);animation:auraSpin 5s linear infinite;}
+    .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.85);z-index:0;}
+    .cat-item.special>*{position:relative;z-index:1;}
+    .cat-item.special .cat-name{color:var(--gold-light);font-size:.55rem;letter-spacing:.18em;}
 
-    /* Primo del año — aura sutil */
-    .cat-item.special {
-      grid-column:1/-1; background:rgba(201,168,76,.05);
-      border:1px solid rgba(201,168,76,.22); position:relative; overflow:hidden;
-    }
-    .cat-item.special::before {
-      content:''; position:absolute; inset:-2px;
-      background:conic-gradient(from 0deg,transparent 0%,rgba(201,168,76,.12) 25%,transparent 50%,rgba(201,168,76,.08) 75%,transparent 100%);
-      animation:auraSpin 5s linear infinite;
-    }
-    .cat-item.special::after { content:''; position:absolute; inset:1px; background:rgba(8,8,8,.85); z-index:0; }
-    .cat-item.special>* { position:relative; z-index:1; }
-    @keyframes auraSpin { to{transform:rotate(360deg)} }
-    .cat-item.special .cat-name { color:var(--gold-light); font-size:.5rem; letter-spacing:.18em; }
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal-panel{background:#0d0a06;border:1px solid rgba(201,168,76,.25);border-bottom:none;width:100%;max-width:680px;max-height:88vh;overflow-y:auto;padding:2rem 1.25rem 3rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+    .modal-overlay.open .modal-panel{transform:translateY(0);}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(201,168,76,.15);}
+    .modal-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+    .modal-close{background:none;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .3s;flex-shrink:0;}
+    .modal-close:hover{border-color:var(--gold);color:var(--gold);}
 
-    /* ACTION SECTION */
-    .vote-card {
-      background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,rgba(26,21,16,.6) 100%);
-      border:1px solid rgba(201,168,76,.2); padding:1.75rem 1.25rem; position:relative;
-    }
-    .vote-card::before,.vote-card::after {
-      content:''; position:absolute; width:14px; height:14px;
-      border-color:rgba(201,168,76,.5); border-style:solid;
-    }
-    .vote-card::before { top:9px; left:9px; border-width:1px 0 0 1px; }
-    .vote-card::after  { bottom:9px; right:9px; border-width:0 1px 1px 0; }
+    /* BAR CHART */
+    .bar-chart{display:flex;flex-direction:column;gap:.9rem;margin-top:1rem;}
+    .bar-row{display:flex;flex-direction:column;gap:.3rem;}
+    .bar-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--cream);display:flex;justify-content:space-between;align-items:baseline;}
+    .bar-name .bar-votes{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:rgba(201,168,76,.7);}
+    .bar-track{height:6px;background:rgba(201,168,76,.1);border-radius:0;overflow:hidden;}
+    .bar-fill{height:100%;background:linear-gradient(to right,var(--gold-dark),var(--gold));border-radius:0;transition:width .8s cubic-bezier(.22,1,.36,1);}
+    .bar-rank-1 .bar-fill{background:linear-gradient(to right,#b8922e,var(--gold-light));}
 
-    .field-group { margin-bottom:1.4rem; }
-    .field-label { display:block; font-family:'Cinzel',serif; font-size:.42rem; letter-spacing:.38em; color:rgba(201,168,76,.7); text-transform:uppercase; margin-bottom:.55rem; }
-    .field-input,.field-select {
-      width:100%; background:rgba(8,8,8,.6); border:none; border-bottom:1px solid rgba(201,168,76,.25);
-      color:var(--cream); font-family:'Cormorant Garamond',serif; font-size:1.05rem;
-      padding:.6rem 0; outline:none; transition:border-color .3s;
-      -webkit-appearance:none; appearance:none; border-radius:0;
-    }
-    .field-input:focus,.field-select:focus { border-bottom-color:var(--gold); background:transparent; }
-    .field-input::placeholder { color:rgba(245,237,224,.2); font-style:italic; }
-    .field-select option { background:#1a1510; color:var(--cream); }
-    .select-wrapper { position:relative; }
-    .select-wrapper::after { content:'◆'; position:absolute; right:0; top:50%; transform:translateY(-50%); color:rgba(201,168,76,.5); font-size:.48rem; pointer-events:none; }
-    .hint-text { font-family:'Cormorant Garamond',serif; font-size:.88rem; font-style:italic; color:rgba(245,237,224,.38); margin-bottom:1.2rem; }
-    .btn-submit {
-      width:100%; margin-top:.3rem; background:transparent; border:1px solid rgba(201,168,76,.4); color:var(--gold);
-      font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.38em; text-transform:uppercase;
-      padding:.95rem 1.5rem; cursor:pointer; transition:all .4s; -webkit-tap-highlight-color:transparent;
-      min-height:48px;
-    }
-    .btn-submit:hover,.btn-submit:active { border-color:var(--gold); color:var(--gold-light); box-shadow:0 0 25px rgba(201,168,76,.12); }
+    /* NOMINADOS FASE 2 */
+    .nominados-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}
+    .nominado-card{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:1rem .9rem;text-align:center;}
+    .nom-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);margin:0 auto .6rem;display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;font-size:1.1rem;color:var(--gold);}
+    .nom-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:.3rem;}
+    .nom-desc{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.5);line-height:1.4;}
 
     /* PHASE CLOSED */
-    .phase-closed { text-align:center; padding:2.5rem 1.5rem; background:rgba(201,168,76,.03); border:1px solid rgba(201,168,76,.1); }
-    .phase-closed-icon { font-size:2.2rem; margin-bottom:.8rem; }
-    .phase-closed h3 { font-family:'Cinzel',serif; font-size:.9rem; letter-spacing:.1em; color:var(--gold); margin-bottom:.5rem; }
-    .phase-closed p { font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(245,237,224,.5); font-size:.95rem; line-height:1.6; }
+    .phase-closed{text-align:center;padding:2.5rem 1.5rem;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);}
+    .phase-closed-icon{font-size:2.2rem;margin-bottom:.8rem;}
+    .phase-closed h3{font-family:'Cinzel',serif;font-size:.95rem;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem;}
+    .phase-closed p{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(245,237,224,.5);font-size:1rem;line-height:1.6;}
 
     /* CHAT FAB */
-    .chat-fab {
-      position:fixed; bottom:1.5rem; right:1.5rem; width:50px; height:50px;
-      background:rgba(8,8,8,.97); border:1px solid rgba(201,168,76,.45); color:var(--gold);
-      cursor:pointer; display:flex; align-items:center; justify-content:center;
-      z-index:200; transition:all .3s; box-shadow:0 4px 24px rgba(0,0,0,.5);
-      -webkit-tap-highlight-color:transparent;
-    }
-    .chat-fab:hover,.chat-fab:active { border-color:var(--gold); box-shadow:0 0 20px rgba(201,168,76,.2),0 4px 24px rgba(0,0,0,.5); }
-    .chat-fab svg { transition:transform .3s; }
-    .chat-fab.open svg { transform:rotate(45deg); }
-    .chat-fab .unread-dot { position:absolute; top:7px; right:7px; width:8px; height:8px; background:#e8d08a; border-radius:50%; border:1.5px solid #080808; display:none; }
-    .chat-fab.has-unread .unread-dot { display:block; }
+    .chat-fab{position:fixed;bottom:1.5rem;right:1.5rem;width:50px;height:50px;background:rgba(8,8,8,.97);border:1px solid rgba(201,168,76,.45);color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;transition:all .3s;box-shadow:0 4px 24px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent;}
+    .chat-fab:hover,.chat-fab:active{border-color:var(--gold);}
+    .chat-fab svg{transition:transform .3s;}
+    .chat-fab.open svg{transform:rotate(45deg);}
+    .chat-fab .unread-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;background:#e8d08a;border-radius:50%;border:1.5px solid #080808;display:none;}
+    .chat-fab.has-unread .unread-dot{display:block;}
 
     /* CHAT PANEL */
-    .chat-panel {
-      position:fixed; bottom:5.5rem; right:1.5rem; width:min(300px,calc(100vw - 3rem));
-      background:rgba(8,8,8,.97); border:1px solid rgba(201,168,76,.25); z-index:199;
-      backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,.7);
-      transform-origin:bottom right; transform:scale(.85) translateY(10px);
-      opacity:0; pointer-events:none; transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .3s;
-    }
-    .chat-panel.open { transform:scale(1) translateY(0); opacity:1; pointer-events:all; }
-    .chat-header { padding:.85rem 1.1rem; border-bottom:1px solid rgba(201,168,76,.15); display:flex; align-items:center; justify-content:space-between; }
-    .chat-header-title { font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.35em; color:var(--gold); text-transform:uppercase; }
-    .chat-status { width:6px; height:6px; background:#4ade80; border-radius:50%; box-shadow:0 0 8px #4ade80; animation:pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
-    .chat-messages { height:170px; overflow-y:auto; padding:.85rem 1.1rem; font-size:.85rem; line-height:1.5; scrollbar-width:thin; scrollbar-color:rgba(201,168,76,.2) transparent; }
-    .chat-messages::-webkit-scrollbar { width:3px; }
-    .chat-messages::-webkit-scrollbar-thumb { background:rgba(201,168,76,.2); }
-    .chat-msg { margin-bottom:.5rem; color:rgba(245,237,224,.65); word-break:break-word; }
-    .chat-msg strong { color:var(--gold); font-weight:600; }
-    .chat-input-area { padding:.65rem 1.1rem; border-top:1px solid rgba(201,168,76,.1); display:flex; gap:.5rem; }
-    .chat-input { flex:1; background:transparent; border:none; border-bottom:1px solid rgba(201,168,76,.2); color:var(--cream); font-family:'Cormorant Garamond',serif; font-size:.95rem; padding:.3rem 0; outline:none; min-height:32px; }
-    .chat-input::placeholder { color:rgba(245,237,224,.25); font-style:italic; }
-    .chat-input:focus { border-bottom-color:var(--gold); }
-    .chat-send { background:transparent; border:1px solid rgba(201,168,76,.3); color:var(--gold); padding:.3rem .65rem; cursor:pointer; font-size:.75rem; transition:all .3s; -webkit-tap-highlight-color:transparent; min-width:36px; }
-    .chat-send:hover,.chat-send:active { border-color:var(--gold); background:rgba(201,168,76,.08); }
+    .chat-panel{position:fixed;bottom:5.5rem;right:1.5rem;width:min(300px,calc(100vw - 3rem));background:rgba(8,8,8,.97);border:1px solid rgba(201,168,76,.25);z-index:199;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.7);transform-origin:bottom right;transform:scale(.85) translateY(10px);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .3s;}
+    .chat-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
+    .chat-header{padding:.85rem 1.1rem;border-bottom:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:space-between;}
+    .chat-header-title{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;}
+    .chat-status{width:6px;height:6px;background:#4ade80;border-radius:50%;box-shadow:0 0 8px #4ade80;animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .chat-messages{height:170px;overflow-y:auto;padding:.85rem 1.1rem;font-size:.88rem;line-height:1.5;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent;}
+    .chat-messages::-webkit-scrollbar{width:3px;}
+    .chat-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);}
+    .chat-msg{margin-bottom:.5rem;color:rgba(245,237,224,.65);word-break:break-word;}
+    .chat-msg strong{color:var(--gold);font-weight:600;}
+    .chat-msg .chat-real-name{font-size:.75em;color:rgba(201,168,76,.4);font-style:italic;}
+    .chat-input-area{padding:.65rem 1.1rem;border-top:1px solid rgba(201,168,76,.1);display:flex;gap:.5rem;}
+    .chat-input{flex:1;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:.95rem;padding:.3rem 0;outline:none;min-height:32px;}
+    .chat-input::placeholder{color:rgba(245,237,224,.25);font-style:italic;}
+    .chat-input:focus{border-bottom-color:var(--gold);}
+    .chat-send{background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:.3rem .65rem;cursor:pointer;font-size:.75rem;transition:all .3s;-webkit-tap-highlight-color:transparent;min-width:36px;}
+    .chat-send:hover,.chat-send:active{border-color:var(--gold);background:rgba(201,168,76,.08);}
 
     /* TOAST */
-    .toast {
-      position:fixed; top:1.2rem; left:50%; transform:translateX(-50%) translateY(-120px);
-      background:rgba(8,8,8,.97); border:1px solid rgba(201,168,76,.5);
-      color:var(--gold-light); font-family:'Cinzel',serif; font-size:.5rem;
-      letter-spacing:.22em; text-transform:uppercase; padding:.85rem 1.8rem;
-      z-index:9998; transition:transform .5s cubic-bezier(.22,1,.36,1);
-      max-width:calc(100vw - 3rem); text-align:center; line-height:1.5;
-    }
-    .toast.show { transform:translateX(-50%) translateY(0); }
+    .toast{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%) translateY(-120px);background:rgba(8,8,8,.97);border:1px solid rgba(201,168,76,.5);color:var(--gold-light);font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;padding:.85rem 1.8rem;z-index:9998;transition:transform .5s cubic-bezier(.22,1,.36,1);max-width:calc(100vw - 3rem);text-align:center;line-height:1.5;}
+    .toast.show{transform:translateX(-50%) translateY(0);}
 
     /* FOOTER */
-    footer { text-align:center; padding:3rem 1.5rem; border-top:1px solid rgba(201,168,76,.1); }
-    .footer-title { font-family:'Cinzel Decorative',serif; font-size:1.05rem; background:linear-gradient(135deg,var(--gold-light),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:.5rem; }
-    .footer-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.85rem; color:rgba(245,237,224,.3); letter-spacing:.1em; line-height:2.2; }
+    footer{text-align:center;padding:3rem 1.5rem;border-top:1px solid rgba(201,168,76,.1);}
+    .footer-title{font-family:'Cinzel Decorative',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .footer-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:rgba(245,237,224,.3);letter-spacing:.1em;line-height:2.2;}
 
-    /* FADE IN */
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
-    .fade-in { opacity:0; transform:translateY(30px); transition:opacity .8s,transform .8s; }
-    .fade-in.visible { opacity:1; transform:translateY(0); }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+    .fade-in.visible{opacity:1;transform:translateY(0);}
 
     @media(max-width:480px){
-      section { padding:3rem 1rem; }
-      .vote-card,.identity-card { padding:1.4rem 1rem; }
-      .intro-seal svg { width:130px; height:auto; }
-      .identity-input-row { flex-direction:column; gap:.7rem; }
-      .btn-ingresar { padding:.75rem 1rem; }
+      section{padding:3rem 1rem;}
+      .card{padding:1.4rem 1rem;}
+      .nominados-grid{grid-template-columns:1fr 1fr;}
+      .intro-seal svg{width:130px;height:auto;}
     }
   </style>
 </head>
@@ -390,7 +232,7 @@
 
 <!-- INTRO -->
 <div id="intro">
-  <svg class="intro-deco-lines" xmlns="http://www.w3.org/2000/svg">
+  <svg class="intro-deco" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="30%" x2="40%" y2="0" stroke="rgba(201,168,76,.5)" stroke-width="1"/>
     <line x1="60%" y1="0" x2="100%" y2="40%" stroke="rgba(201,168,76,.5)" stroke-width="1"/>
     <line x1="0" y1="70%" x2="40%" y2="100%" stroke="rgba(201,168,76,.5)" stroke-width="1"/>
@@ -400,19 +242,9 @@
     <div class="intro-seal">
       <svg width="145" height="255" viewBox="0 0 160 280" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="bG" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#8a6a20"/><stop offset="25%" stop-color="#c9a84c"/>
-            <stop offset="50%" stop-color="#e8d08a"/><stop offset="75%" stop-color="#c9a84c"/>
-            <stop offset="100%" stop-color="#8a6a20"/>
-          </linearGradient>
-          <linearGradient id="bsG" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#6b5018"/><stop offset="40%" stop-color="#c9a84c"/>
-            <stop offset="60%" stop-color="#e8d08a"/><stop offset="100%" stop-color="#6b5018"/>
-          </linearGradient>
-          <linearGradient id="hG" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#8a6a20"/><stop offset="35%" stop-color="#e8d08a"/>
-            <stop offset="65%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a20"/>
-          </linearGradient>
+          <linearGradient id="bG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8a6a20"/><stop offset="25%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#e8d08a"/><stop offset="75%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a20"/></linearGradient>
+          <linearGradient id="bsG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6b5018"/><stop offset="40%" stop-color="#c9a84c"/><stop offset="60%" stop-color="#e8d08a"/><stop offset="100%" stop-color="#6b5018"/></linearGradient>
+          <linearGradient id="hG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8a6a20"/><stop offset="35%" stop-color="#e8d08a"/><stop offset="65%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a20"/></linearGradient>
           <filter id="gw"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
         <rect x="20" y="248" width="120" height="18" rx="3" fill="url(#bsG)" filter="url(#gw)"/>
@@ -426,12 +258,8 @@
         <path d="M80 58L83 68L93 68L85 74L88 84L80 78L72 84L75 74L67 68L77 68Z" fill="rgba(232,208,138,.2)" stroke="#c9a84c" stroke-width=".8"/>
         <line x1="62" y1="160" x2="62" y2="200" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
         <line x1="98" y1="160" x2="98" y2="200" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
-        <rect x="62" y="167" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <rect x="62" y="177" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <rect x="62" y="187" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <rect x="92" y="167" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <rect x="92" y="177" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <rect x="92" y="187" width="6" height="4" fill="rgba(201,168,76,.15)"/>
+        <rect x="62" y="167" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="62" y="177" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="62" y="187" width="6" height="4" fill="rgba(201,168,76,.15)"/>
+        <rect x="92" y="167" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="92" y="177" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="92" y="187" width="6" height="4" fill="rgba(201,168,76,.15)"/>
         <text x="80" y="244" font-family="Cinzel,serif" font-size="6.5" font-weight="700" fill="rgba(8,8,8,.8)" text-anchor="middle" letter-spacing="2">PRIMOS AWARDS</text>
       </svg>
     </div>
@@ -443,9 +271,7 @@
     <div class="intro-year">La noche más memorable de la familia</div>
   </div>
   <div class="intro-line"></div>
-  <div class="intro-enter">
-    <button class="btn-enter" onclick="enterSite()">Entrar a la Gala</button>
-  </div>
+  <div class="intro-enter"><button class="btn-enter" onclick="enterSite()">Entrar a la Gala</button></div>
 </div>
 
 <!-- MAIN -->
@@ -473,27 +299,53 @@
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- IDENTIDAD -->
+  <!-- IDENTITY SECTION -->
   <section class="fade-in" id="identitySection">
-    <div class="section-label">Tu identidad</div>
+    <div class="section-label" id="identityLabel">Tu identidad</div>
     <div class="section-title" id="identityTitle">¿Quién eres, primo?</div>
-    <div class="identity-card">
+    <div class="card" id="identityCard">
 
-      <!-- Vista: bienvenida (cuando ya está identificado) -->
-      <div class="identity-welcome" id="identityWelcome">
+      <!-- WELCOME VIEW -->
+      <div class="identity-welcome" id="welcomeView" style="display:none">
         <div class="welcome-name" id="welcomeName"></div>
         <div class="welcome-code" id="welcomeCode"></div>
-        <button class="btn-change" onclick="cambiarIdentidad()">No soy yo · Cambiar</button>
+        <!-- Apodo -->
+        <div class="apodo-block" id="apodoBlock" style="display:none">
+          <p>¿Tienes un apodo? Puedes agregarlo (opcional).</p>
+          <div class="input-row">
+            <input class="field-input" type="text" id="apodoInput" placeholder="Tu apodo…" autocomplete="off" maxlength="30">
+            <button class="btn-sm" onclick="guardarApodo()">Guardar</button>
+          </div>
+        </div>
+        <!-- Banner nominado -->
+        <div id="nominadoBanner" style="display:none;margin-top:1.5rem;"></div>
       </div>
 
-      <!-- Vista: formulario de nombre -->
-      <div class="identity-form" id="identityForm">
-        <p>Ingresa tu nombre para participar.<br>La app te asignará tu código único.</p>
-        <div class="identity-input-row">
-          <input class="name-input" type="text" id="nameInput"
-            placeholder="Tu nombre…" autocomplete="off" autocapitalize="words"
-            maxlength="40" onkeydown="if(event.key==='Enter')registrarPrimo()">
-          <button class="btn-ingresar" onclick="registrarPrimo()">Entrar</button>
+      <!-- REGISTER VIEW -->
+      <div id="registerView">
+        <div id="loginByNameBlock">
+          <p>Ingresa tu nombre para identificarte.<br>El sistema verificará que eres un primo registrado.</p>
+          <div class="autocomplete-wrap">
+            <div class="input-row">
+              <input class="field-input" type="text" id="nameInput" placeholder="Tu nombre…"
+                autocomplete="off" autocapitalize="words" maxlength="50"
+                oninput="onNameInput()" onkeydown="onNameKey(event)">
+              <button class="btn-sm" onclick="registrarPrimo()">Entrar</button>
+            </div>
+            <div class="autocomplete-list" id="nameAcList" style="display:none"></div>
+          </div>
+        </div>
+        <div class="code-login-toggle">
+          <button class="link-btn" onclick="toggleCodeLogin()">¿Ya tienes cuenta? Ingresa con tu código</button>
+        </div>
+        <div id="codeLoginBlock" style="display:none;margin-top:1rem;">
+          <div class="input-row">
+            <input class="field-input" type="text" id="codeInput" placeholder="PRIMO0000A"
+              autocomplete="off" autocapitalize="characters" maxlength="10"
+              style="letter-spacing:.15em;text-align:center"
+              onkeydown="if(event.key==='Enter')loginCodigo()">
+            <button class="btn-sm" onclick="loginCodigo()">Entrar</button>
+          </div>
         </div>
       </div>
 
@@ -502,32 +354,32 @@
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- CATEGORÍAS -->
+  <!-- CATEGORIES -->
   <section class="fade-in">
     <div class="section-label">Categorías oficiales</div>
     <div class="section-title">Las Categorías en Juego</div>
-    <div class="categories-grid">
-      <div class="cat-item"><span class="cat-emoji">😏</span><span class="cat-name">Más Sucha</span></div>
-      <div class="cat-item"><span class="cat-emoji">💔</span><span class="cat-name">Más Migajero</span></div>
-      <div class="cat-item"><span class="cat-emoji">🍻</span><span class="cat-name">Más Borracho</span></div>
-      <div class="cat-item"><span class="cat-emoji">🤫</span><span class="cat-name">Más Chismoso</span></div>
-      <div class="cat-item"><span class="cat-emoji">😴</span><span class="cat-name">Más Dormilón</span></div>
-      <div class="cat-item"><span class="cat-emoji">🔥</span><span class="cat-name">Más Sabroso/a</span></div>
-      <div class="cat-item"><span class="cat-emoji">🧠</span><span class="cat-name">Más Inteligente</span></div>
-      <div class="cat-item"><span class="cat-emoji">✅</span><span class="cat-name">Más Responsable</span></div>
-      <div class="cat-item"><span class="cat-emoji">😄</span><span class="cat-name">Más Buena Onda</span></div>
-      <div class="cat-item"><span class="cat-emoji">💘</span><span class="cat-name">Más Ligador</span></div>
-      <div class="cat-item"><span class="cat-emoji">👯</span><span class="cat-name">Mejor Dupla</span></div>
-      <div class="cat-item special">
-        <span class="cat-emoji">🏆</span>
-        <span class="cat-name">Primo del Año</span>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.45);margin-bottom:1.5rem;">Toca una categoría para ver cómo van las nominaciones.</p>
+    <div class="categories-grid" id="categoriesGrid">
+      <div class="cat-item" onclick="openCatModal('Primo más Sucha 😏')"><span class="cat-emoji">😏</span><span class="cat-name">Más Sucha</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Migajero 💔')"><span class="cat-emoji">💔</span><span class="cat-name">Más Migajero</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Borracho 🍻')"><span class="cat-emoji">🍻</span><span class="cat-name">Más Borracho</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Chismoso 🤫')"><span class="cat-emoji">🤫</span><span class="cat-name">Más Chismoso</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Pajero 😅')"><span class="cat-emoji">😅</span><span class="cat-name">Más Pajero</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Sabroso/a 🔥')"><span class="cat-emoji">🔥</span><span class="cat-name">Más Sabroso/a</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Inteligente 🧠')"><span class="cat-emoji">🧠</span><span class="cat-name">Más Inteligente</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Responsable ✅')"><span class="cat-emoji">✅</span><span class="cat-name">Más Responsable</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Buena Onda 😄')"><span class="cat-emoji">😄</span><span class="cat-name">Más Buena Onda</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Ligador 💘')"><span class="cat-emoji">💘</span><span class="cat-name">Más Ligador</span></div>
+      <div class="cat-item" onclick="openCatModal('Mejor Dupla de Primos 👯')"><span class="cat-emoji">👯</span><span class="cat-name">Mejor Dupla</span></div>
+      <div class="cat-item special" onclick="openCatModal('Primo del Año 🏆')">
+        <span class="cat-emoji">🏆</span><span class="cat-name">Primo del Año</span>
       </div>
     </div>
   </section>
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- ACCIÓN (nominar / votar / cerrado) -->
+  <!-- ACTION SECTION -->
   <section class="fade-in" id="actionSection">
     <div class="section-label" id="actionLabel">Tu voz cuenta</div>
     <div class="section-title" id="actionTitle">Emite tu Nominación</div>
@@ -541,6 +393,17 @@
   </footer>
 </div>
 
+<!-- CATEGORY MODAL -->
+<div class="modal-overlay" id="catModal" onclick="closeCatModal(event)">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <span class="modal-title" id="modalCatTitle">Categoría</span>
+      <button class="modal-close" onclick="closeCatModalDirect()">✕</button>
+    </div>
+    <div id="modalCatContent"></div>
+  </div>
+</div>
+
 <!-- CHAT -->
 <button class="chat-fab" id="chatFab" onclick="toggleChat()">
   <div class="unread-dot"></div>
@@ -549,323 +412,489 @@
   </svg>
 </button>
 <div class="chat-panel" id="chatPanel">
-  <div class="chat-header">
-    <span class="chat-header-title">Chat de Primos</span>
-    <div class="chat-status"></div>
-  </div>
-  <div class="chat-messages" id="mensajes">
-    <div class="chat-msg"><strong>Sistema</strong> &nbsp;¡Bienvenidos a la Gala!</div>
-  </div>
+  <div class="chat-header"><span class="chat-header-title">Chat de Primos</span><div class="chat-status"></div></div>
+  <div class="chat-messages" id="mensajes"><div class="chat-msg"><strong>Sistema</strong> &nbsp;¡Bienvenidos a la Gala!</div></div>
   <div class="chat-input-area">
     <input class="chat-input" type="text" id="msgChat" placeholder="Di algo…" onkeydown="if(event.key==='Enter')mandarChat()">
     <button class="chat-send" onclick="mandarChat()">→</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────────────────────────
-//  CONFIG — reemplaza con tu link /exec de Apps Script
-// ─────────────────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbwlVTu9D_Xd6NiOcMmcbSEStRKTun-84GFOwpHpoUBUr1P9EW11TWg4v5_kcBK9X1To/exec';
+// ─────────────────────────────────────────────────
+//  CONFIG
+// ─────────────────────────────────────────────────
+var API = 'https://script.google.com/macros/s/AKfycbyZEmsK-tcGsI86pOiz9_xBLvUx8WkdyGvcgWsMYcbYj386z1FbQ6IR8RYMkbYZn7c7/exec';
 
-// ─────────────────────────────────────────────────────────────
-//  FASES  (ajusta fechas si necesitas)
-//  Fase 1 Nominaciones: hoy → 11 mayo 2026
-//  Fase 2 Votaciones:   11 mayo → 8 junio 2026
-//  Fase 3 Cerrado:      8 junio en adelante
-//  Gala:                4 junio 2026
-// ─────────────────────────────────────────────────────────────
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
-var GALA_DATE = new Date('2026-06-04T20:00:00').getTime();
+var GALA_DATE = new Date('2026-07-11T20:00:00').getTime();
 
-var CATEGORIAS = [
-  'Primo más Sucha 😏',
-  'Primo más Migajero 💔',
-  'Primo más Borracho 🍻',
-  'Primo más Chismoso 🤫',
-  'Primo más Dormilón 😴',
-  'Primo más Sabroso/a 🔥',
-  'Primo más Inteligente 🧠',
-  'Primo más Responsable ✅',
-  'Primo más Buena Onda 😄',
-  'Primo más Ligador 💘',
-  'Mejor Dupla de Primos 👯',
-  'Primo del Año 🏆'
+var CATS = [
+  'Primo más Sucha 😏','Primo más Migajero/a 🕊️','Primo más Borracho/a 🍻',
+  'Primo más Chismoso/a 🤫','Primo más Pajero/a 😴','Primo más Sabroso/a 🔥',
+  'Primo más Tryhard 🧠','Primo con más Aura 😎','Primo más Chistoso 🤡',
+  'Primo más Ligador 💘','Mejor Dupla de Primos 👯','Primo del Año 🏆'
 ];
 
-// ─────────────────────────────────────────────────────────────
-//  ESTADO
-// ─────────────────────────────────────────────────────────────
-var primo = null; // { nombre, codigo }
+// ─────────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────────
+var primo = null; // {codigo, nombreDisplay, nombreCompleto, apodo}
+var acSelected = null; // primo seleccionado en autocomplete de nominado
+var nameAcTimeout = null;
+var nomAcTimeout  = null;
 
-function getFase() {
-  var n = Date.now();
-  if (n < FASE1_FIN) return 1;
-  if (n < FASE2_FIN) return 2;
-  return 3;
-}
+function getFase(){ var n=Date.now(); return n<FASE1_FIN?1:n<FASE2_FIN?2:3; }
 
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────
 //  INTRO
-// ─────────────────────────────────────────────────────────────
-function enterSite() {
+// ─────────────────────────────────────────────────
+function enterSite(){
   document.getElementById('intro').classList.add('exit');
-  setTimeout(function() {
-    document.getElementById('intro').style.display = 'none';
+  setTimeout(function(){
+    document.getElementById('intro').style.display='none';
     document.getElementById('main').classList.add('visible');
-    initCountdown();
-    loadSavedIdentity();
-    observeFadeIns();
-  }, 900);
+    initCountdown(); loadSavedIdentity(); observeFadeIns();
+  },900);
 }
 
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────
 //  COUNTDOWN
-// ─────────────────────────────────────────────────────────────
-function initCountdown() {
-  var fase = getFase();
-  var badge = document.getElementById('phaseBadge');
-  var label = document.getElementById('cdLabel');
-  var target;
-  if (fase === 1) {
-    badge.textContent = '— Fase 1: Nominaciones —';
-    label.textContent = 'Nominaciones · Cierre en';
-    target = FASE1_FIN;
-  } else if (fase === 2) {
-    badge.textContent = '— Fase 2: Votaciones —';
-    label.textContent = 'Votaciones · Cierre en';
-    target = FASE2_FIN;
-  } else {
-    badge.textContent = '— Gala: 4 de Junio —';
-    label.textContent = 'Votaciones cerradas · Gala en';
-    target = GALA_DATE;
+// ─────────────────────────────────────────────────
+function initCountdown(){
+  var fase=getFase(), badge=document.getElementById('phaseBadge'),
+      label=document.getElementById('cdLabel'), target;
+  if(fase===1){badge.textContent='— Fase 1: Nominaciones —';label.textContent='Nominaciones · Cierre en';target=FASE1_FIN;}
+  else if(fase===2){badge.textContent='— Fase 2: Votaciones —';label.textContent='Votaciones · Cierre en';target=FASE2_FIN;}
+  else{badge.textContent='— Gala: 4 de Junio —';label.textContent='Votaciones cerradas · Gala en';target=GALA_DATE;}
+  function tick(){
+    var d=Math.max(0,target-Date.now());
+    document.getElementById('cd-days').textContent=pad(Math.floor(d/86400000));
+    document.getElementById('cd-hours').textContent=pad(Math.floor((d%86400000)/3600000));
+    document.getElementById('cd-mins').textContent=pad(Math.floor((d%3600000)/60000));
+    document.getElementById('cd-secs').textContent=pad(Math.floor((d%60000)/1000));
   }
-  function tick() {
-    var diff = Math.max(0, target - Date.now());
-    document.getElementById('cd-days').textContent  = pad(Math.floor(diff/86400000));
-    document.getElementById('cd-hours').textContent = pad(Math.floor((diff%86400000)/3600000));
-    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff%3600000)/60000));
-    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff%60000)/1000));
-  }
-  tick(); setInterval(tick, 1000);
+  tick(); setInterval(tick,1000);
 }
-function pad(n) { return String(n).padStart(2,'0'); }
+function pad(n){return String(n).padStart(2,'0');}
 
-// ─────────────────────────────────────────────────────────────
-//  IDENTIDAD — localStorage
-// ─────────────────────────────────────────────────────────────
-function loadSavedIdentity() {
-  try {
-    var saved = localStorage.getItem('primoID');
-    if (saved) {
-      primo = JSON.parse(saved);
-      if (primo && primo.nombre && primo.codigo) {
-        showIdentityWelcome();
-        renderAction();
-        return;
-      }
-    }
-  } catch(e) {}
+// ─────────────────────────────────────────────────
+//  IDENTITY
+// ─────────────────────────────────────────────────
+function loadSavedIdentity(){
+  try{
+    var s=localStorage.getItem('primoID');
+    if(s){ primo=JSON.parse(s); if(primo&&primo.codigo){ showWelcome(); renderAction(); return; } }
+  }catch(e){}
   renderAction();
 }
 
-function saveIdentity(nombre, codigo) {
-  primo = { nombre: nombre, codigo: codigo };
-  try { localStorage.setItem('primoID', JSON.stringify(primo)); } catch(e) {}
+function saveIdentity(data){ primo=data; try{localStorage.setItem('primoID',JSON.stringify(data));}catch(e){} }
+
+function showWelcome(){
+  document.getElementById('registerView').style.display='none';
+  document.getElementById('welcomeView').style.display='block';
+  document.getElementById('identityTitle').textContent='¡Hola de nuevo!';
+  document.getElementById('identityLabel').textContent='Tu identidad';
+  document.getElementById('welcomeName').textContent=getDisplayName();
+  document.getElementById('welcomeCode').textContent='Código · '+primo.codigo;
+  // Mostrar campo de apodo solo si no tiene uno aún
+  var apodoBlock=document.getElementById('apodoBlock');
+  if(!primo.apodo){ apodoBlock.style.display='block'; }
+  else { apodoBlock.style.display='none'; }
+  // Check nominaciones
+  loadMisNominaciones();
 }
 
-function showIdentityWelcome() {
-  document.getElementById('identityForm').style.display    = 'none';
-  document.getElementById('identityWelcome').style.display = 'block';
-  document.getElementById('identityTitle').textContent     = '¡Hola de nuevo!';
-  document.getElementById('welcomeName').textContent       = primo.nombre;
-  document.getElementById('welcomeCode').textContent       = 'Código · ' + primo.codigo;
+function getDisplayName(){
+  if(!primo) return '';
+  if(primo.apodo){
+    var ap=primo.apodo.replace(/^primo\s+/i,'').trim();
+    return 'Primo '+ap;
+  }
+  return 'Primo '+primo.nombreDisplay;
 }
 
-function cambiarIdentidad() {
-  primo = null;
-  try { localStorage.removeItem('primoID'); } catch(e) {}
-  document.getElementById('identityWelcome').style.display = 'none';
-  document.getElementById('identityForm').style.display    = 'block';
-  document.getElementById('identityTitle').textContent     = '¿Quién eres, primo?';
-  document.getElementById('nameInput').value = '';
-  renderAction();
+function getChatName(){
+  if(!primo) return 'Anónimo';
+  var base = primo.apodo ? 'Primo '+primo.apodo.replace(/^primo\s+/i,'').trim() : 'Primo '+primo.nombreDisplay;
+  return base+' ('+primo.nombreCompleto.split(' ')[0]+')';
 }
 
-// ─────────────────────────────────────────────────────────────
-//  REGISTRAR PRIMO (nombre → código automático)
-// ─────────────────────────────────────────────────────────────
-function registrarPrimo() {
-  var nombre = document.getElementById('nameInput').value.trim();
-  if (!nombre) { showToast('Escribe tu nombre'); return; }
+// ─────────────────────────────────────────────────
+//  AUTOCOMPLETE: NOMBRE AL REGISTRARSE
+// ─────────────────────────────────────────────────
+function onNameInput(){
+  clearTimeout(nameAcTimeout);
+  var q=document.getElementById('nameInput').value.trim();
+  if(q.length<1){ document.getElementById('nameAcList').style.display='none'; return; }
+  nameAcTimeout=setTimeout(function(){
+    apiCall({action:'buscarPrimo',q:q},function(res){
+      var list=document.getElementById('nameAcList');
+      if(!res.resultados||res.resultados.length===0){ list.style.display='none'; return; }
+      list.innerHTML=res.resultados.map(function(r){
+        var sub=r.apodo?'<span class="ac-apodo">primo '+esc(r.apodo)+'</span>':'';
+        return '<div class="autocomplete-item" onclick="selectNameAc('+JSON.stringify(r.nombreCompleto)+')">'
+          +'<span class="ac-name">'+esc(r.nombreCompleto)+'</span>'+sub+'</div>';
+      }).join('');
+      list.style.display='block';
+    });
+  },300);
+}
+
+function onNameKey(e){
+  if(e.key==='Enter') registrarPrimo();
+}
+
+function selectNameAc(nombre){
+  document.getElementById('nameInput').value=nombre;
+  document.getElementById('nameAcList').style.display='none';
+}
+
+// ─────────────────────────────────────────────────
+//  REGISTRAR PRIMO
+// ─────────────────────────────────────────────────
+function registrarPrimo(){
+  var nombre=document.getElementById('nameInput').value.trim();
+  if(!nombre){showToast('Escribe tu nombre');return;}
   showToast('Verificando…');
-  apiCall({ action: 'registrarPrimo', nombre: nombre }, function(res) {
-    if (res.ok) {
-      saveIdentity(res.nombre, res.codigo);
-      showIdentityWelcome();
-      renderAction();
-      showToast('¡Bienvenido, ' + res.nombre + '! · ' + res.codigo);
+  document.getElementById('nameAcList').style.display='none';
+  apiCall({action:'registrarPrimo',nombre:nombre},function(res){
+    if(res.ok){
+      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,apodo:res.apodo||''});
+      showWelcome(); renderAction();
+      showToast('¡Bienvenido, '+getDisplayName()+'! · '+res.codigo);
     } else {
-      showToast(res.msg || 'Error al registrar');
+      showToast(res.msg||'No encontrado');
     }
   });
 }
 
-// ─────────────────────────────────────────────────────────────
-//  RENDER SECCIÓN ACCIÓN
-// ─────────────────────────────────────────────────────────────
-function renderAction() {
-  var fase    = getFase();
-  var label   = document.getElementById('actionLabel');
-  var title   = document.getElementById('actionTitle');
-  var content = document.getElementById('actionContent');
+// ─────────────────────────────────────────────────
+//  LOGIN CON CÓDIGO
+// ─────────────────────────────────────────────────
+function toggleCodeLogin(){
+  var b=document.getElementById('codeLoginBlock');
+  b.style.display=b.style.display==='none'?'block':'none';
+}
 
-  if (!primo) {
-    label.textContent   = 'Identificación requerida';
-    title.textContent   = 'Ingresa tu nombre arriba';
-    content.innerHTML   = closedBlock('🔐', 'Solo para Primos', 'Identifícate arriba para poder nominar y votar.');
+function loginCodigo(){
+  var c=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(!c){showToast('Ingresa tu código');return;}
+  showToast('Verificando…');
+  apiCall({action:'loginCodigo',codigo:c},function(res){
+    if(res.ok){
+      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,apodo:res.apodo||''});
+      showWelcome(); renderAction();
+      showToast('¡Bienvenido de vuelta, '+getDisplayName()+'!');
+    } else { showToast(res.msg||'Código no válido'); }
+  });
+}
+
+// ─────────────────────────────────────────────────
+//  GUARDAR APODO
+// ─────────────────────────────────────────────────
+function guardarApodo(){
+  var ap=document.getElementById('apodoInput').value.trim();
+  if(!ap){showToast('Escribe un apodo');return;}
+  var apLimpio=ap.replace(/^primo\s+/i,'').trim();
+  apiCall({action:'guardarApodo',codigo:primo.codigo,apodo:apLimpio},function(res){
+    if(res.ok){
+      primo.apodo=apLimpio;
+      try{localStorage.setItem('primoID',JSON.stringify(primo));}catch(e){}
+      document.getElementById('apodoBlock').style.display='none';
+      document.getElementById('welcomeName').textContent=getDisplayName();
+      showToast('¡Apodo guardado! Ahora eres '+getDisplayName());
+    }
+  });
+}
+
+// ─────────────────────────────────────────────────
+//  MIS NOMINACIONES (banner al nominado)
+// ─────────────────────────────────────────────────
+function loadMisNominaciones(){
+  if(!primo||getFase()!==1)return;
+  apiCall({action:'miNominaciones',codigo:primo.codigo},function(res){
+    if(!res.cats||res.cats.length===0)return;
+    var banner=document.getElementById('nominadoBanner');
+    var catsStr=res.cats.map(function(c){ return '<li>'+esc(c.cat)+'</li>'; }).join('');
+    var msg=res.cats.length===1?'para la siguiente categoría:':'para las siguientes categorías:';
+    banner.innerHTML='<div class="nominado-banner">'
+      +'<h4>🎉 ¡Fuiste nominado!</h4>'
+      +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.6);font-size:.95rem;margin-bottom:.8rem;">Fuiste nominado '+msg+'</p>'
+      +'<ul>'+catsStr+'</ul>'
+      +'<div class="field-group"><label class="field-label">Escribe algo para los primos</label>'
+      +'<input class="field-input" type="text" id="miDescInput" placeholder="Unas palabras para la gala…" maxlength="120">'
+      +'</div>'
+      +'<button class="btn-submit" onclick="guardarMiDesc()" style="margin-top:.5rem">Guardar mensaje ✦</button>'
+      +'</div>';
+    banner.style.display='block';
+  });
+}
+
+function guardarMiDesc(){
+  var desc=document.getElementById('miDescInput').value.trim();
+  if(!desc){showToast('Escribe algo primero');return;}
+  apiCall({action:'guardarDesc',codigo:primo.codigo,desc:desc},function(res){
+    if(res.ok) showToast('¡Mensaje guardado! ✦');
+  });
+}
+
+// ─────────────────────────────────────────────────
+//  RENDER ACCIÓN
+// ─────────────────────────────────────────────────
+function renderAction(){
+  var fase=getFase();
+  var label=document.getElementById('actionLabel');
+  var title=document.getElementById('actionTitle');
+  var content=document.getElementById('actionContent');
+  if(!primo){
+    label.textContent='Identificación requerida';
+    title.textContent='Identifícate arriba';
+    content.innerHTML=closedBlock('🔐','Solo para Primos','Ingresa tu nombre arriba para nominar y votar.');
     return;
   }
-  if (fase === 1) {
-    label.textContent = 'Tu voz cuenta';
-    title.textContent = 'Emite tu Nominación';
-    content.innerHTML = nominacionForm();
-  } else if (fase === 2) {
-    label.textContent = 'Es hora de votar';
-    title.textContent = 'Emite tu Voto';
-    content.innerHTML = closedBlock('🗳️', 'Fase de Votación', 'Los nominados ya están listos. Pronto podrás votar por tus favoritos.');
+  if(fase===1){
+    label.textContent='Tu voz cuenta';
+    title.textContent='Emite tu Nominación';
+    content.innerHTML=buildNomForm();
+  } else if(fase===2){
+    label.textContent='Es hora de votar';
+    title.textContent='Emite tu Voto';
+    content.innerHTML=closedBlock('🗳️','Fase de Votación','Los nominados están listos. Pronto podrás votar.');
   } else {
-    label.textContent = 'Preparando la Gala';
-    title.textContent = 'Votaciones Cerradas';
-    content.innerHTML = closedBlock('🏆', '¡Nos vemos el 4 de Junio!', 'Las votaciones han cerrado. La Gala está a punto de comenzar.');
+    label.textContent='Preparando la Gala';
+    title.textContent='Votaciones Cerradas';
+    content.innerHTML=closedBlock('🏆','¡Nos vemos el 4 de Junio!','Las votaciones han cerrado. La Gala está a punto de comenzar.');
   }
 }
 
-function closedBlock(icon, h, p) {
-  return '<div class="phase-closed"><div class="phase-closed-icon">' + icon + '</div><h3>' + h + '</h3><p>' + p + '</p></div>';
+function closedBlock(ico,h,p){
+  return '<div class="phase-closed"><div class="phase-closed-icon">'+ico+'</div><h3>'+esc(h)+'</h3><p>'+esc(p)+'</p></div>';
 }
 
-function nominacionForm() {
-  var opts = CATEGORIAS.map(function(c) {
-    return '<option value="' + esc(c) + '">' + c + '</option>';
-  }).join('');
-  return '<div class="vote-card">'
-    + '<p class="hint-text">Puedes nominar hasta 2 personas por categoría.</p>'
-    + '<div class="field-group"><label class="field-label">Categoría</label>'
-    + '<div class="select-wrapper"><select class="field-select" id="catSelect">' + opts + '</select></div></div>'
-    + '<div class="field-group"><label class="field-label">Primo nominado</label>'
-    + '<input class="field-input" type="text" id="nominadoInput" placeholder="Nombre del primo…" autocomplete="off" onkeydown="if(event.key===\'Enter\')enviarNominacion()">'
-    + '</div>'
-    + '<button class="btn-submit" onclick="enviarNominacion()">Enviar Nominación &nbsp;✦</button>'
-    + '</div>';
+function buildNomForm(){
+  var opts=CATS.map(function(c){ return '<option value="'+esc(c)+'">'+esc(c)+'</option>'; }).join('');
+  return '<div class="card">'
+    +'<p class="hint-text">Puedes nominar hasta 2 personas por categoría.</p>'
+    +'<div class="field-group"><label class="field-label">Categoría</label>'
+    +'<div class="select-wrapper"><select class="field-select" id="catSelect">'+opts+'</select></div></div>'
+    +'<div class="field-group"><label class="field-label">¿A quién nominas?</label>'
+    +'<div class="autocomplete-wrap">'
+    +'<input class="field-input" type="text" id="nominadoInput" placeholder="Busca por nombre o apodo…" autocomplete="off" oninput="onNomInput()" onkeydown="onNomKey(event)">'
+    +'<div class="autocomplete-list" id="nomAcList" style="display:none"></div>'
+    +'</div></div>'
+    +'<div id="nomSelectedDisplay" style="display:none;font-family:Cormorant Garamond,serif;font-style:italic;font-size:.95rem;color:rgba(201,168,76,.8);margin-bottom:1rem;padding:.4rem 0;border-bottom:1px solid rgba(201,168,76,.15);"></div>'
+    +'<button class="btn-submit" onclick="enviarNominacion()">Enviar Nominación &nbsp;✦</button>'
+    +'</div>';
 }
 
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────
+//  AUTOCOMPLETE: NOMINADO
+// ─────────────────────────────────────────────────
+function onNomInput(){
+  acSelected=null;
+  var disp=document.getElementById('nomSelectedDisplay');
+  if(disp) disp.style.display='none';
+  clearTimeout(nomAcTimeout);
+  var q=document.getElementById('nominadoInput').value.trim();
+  if(q.length<1){ var l=document.getElementById('nomAcList'); if(l)l.style.display='none'; return; }
+  nomAcTimeout=setTimeout(function(){
+    apiCall({action:'buscarNominado',q:q},function(res){
+      var list=document.getElementById('nomAcList');
+      if(!list) return;
+      if(!res.resultados||res.resultados.length===0){
+        list.innerHTML='<div class="autocomplete-empty">No encontrado en la lista de primos</div>';
+        list.style.display='block'; return;
+      }
+      list.innerHTML=res.resultados.map(function(r){
+        var label=r.apodo ? esc(r.nombreCompleto)+' <span style="color:rgba(201,168,76,.6)">(primo '+esc(r.apodo)+')</span>' : esc(r.nombreCompleto);
+        var sub=r.apodo?'<span class="ac-apodo">primo '+esc(r.apodo)+'</span>':'';
+        return '<div class="autocomplete-item" onclick="selectNomAc('+JSON.stringify(r)+')">'
+          +'<span class="ac-name">'+label+'</span>'+sub+'</div>';
+      }).join('');
+      list.style.display='block';
+    });
+  },280);
+}
+
+function onNomKey(e){ if(e.key==='Enter'&&acSelected) enviarNominacion(); }
+
+function selectNomAc(r){
+  acSelected=r;
+  var disp=document.getElementById('nomSelectedDisplay');
+  var list=document.getElementById('nomAcList');
+  var label=r.apodo ? r.nombreCompleto+' (primo '+r.apodo+')' : r.nombreCompleto;
+  document.getElementById('nominadoInput').value=label;
+  if(disp){ disp.textContent='Nominando a: '+label; disp.style.display='block'; }
+  if(list) list.style.display='none';
+}
+
+// ─────────────────────────────────────────────────
 //  ENVIAR NOMINACIÓN
-// ─────────────────────────────────────────────────────────────
-function enviarNominacion() {
-  if (!primo) { showToast('Ingresa tu nombre primero'); return; }
-  var cat = document.getElementById('catSelect').value;
-  var nom = document.getElementById('nominadoInput').value.trim();
-  if (!nom) { showToast('Escribe el nombre del primo a nominar'); return; }
+// ─────────────────────────────────────────────────
+function enviarNominacion(){
+  if(!primo){showToast('Ingresa tu nombre primero');return;}
+  if(!acSelected){showToast('Selecciona un primo de la lista');return;}
+  var cat=document.getElementById('catSelect').value;
+  var dispNom=acSelected.apodo?acSelected.nombreCompleto+' (primo '+acSelected.apodo+')':acSelected.nombreCompleto;
   showToast('Enviando…');
   apiCall({
-    action:    'nominar',
-    codigo:    primo.codigo,
-    nombre:    primo.nombre,
-    categoria: cat,
-    nominado:  nom
-  }, function(res) {
-    showToast(res.msg || (res.ok ? '¡Listo!' : 'Error'));
-    if (res.ok) document.getElementById('nominadoInput').value = '';
+    action:'nominar', codigo:primo.codigo, nombre:getDisplayName(),
+    categoria:cat, codNominado:acSelected.nombreCompleto, nominado:dispNom
+  },function(res){
+    showToast(res.msg||(res.ok?'¡Listo!':'Error'));
+    if(res.ok){
+      acSelected=null;
+      document.getElementById('nominadoInput').value='';
+      var d=document.getElementById('nomSelectedDisplay');
+      if(d) d.style.display='none';
+    }
   });
 }
 
-// ─────────────────────────────────────────────────────────────
-//  CHAT
-// ─────────────────────────────────────────────────────────────
-var chatOpen = false;
-var lastMsgCount = 0;
-var localMsgs = [];
-
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
-  var fab = document.getElementById('chatFab');
-  fab.classList.toggle('open', chatOpen);
-  if (chatOpen) {
-    fab.classList.remove('has-unread');
-    setTimeout(function() {
-      var b = document.getElementById('mensajes'); b.scrollTop = b.scrollHeight;
-    }, 100);
+// ─────────────────────────────────────────────────
+//  MODAL DE CATEGORÍA
+// ─────────────────────────────────────────────────
+function openCatModal(cat){
+  document.getElementById('modalCatTitle').textContent=cat;
+  document.getElementById('modalCatContent').innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Cargando…</p>';
+  document.getElementById('catModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  var fase=getFase();
+  if(fase===1){
+    apiCall({action:'statsCategoria',cat:cat},function(res){ renderCatStats(res,cat); });
+  } else {
+    apiCall({action:'nominadosCategoria',cat:cat},function(res){ renderCatNominados(res,cat); });
   }
 }
 
-function mandarChat() {
-  var user = primo ? primo.nombre : 'Anónimo';
-  var msg  = document.getElementById('msgChat').value.trim();
-  if (!msg) return;
-  localMsgs.push([user, msg]);
-  renderMsgs(localMsgs);
-  document.getElementById('msgChat').value = '';
-  apiCall({ action:'chat', usuario:user, mensaje:msg }, function(res) {
-    if (res.mensajes && Array.isArray(res.mensajes)) { localMsgs = res.mensajes; renderMsgs(localMsgs); }
+function closeCatModal(e){
+  if(e.target===document.getElementById('catModal')) closeCatModalDirect();
+}
+function closeCatModalDirect(){
+  document.getElementById('catModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function renderCatStats(res,cat){
+  var el=document.getElementById('modalCatContent');
+  if(!res.items||res.items.length===0){
+    el.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Aún no hay nominaciones en esta categoría.</p>';
+    return;
+  }
+  var max=res.items[0].count||1;
+  var html='<p style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:1.2rem">Nominaciones en vivo</p>';
+  html+='<div class="bar-chart">';
+  res.items.forEach(function(item,i){
+    var pct=Math.round((item.count/max)*100);
+    var vLabel=item.count===1?'1 nominación':item.count+' nominaciones';
+    html+='<div class="bar-row'+(i===0?' bar-rank-1':'')+'"><div class="bar-name"><span>'+esc(item.display)+'</span><span class="bar-votes">'+vLabel+'</span></div>'
+      +'<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+  // Animate bars
+  setTimeout(function(){
+    el.querySelectorAll('.bar-fill').forEach(function(b){ b.style.width=b.style.width; });
+  },50);
+}
+
+function renderCatNominados(res,cat){
+  var el=document.getElementById('modalCatContent');
+  if(!res.nominados||res.nominados.length===0){
+    el.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Los nominados se revelarán pronto.</p>';
+    return;
+  }
+  var html='<p style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:1.2rem">Los nominados son…</p>';
+  html+='<div class="nominados-grid">';
+  res.nominados.forEach(function(n){
+    var initial=n.display.charAt(0).toUpperCase();
+    var desc=n.descripcion||'';
+    html+='<div class="nominado-card">'
+      +'<div class="nom-avatar">'+esc(initial)+'</div>'
+      +'<div class="nom-name">'+esc(n.display)+'</div>'
+      +(desc?'<div class="nom-desc">'+esc(desc)+'</div>':'')
+      +'</div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+// ─────────────────────────────────────────────────
+//  CHAT
+// ─────────────────────────────────────────────────
+var chatOpen=false, lastMsgCount=0, localMsgs=[];
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open',chatOpen);
+  var fab=document.getElementById('chatFab');
+  fab.classList.toggle('open',chatOpen);
+  if(chatOpen){ fab.classList.remove('has-unread'); setTimeout(function(){ var b=document.getElementById('mensajes'); b.scrollTop=b.scrollHeight; },100); }
+}
+
+function mandarChat(){
+  var user=getChatName();
+  var msg=document.getElementById('msgChat').value.trim();
+  if(!msg) return;
+  localMsgs.push([user,msg]); renderMsgs(localMsgs);
+  document.getElementById('msgChat').value='';
+  apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
+    if(res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
   });
 }
 
-function renderMsgs(lista) {
-  if (!lista || !lista.length) return;
-  var box = document.getElementById('mensajes');
-  box.innerHTML = lista.map(function(m) {
-    return '<div class="chat-msg"><strong>' + esc(String(m[0])) + '</strong> &nbsp;' + esc(String(m[1])) + '</div>';
+function renderMsgs(lista){
+  if(!lista||!lista.length) return;
+  var box=document.getElementById('mensajes');
+  box.innerHTML=lista.map(function(m){
+    // m[0] = "Primo Civil (Rodrigo)", m[1] = mensaje
+    var parts=String(m[0]).match(/^(.*?)\s*\(([^)]+)\)$/);
+    var nameHtml;
+    if(parts){ nameHtml='<strong>'+esc(parts[1].trim())+'</strong> <span class="chat-real-name">('+esc(parts[2].trim())+')</span>'; }
+    else { nameHtml='<strong>'+esc(String(m[0]))+'</strong>'; }
+    return '<div class="chat-msg">'+nameHtml+' &nbsp;'+esc(String(m[1]))+'</div>';
   }).join('');
-  box.scrollTop = box.scrollHeight;
+  box.scrollTop=box.scrollHeight;
 }
 
-function startChatPoll() {
-  function poll() {
-    apiCall({ action:'mensajes' }, function(res) {
-      if (!res.mensajes || !Array.isArray(res.mensajes)) return;
-      localMsgs = res.mensajes; renderMsgs(localMsgs);
-      if (!chatOpen && res.mensajes.length > lastMsgCount)
-        document.getElementById('chatFab').classList.add('has-unread');
-      lastMsgCount = res.mensajes.length;
+function startChatPoll(){
+  function poll(){
+    apiCall({action:'mensajes'},function(res){
+      if(!res.mensajes||!Array.isArray(res.mensajes)) return;
+      localMsgs=res.mensajes; renderMsgs(localMsgs);
+      if(!chatOpen&&res.mensajes.length>lastMsgCount) document.getElementById('chatFab').classList.add('has-unread');
+      lastMsgCount=res.mensajes.length;
     });
   }
-  poll(); setInterval(poll, 5000);
+  poll(); setInterval(poll,5000);
 }
 
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────
 //  HELPERS
-// ─────────────────────────────────────────────────────────────
-function apiCall(params, cb) {
-  var url = API + '?' + Object.keys(params).map(function(k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-  }).join('&');
-  fetch(url)
-    .then(function(r) { return r.json(); })
-    .then(function(d) { if (cb) cb(d); })
-    .catch(function() { if (cb) cb({}); });
+// ─────────────────────────────────────────────────
+function apiCall(params,cb){
+  var url=API+'?'+Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+  fetch(url).then(function(r){return r.json();}).then(function(d){if(cb)cb(d);}).catch(function(){if(cb)cb({});});
 }
 
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(function() { t.classList.remove('show'); }, 3200);
+function showToast(msg){
+  var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3200);
 }
 
-function esc(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function observeFadeIns() {
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-in').forEach(function(el) { io.observe(el); });
+function observeFadeIns(){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:.08});
+  document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
   startChatPoll();
 }
 </script>
