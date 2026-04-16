@@ -10,13 +10,9 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
     body{background:var(--black);color:var(--cream);font-family:'Cormorant Garamond',serif;overflow-x:hidden;-webkit-text-size-adjust:100%;}
+    .noise{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
 
-    /* NOISE */
-    .noise{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size:200px;}
-
-    /* INTRO */
+    /* ── INTRO ── */
     #intro{position:fixed;inset:0;z-index:9999;background:var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;padding:2rem;}
     #intro::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none;}
     #intro::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);pointer-events:none;opacity:.4;}
@@ -37,11 +33,11 @@
     #intro.exit{animation:introExit 1s cubic-bezier(.76,0,.24,1) forwards;}
     @keyframes introExit{0%{opacity:1;transform:scale(1)}40%{opacity:1;transform:scale(1.03)}100%{opacity:0;transform:scale(1.08);pointer-events:none}}
 
-    /* MAIN */
+    /* ── MAIN ── */
     #main{opacity:0;transition:opacity .8s ease .3s;}
     #main.visible{opacity:1;}
 
-    /* HEADER */
+    /* ── HEADER ── */
     header{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 4rem;overflow:hidden;}
     header::before{content:'';position:absolute;inset:0;background:radial-gradient(1px 1px at 10% 20%,rgba(201,168,76,.6) 0%,transparent 100%),radial-gradient(1px 1px at 80% 15%,rgba(201,168,76,.4) 0%,transparent 100%),radial-gradient(1px 1px at 55% 70%,rgba(201,168,76,.5) 0%,transparent 100%),radial-gradient(1px 1px at 30% 80%,rgba(201,168,76,.3) 0%,transparent 100%),radial-gradient(1px 1px at 90% 55%,rgba(201,168,76,.5) 0%,transparent 100%),radial-gradient(ellipse 100% 60% at 50% 0%,rgba(201,168,76,.04) 0%,transparent 70%),linear-gradient(180deg,#0d0a06 0%,#080808 100%);}
     header::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(600px,100vw);height:min(600px,100vw);background:radial-gradient(ellipse,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none;}
@@ -64,77 +60,71 @@
     .scroll-arrow{width:1px;height:32px;background:linear-gradient(to bottom,rgba(201,168,76,.7),transparent);}
     @keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
-    /* DIVIDER */
+    /* ── DIVIDER ── */
     .divider{display:flex;align-items:center;justify-content:center;gap:1rem;padding:0 1.5rem;}
     .divider-line{flex:1;max-width:400px;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent);}
     .divider-gem{width:7px;height:7px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
 
-    /* SECTIONS */
+    /* ── SECTIONS ── */
     section{max-width:680px;margin:0 auto;padding:3.5rem 1.25rem;}
-    .section-label{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;opacity:.8;margin-bottom:.6rem;}
+    .section-label{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;opacity:.85;margin-bottom:.6rem;}
     .section-title{font-family:'Cinzel',serif;font-size:clamp(1.15rem,4vw,1.7rem);font-weight:600;color:var(--cream);letter-spacing:.04em;margin-bottom:2rem;}
 
-    /* CARD BASE */
+    /* ── CARD ── */
     .card{background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,rgba(26,21,16,.6) 100%);border:1px solid rgba(201,168,76,.2);padding:1.75rem 1.25rem;position:relative;}
     .card::before,.card::after{content:'';position:absolute;width:14px;height:14px;border-color:rgba(201,168,76,.5);border-style:solid;}
     .card::before{top:9px;left:9px;border-width:1px 0 0 1px;}
     .card::after{bottom:9px;right:9px;border-width:0 1px 1px 0;}
 
-    /* IDENTITY */
+    /* ── IDENTITY ── */
     .identity-welcome{text-align:center;}
-    .welcome-name{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,4vw,1.6rem);background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem;}
+    .welcome-name{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,4vw,1.5rem);background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem;}
     .welcome-code{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;}
-    .identity-form p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,224,.6);margin-bottom:1.2rem;line-height:1.6;text-align:center;}
-
-    /* APODO FORM (post-registro) */
     .apodo-block{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.12);}
-    .apodo-block p{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.5);margin-bottom:.9rem;text-align:center;}
-
-    /* CODE LOGIN */
+    .apodo-block p{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(245,237,224,.5);margin-bottom:.9rem;text-align:center;}
+    .identity-form p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,224,.6);margin-bottom:1.2rem;line-height:1.6;text-align:center;}
     .code-login-toggle{margin-top:1rem;text-align:center;}
-    .link-btn{background:none;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;color:rgba(201,168,76,.5);text-transform:uppercase;text-decoration:underline;padding:.3rem;-webkit-tap-highlight-color:transparent;}
+    .link-btn{background:none;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.3em;color:rgba(201,168,76,.55);text-transform:uppercase;text-decoration:underline;padding:.3rem;-webkit-tap-highlight-color:transparent;}
     .link-btn:hover{color:var(--gold);}
 
-    /* NOMINADO BANNER */
-    .nominado-banner{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.3);padding:1.5rem 1.25rem;margin-bottom:1.5rem;position:relative;overflow:hidden;}
+    /* ── NOMINADO BANNER ── */
+    .nominado-banner{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);padding:1.5rem 1.25rem;margin-bottom:1.5rem;position:relative;overflow:hidden;}
     .nominado-banner::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.1) 25%,transparent 50%,rgba(201,168,76,.07) 75%,transparent);animation:auraSpin 6s linear infinite;}
-    .nominado-banner::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.88);z-index:0;}
+    .nominado-banner::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.9);z-index:0;}
     .nominado-banner>*{position:relative;z-index:1;}
     @keyframes auraSpin{to{transform:rotate(360deg)}}
     .nominado-banner h4{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.25em;color:var(--gold-light);text-transform:uppercase;margin-bottom:.5rem;}
     .nominado-banner ul{list-style:none;margin-bottom:1rem;}
-    .nominado-banner ul li{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.7);padding:.2rem 0;border-bottom:1px solid rgba(201,168,76,.08);}
+    .nominado-banner ul li{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(245,237,224,.7);padding:.3rem 0;border-bottom:1px solid rgba(201,168,76,.08);}
 
-    /* FORM FIELDS */
+    /* ── FORM FIELDS ── */
     .field-group{margin-bottom:1.4rem;}
-    .field-label{display:block;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:.55rem;}
+    .field-label{display:block;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.38em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.55rem;}
     .field-input,.field-select{width:100%;background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.08rem;padding:.65rem 0;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;border-radius:0;}
     .field-input:focus,.field-select:focus{border-bottom-color:var(--gold);background:transparent;}
     .field-input::placeholder{color:rgba(245,237,224,.22);font-style:italic;}
     .field-select option{background:#1a1510;color:var(--cream);}
     .select-wrapper{position:relative;}
     .select-wrapper::after{content:'◆';position:absolute;right:0;top:50%;transform:translateY(-50%);color:rgba(201,168,76,.5);font-size:.48rem;pointer-events:none;}
-
-    /* AUTOCOMPLETE */
-    .autocomplete-wrap{position:relative;}
-    .autocomplete-list{position:absolute;top:100%;left:0;right:0;background:rgba(10,8,5,.98);border:1px solid rgba(201,168,76,.25);border-top:none;z-index:50;max-height:220px;overflow-y:auto;}
-    .autocomplete-item{padding:.75rem 1rem;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.8);border-bottom:1px solid rgba(201,168,76,.08);transition:background .2s;display:flex;flex-direction:column;gap:.15rem;}
-    .autocomplete-item:hover,.autocomplete-item:active,.autocomplete-item.selected{background:rgba(201,168,76,.1);}
-    .autocomplete-item .ac-name{color:var(--cream);}
-    .autocomplete-item .ac-apodo{font-size:.82rem;font-style:italic;color:rgba(201,168,76,.7);}
-    .autocomplete-empty{padding:.75rem 1rem;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);}
-
-    /* INPUT ROW */
+    .hint-text{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.42);margin-bottom:1.2rem;}
     .input-row{display:flex;gap:.5rem;align-items:stretch;}
     .input-row .field-input{flex:1;}
-    .btn-sm{background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:0 1rem;cursor:pointer;transition:all .3s;white-space:nowrap;-webkit-tap-highlight-color:transparent;min-height:44px;}
+    .btn-sm{background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;padding:0 1rem;cursor:pointer;transition:all .3s;white-space:nowrap;-webkit-tap-highlight-color:transparent;min-height:44px;}
     .btn-sm:hover,.btn-sm:active{border-color:var(--gold);background:rgba(201,168,76,.08);}
-
-    .hint-text{font-family:'Cormorant Garamond',serif;font-size:.92rem;font-style:italic;color:rgba(245,237,224,.42);margin-bottom:1.2rem;}
     .btn-submit{width:100%;margin-top:.3rem;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;padding:.95rem 1.5rem;cursor:pointer;transition:all .4s;-webkit-tap-highlight-color:transparent;min-height:48px;}
     .btn-submit:hover,.btn-submit:active{border-color:var(--gold);color:var(--gold-light);box-shadow:0 0 25px rgba(201,168,76,.12);}
 
-    /* CATEGORIES */
+    /* ── AUTOCOMPLETE ── */
+    .autocomplete-wrap{position:relative;}
+    .autocomplete-list{position:absolute;top:100%;left:0;right:0;background:rgba(10,8,5,.98);border:1px solid rgba(201,168,76,.25);border-top:none;z-index:50;max-height:220px;overflow-y:auto;}
+    .ac-item{padding:.75rem 1rem;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.8);border-bottom:1px solid rgba(201,168,76,.08);transition:background .2s;display:flex;flex-direction:column;gap:.15rem;}
+    .ac-item:hover,.ac-item:active{background:rgba(201,168,76,.1);}
+    .ac-name{color:var(--cream);}
+    .ac-apodo{font-size:.82rem;font-style:italic;color:rgba(201,168,76,.7);}
+    .ac-empty{padding:.75rem 1rem;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);}
+    .nom-selected-display{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.98rem;color:rgba(201,168,76,.8);margin-bottom:1rem;padding:.4rem 0;border-bottom:1px solid rgba(201,168,76,.15);display:none;}
+
+    /* ── CATEGORIES ── */
     .categories-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;}
     .cat-item{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);padding:1.1rem .9rem;text-align:center;transition:all .3s;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden;}
     .cat-item:hover,.cat-item:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07);}
@@ -146,47 +136,65 @@
     .cat-item.special>*{position:relative;z-index:1;}
     .cat-item.special .cat-name{color:var(--gold-light);font-size:.55rem;letter-spacing:.18em;}
 
-    /* MODAL */
+    /* ── MODAL ── */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
     .modal-overlay.open{opacity:1;pointer-events:all;}
     .modal-panel{background:#0d0a06;border:1px solid rgba(201,168,76,.25);border-bottom:none;width:100%;max-width:680px;max-height:88vh;overflow-y:auto;padding:2rem 1.25rem 3rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
     .modal-overlay.open .modal-panel{transform:translateY(0);}
-    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(201,168,76,.15);}
-    .modal-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
-    .modal-close{background:none;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .3s;flex-shrink:0;}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(201,168,76,.15);}
+    .modal-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;flex:1;}
+    .modal-close{background:none;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .3s;flex-shrink:0;margin-left:.8rem;}
     .modal-close:hover{border-color:var(--gold);color:var(--gold);}
 
-    /* BAR CHART */
-    .bar-chart{display:flex;flex-direction:column;gap:.9rem;margin-top:1rem;}
-    .bar-row{display:flex;flex-direction:column;gap:.3rem;}
-    .bar-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--cream);display:flex;justify-content:space-between;align-items:baseline;}
-    .bar-name .bar-votes{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:rgba(201,168,76,.7);}
-    .bar-track{height:6px;background:rgba(201,168,76,.1);border-radius:0;overflow:hidden;}
-    .bar-fill{height:100%;background:linear-gradient(to right,var(--gold-dark),var(--gold));border-radius:0;transition:width .8s cubic-bezier(.22,1,.36,1);}
-    .bar-rank-1 .bar-fill{background:linear-gradient(to right,#b8922e,var(--gold-light));}
+    /* Info button */
+    .info-btn{background:none;border:1px solid rgba(201,168,76,.35);color:rgba(201,168,76,.7);width:24px;height:24px;border-radius:50%;cursor:pointer;font-family:'Cinzel',serif;font-size:.6rem;display:inline-flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .3s;flex-shrink:0;margin-left:.6rem;}
+    .info-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .cat-info-panel{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);padding:.9rem 1rem;margin-bottom:1.2rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.55);line-height:1.6;display:none;}
+    .cat-info-panel.open{display:block;}
 
-    /* NOMINADOS FASE 2 */
-    .nominados-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}
-    .nominado-card{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:1rem .9rem;text-align:center;}
-    .nom-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);margin:0 auto .6rem;display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;font-size:1.1rem;color:var(--gold);}
-    .nom-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:.3rem;}
-    .nom-desc{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.5);line-height:1.4;}
+    /* ── NOMINADOS GRID (fase 1 y fase 2) ── */
+    .nominados-matrix{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+    .nom-cell{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:.9rem .8rem;text-align:center;transition:all .3s;}
+    .nom-cell:hover,.nom-cell:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.08);}
+    .nom-cell.clickable{cursor:pointer;}
+    .nom-cell-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.3rem;line-height:1.4;}
+    .nom-cell-apodo{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-style:italic;color:rgba(201,168,76,.55);}
+    .nom-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);margin:0 auto .6rem;display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold);}
+    .nom-desc{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-style:italic;color:rgba(245,237,224,.45);line-height:1.4;margin-top:.3rem;}
 
-    /* PHASE CLOSED */
+    /* Confirm vote overlay */
+    .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .confirm-overlay.open{opacity:1;pointer-events:all;}
+    .confirm-box{background:#0d0a06;border:1px solid rgba(201,168,76,.3);padding:2rem 1.5rem;max-width:380px;width:100%;text-align:center;position:relative;}
+    .confirm-box::before,.confirm-box::after{content:'';position:absolute;width:14px;height:14px;border-color:rgba(201,168,76,.5);border-style:solid;}
+    .confirm-box::before{top:9px;left:9px;border-width:1px 0 0 1px;}
+    .confirm-box::after{bottom:9px;right:9px;border-width:0 1px 1px 0;}
+    .confirm-emoji{font-size:2.2rem;margin-bottom:.8rem;}
+    .confirm-title{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;}
+    .confirm-name{font-family:'Cinzel Decorative',serif;font-size:1.2rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .confirm-sub{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.5);margin-bottom:1.5rem;line-height:1.5;}
+    .confirm-btns{display:flex;gap:.75rem;justify-content:center;}
+    .btn-confirm{flex:1;max-width:140px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));border:none;color:var(--black);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;padding:.85rem;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;}
+    .btn-confirm:hover{filter:brightness(1.1);}
+    .btn-cancel{flex:1;max-width:140px;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.6);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;padding:.85rem;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;}
+    .btn-cancel:hover{border-color:var(--gold);color:var(--gold);}
+
+    /* ── PHASE CLOSED ── */
     .phase-closed{text-align:center;padding:2.5rem 1.5rem;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);}
     .phase-closed-icon{font-size:2.2rem;margin-bottom:.8rem;}
     .phase-closed h3{font-family:'Cinzel',serif;font-size:.95rem;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem;}
     .phase-closed p{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(245,237,224,.5);font-size:1rem;line-height:1.6;}
 
-    /* CHAT FAB */
+    /* ── ADMIN BADGE ── */
+    .admin-tag{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.3em;color:var(--black);background:linear-gradient(135deg,var(--gold-light),var(--gold));padding:.2rem .5rem;text-transform:uppercase;margin-left:.5rem;vertical-align:middle;}
+
+    /* ── CHAT ── */
     .chat-fab{position:fixed;bottom:1.5rem;right:1.5rem;width:50px;height:50px;background:rgba(8,8,8,.97);border:1px solid rgba(201,168,76,.45);color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;transition:all .3s;box-shadow:0 4px 24px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent;}
     .chat-fab:hover,.chat-fab:active{border-color:var(--gold);}
     .chat-fab svg{transition:transform .3s;}
     .chat-fab.open svg{transform:rotate(45deg);}
     .chat-fab .unread-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;background:#e8d08a;border-radius:50%;border:1.5px solid #080808;display:none;}
     .chat-fab.has-unread .unread-dot{display:block;}
-
-    /* CHAT PANEL */
     .chat-panel{position:fixed;bottom:5.5rem;right:1.5rem;width:min(300px,calc(100vw - 3rem));background:rgba(8,8,8,.97);border:1px solid rgba(201,168,76,.25);z-index:199;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.7);transform-origin:bottom right;transform:scale(.85) translateY(10px);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .3s;}
     .chat-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
     .chat-header{padding:.85rem 1.1rem;border-bottom:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:space-between;}
@@ -198,7 +206,7 @@
     .chat-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);}
     .chat-msg{margin-bottom:.5rem;color:rgba(245,237,224,.65);word-break:break-word;}
     .chat-msg strong{color:var(--gold);font-weight:600;}
-    .chat-msg .chat-real-name{font-size:.75em;color:rgba(201,168,76,.4);font-style:italic;}
+    .chat-real-name{font-size:.75em;color:rgba(201,168,76,.4);font-style:italic;}
     .chat-input-area{padding:.65rem 1.1rem;border-top:1px solid rgba(201,168,76,.1);display:flex;gap:.5rem;}
     .chat-input{flex:1;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:.95rem;padding:.3rem 0;outline:none;min-height:32px;}
     .chat-input::placeholder{color:rgba(245,237,224,.25);font-style:italic;}
@@ -206,11 +214,11 @@
     .chat-send{background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:.3rem .65rem;cursor:pointer;font-size:.75rem;transition:all .3s;-webkit-tap-highlight-color:transparent;min-width:36px;}
     .chat-send:hover,.chat-send:active{border-color:var(--gold);background:rgba(201,168,76,.08);}
 
-    /* TOAST */
+    /* ── TOAST ── */
     .toast{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%) translateY(-120px);background:rgba(8,8,8,.97);border:1px solid rgba(201,168,76,.5);color:var(--gold-light);font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;padding:.85rem 1.8rem;z-index:9998;transition:transform .5s cubic-bezier(.22,1,.36,1);max-width:calc(100vw - 3rem);text-align:center;line-height:1.5;}
     .toast.show{transform:translateX(-50%) translateY(0);}
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer{text-align:center;padding:3rem 1.5rem;border-top:1px solid rgba(201,168,76,.1);}
     .footer-title{font-family:'Cinzel Decorative',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .footer-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:rgba(245,237,224,.3);letter-spacing:.1em;line-height:2.2;}
@@ -218,13 +226,7 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
     .fade-in.visible{opacity:1;transform:translateY(0);}
-
-    @media(max-width:480px){
-      section{padding:3rem 1rem;}
-      .card{padding:1.4rem 1rem;}
-      .nominados-grid{grid-template-columns:1fr 1fr;}
-      .intro-seal svg{width:130px;height:auto;}
-    }
+    @media(max-width:480px){section{padding:3rem 1rem;}.card{padding:1.4rem 1rem;}}
   </style>
 </head>
 <body>
@@ -299,44 +301,42 @@
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- IDENTITY SECTION -->
-  <section class="fade-in" id="identitySection">
+  <!-- IDENTITY -->
+  <section class="fade-in">
     <div class="section-label" id="identityLabel">Tu identidad</div>
     <div class="section-title" id="identityTitle">¿Quién eres, primo?</div>
-    <div class="card" id="identityCard">
-
-      <!-- WELCOME VIEW -->
-      <div class="identity-welcome" id="welcomeView" style="display:none">
-        <div class="welcome-name" id="welcomeName"></div>
-        <div class="welcome-code" id="welcomeCode"></div>
-        <!-- Apodo -->
+    <div class="card">
+      <!-- WELCOME -->
+      <div id="welcomeView" style="display:none">
+        <div class="identity-welcome">
+          <div class="welcome-name" id="welcomeName">—</div>
+          <div class="welcome-code" id="welcomeCode">—</div>
+        </div>
         <div class="apodo-block" id="apodoBlock" style="display:none">
-          <p>¿Tienes un apodo? Puedes agregarlo (opcional).</p>
+          <p>¿Tienes un apodo? Agrégalo (opcional).</p>
           <div class="input-row">
-            <input class="field-input" type="text" id="apodoInput" placeholder="Tu apodo…" autocomplete="off" maxlength="30">
+            <input class="field-input" type="text" id="apodoInput" placeholder="Tu apodo…" autocomplete="off" maxlength="30" onkeydown="if(event.key==='Enter')guardarApodo()">
             <button class="btn-sm" onclick="guardarApodo()">Guardar</button>
           </div>
         </div>
-        <!-- Banner nominado -->
-        <div id="nominadoBanner" style="display:none;margin-top:1.5rem;"></div>
+        <div id="nominadoBannerWrap" style="margin-top:1.5rem"></div>
       </div>
-
-      <!-- REGISTER VIEW -->
+      <!-- REGISTER -->
       <div id="registerView">
         <div id="loginByNameBlock">
           <p>Ingresa tu nombre para identificarte.<br>El sistema verificará que eres un primo registrado.</p>
           <div class="autocomplete-wrap">
             <div class="input-row">
-              <input class="field-input" type="text" id="nameInput" placeholder="Tu nombre…"
-                autocomplete="off" autocapitalize="words" maxlength="50"
-                oninput="onNameInput()" onkeydown="onNameKey(event)">
+              <input class="field-input" type="text" id="nameInput" placeholder="Tu nombre o apellido…"
+                autocomplete="off" autocapitalize="words" maxlength="60"
+                oninput="onNameInput()" onkeydown="if(event.key==='Enter')registrarPrimo()">
               <button class="btn-sm" onclick="registrarPrimo()">Entrar</button>
             </div>
             <div class="autocomplete-list" id="nameAcList" style="display:none"></div>
           </div>
         </div>
         <div class="code-login-toggle">
-          <button class="link-btn" onclick="toggleCodeLogin()">¿Ya tienes cuenta? Ingresa con tu código</button>
+          <button class="link-btn" onclick="toggleCodeLogin()">¿Ya tienes cuenta en otro dispositivo? Ingresa con tu código</button>
         </div>
         <div id="codeLoginBlock" style="display:none;margin-top:1rem;">
           <div class="input-row">
@@ -348,7 +348,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -358,29 +357,28 @@
   <section class="fade-in">
     <div class="section-label">Categorías oficiales</div>
     <div class="section-title">Las Categorías en Juego</div>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.45);margin-bottom:1.5rem;">Toca una categoría para ver cómo van las nominaciones.</p>
-    <div class="categories-grid" id="categoriesGrid">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(245,237,224,.45);margin-bottom:1.5rem;">Toca una categoría para ver los nominados.</p>
+    <div class="categories-grid">
       <div class="cat-item" onclick="openCatModal('Primo más Sucha 😏')"><span class="cat-emoji">😏</span><span class="cat-name">Más Sucha</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Migajero 💔')"><span class="cat-emoji">💔</span><span class="cat-name">Más Migajero</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Borracho 🍻')"><span class="cat-emoji">🍻</span><span class="cat-name">Más Borracho</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Chismoso 🤫')"><span class="cat-emoji">🤫</span><span class="cat-name">Más Chismoso</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Pajero 😅')"><span class="cat-emoji">😅</span><span class="cat-name">Más Pajero</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Migajero/a 🕊️')"><span class="cat-emoji">🕊️</span><span class="cat-name">Más Migajero/a</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Borracho/a 🍻')"><span class="cat-emoji">🍻</span><span class="cat-name">Más Borracho/a</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Chismoso/a 🤫')"><span class="cat-emoji">🤫</span><span class="cat-name">Más Chismoso/a</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Pajero/a 😴')"><span class="cat-emoji">😴</span><span class="cat-name">Más Pajero/a</span></div>
       <div class="cat-item" onclick="openCatModal('Primo más Sabroso/a 🔥')"><span class="cat-emoji">🔥</span><span class="cat-name">Más Sabroso/a</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Inteligente 🧠')"><span class="cat-emoji">🧠</span><span class="cat-name">Más Inteligente</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Responsable ✅')"><span class="cat-emoji">✅</span><span class="cat-name">Más Responsable</span></div>
-      <div class="cat-item" onclick="openCatModal('Primo más Buena Onda 😄')"><span class="cat-emoji">😄</span><span class="cat-name">Más Buena Onda</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Tryhard 🧠')"><span class="cat-emoji">🧠</span><span class="cat-name">Más Tryhard</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo con más Aura 😎')"><span class="cat-emoji">😎</span><span class="cat-name">Con más Aura</span></div>
+      <div class="cat-item" onclick="openCatModal('Primo más Chistoso 🤡')"><span class="cat-emoji">🤡</span><span class="cat-name">Más Chistoso</span></div>
       <div class="cat-item" onclick="openCatModal('Primo más Ligador 💘')"><span class="cat-emoji">💘</span><span class="cat-name">Más Ligador</span></div>
       <div class="cat-item" onclick="openCatModal('Mejor Dupla de Primos 👯')"><span class="cat-emoji">👯</span><span class="cat-name">Mejor Dupla</span></div>
-      <div class="cat-item special" onclick="openCatModal('Primo del Año 🏆')">
-        <span class="cat-emoji">🏆</span><span class="cat-name">Primo del Año</span>
-      </div>
+      <div class="cat-item" onclick="openCatModal('Primo con mejor Apodo 🤙')"><span class="cat-emoji">🤙</span><span class="cat-name">Mejor Apodo</span></div>
+      <div class="cat-item special" onclick="openCatModal('Primo del Año 🏆')"><span class="cat-emoji">🏆</span><span class="cat-name">Primo del Año</span></div>
     </div>
   </section>
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- ACTION SECTION -->
-  <section class="fade-in" id="actionSection">
+  <!-- ACTION -->
+  <section class="fade-in">
     <div class="section-label" id="actionLabel">Tu voz cuenta</div>
     <div class="section-title" id="actionTitle">Emite tu Nominación</div>
     <div id="actionContent"></div>
@@ -394,22 +392,34 @@
 </div>
 
 <!-- CATEGORY MODAL -->
-<div class="modal-overlay" id="catModal" onclick="closeCatModal(event)">
-  <div class="modal-panel">
+<div class="modal-overlay" id="catModal" onclick="closeCatModalBg(event)">
+  <div class="modal-panel" id="catModalPanel">
     <div class="modal-header">
-      <span class="modal-title" id="modalCatTitle">Categoría</span>
-      <button class="modal-close" onclick="closeCatModalDirect()">✕</button>
+      <span class="modal-title" id="modalCatTitle">—</span>
+      <button class="modal-close" onclick="closeCatModal()">✕</button>
     </div>
     <div id="modalCatContent"></div>
+  </div>
+</div>
+
+<!-- CONFIRM VOTE -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-emoji">🗳️</div>
+    <div class="confirm-title">¿Confirmar voto?</div>
+    <div class="confirm-name" id="confirmName">—</div>
+    <div class="confirm-sub" id="confirmSub">¿Estás seguro que deseas votar por este primo?<br>Solo puedes votar una vez por categoría.</div>
+    <div class="confirm-btns">
+      <button class="btn-confirm" onclick="confirmarVoto()">Sí, votar</button>
+      <button class="btn-cancel" onclick="cancelarVoto()">Cancelar</button>
+    </div>
   </div>
 </div>
 
 <!-- CHAT -->
 <button class="chat-fab" id="chatFab" onclick="toggleChat()">
   <div class="unread-dot"></div>
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </button>
 <div class="chat-panel" id="chatPanel">
   <div class="chat-header"><span class="chat-header-title">Chat de Primos</span><div class="chat-status"></div></div>
@@ -422,10 +432,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────────────
-//  CONFIG
-// ─────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbyZEmsK-tcGsI86pOiz9_xBLvUx8WkdyGvcgWsMYcbYj386z1FbQ6IR8RYMkbYZn7c7/exec';
+// ─── CONFIG ───────────────────────────────────────────────────
+var API = 'https://script.google.com/macros/s/AKfycbx4h0Hx0pFzDSv06apphTBN7J3ZLfzDY5-svVb0MGUK-vxu7vHuzOasj1PckKI69Ik_/exec';
 
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
@@ -435,34 +443,68 @@ var CATS = [
   'Primo más Sucha 😏','Primo más Migajero/a 🕊️','Primo más Borracho/a 🍻',
   'Primo más Chismoso/a 🤫','Primo más Pajero/a 😴','Primo más Sabroso/a 🔥',
   'Primo más Tryhard 🧠','Primo con más Aura 😎','Primo más Chistoso 🤡',
-  'Primo más Ligador 💘','Mejor Dupla de Primos 👯','Primo del Año 🏆'
+  'Primo más Ligador 💘','Mejor Dupla de Primos 👯','Primo con mejor Apodo 🤙','Primo del Año 🏆'
 ];
 
-// ─────────────────────────────────────────────────
-//  STATE
-// ─────────────────────────────────────────────────
-var primo = null; // {codigo, nombreDisplay, nombreCompleto, apodo}
-var acSelected = null; // primo seleccionado en autocomplete de nominado
-var nameAcTimeout = null;
-var nomAcTimeout  = null;
+var CAT_INFO = {
+  'Primo más Sucha 😏':'Ese primo que suchea al que se pone en el camino.',
+  'Primo más Migajero/a 🕊️':'El que siempre anda recibiendo migajas pidiendo todo.',
+  'Primo más Borracho/a 🍻':'El que más aprovecha las reuniones. Ya saben quién es.',
+  'Primo más Chismoso/a 🤫':'Siempre sabe todo de todos. El informante del grupo.',
+  'Primo más Pajero/a 😴':'Maestro de la procrastinación. Especialista en no hacer nada.',
+  'Primo más Sabroso/a 🔥':'El más atractivo del grupo. Hay que reconocerlo.',
+  'Primo más Tryhard 🧠':'El que siempre quiere ganar en todo. No descansa.',
+  'Primo con más Aura 😎':'Ese primo que con solo entrar cambia el ambiente.',
+  'Primo más Chistoso 🤡':'El que hace reír a todos, aunque sus chistes sean malos.',
+  'Primo más Ligador 💘':'El conquistador del grupo. Siempre en modo caza.',
+  'Mejor Dupla de Primos 👯':'La pareja de primos más icónica. Inseparables.',
+  'Primo con mejor Apodo 🤙':'El apodo que todos conocen y que lo define perfectamente.',
+  'Primo del Año 🏆':'El premio mayor. El primo que más se destacó este año.'
+};
+
+// ─── STATE ────────────────────────────────────────────────────
+var primo = null; // {codigo, nombreDisplay, nombreCompleto, apodo, rol}
+var acSelected = null;
+var pendingVote = null; // {cat, codNominado, displayNominado}
+var nameAcTimer = null;
+var nomAcTimer  = null;
 
 function getFase(){ var n=Date.now(); return n<FASE1_FIN?1:n<FASE2_FIN?2:3; }
+function isAdmin(){ return primo && primo.rol === 'admin'; }
 
-// ─────────────────────────────────────────────────
-//  INTRO
-// ─────────────────────────────────────────────────
+// ─── SAFE DISPLAY NAME (never undefined) ─────────────────────
+function getDisplayName(){
+  if(!primo || !primo.nombreDisplay) return '';
+  if(primo.apodo && primo.apodo.trim()){
+    var ap = primo.apodo.trim().replace(/^primo\s+/i,'');
+    return 'Primo ' + ap;
+  }
+  return 'Primo ' + primo.nombreDisplay;
+}
+
+function getChatName(){
+  if(!primo || !primo.nombreDisplay) return 'Anónimo';
+  var first = (primo.nombreCompleto || primo.nombreDisplay || '').split(' ')[0];
+  if(primo.apodo && primo.apodo.trim()){
+    var ap = primo.apodo.trim().replace(/^primo\s+/i,'');
+    return 'Primo ' + ap + ' (' + first + ')';
+  }
+  return 'Primo ' + primo.nombreDisplay + ' (' + first + ')';
+}
+
+// ─── INTRO ────────────────────────────────────────────────────
 function enterSite(){
   document.getElementById('intro').classList.add('exit');
   setTimeout(function(){
-    document.getElementById('intro').style.display='none';
+    document.getElementById('intro').style.display = 'none';
     document.getElementById('main').classList.add('visible');
-    initCountdown(); loadSavedIdentity(); observeFadeIns();
-  },900);
+    initCountdown();
+    loadSavedIdentity();
+    observeFadeIns();
+  }, 900);
 }
 
-// ─────────────────────────────────────────────────
-//  COUNTDOWN
-// ─────────────────────────────────────────────────
+// ─── COUNTDOWN ────────────────────────────────────────────────
 function initCountdown(){
   var fase=getFase(), badge=document.getElementById('phaseBadge'),
       label=document.getElementById('cdLabel'), target;
@@ -478,423 +520,478 @@ function initCountdown(){
   }
   tick(); setInterval(tick,1000);
 }
-function pad(n){return String(n).padStart(2,'0');}
+function pad(n){ return String(n).padStart(2,'0'); }
 
-// ─────────────────────────────────────────────────
-//  IDENTITY
-// ─────────────────────────────────────────────────
+// ─── IDENTITY ─────────────────────────────────────────────────
 function loadSavedIdentity(){
-  try{
-    var s=localStorage.getItem('primoID');
-    if(s){ primo=JSON.parse(s); if(primo&&primo.codigo){ showWelcome(); renderAction(); return; } }
-  }catch(e){}
+  try {
+    var s = localStorage.getItem('primoID_v2');
+    if(s){
+      var data = JSON.parse(s);
+      // Validar que tenga los campos mínimos necesarios
+      if(data && data.codigo && data.nombreDisplay && data.nombreCompleto){
+        primo = data;
+        showWelcomeView();
+        renderAction();
+        loadMisNominaciones();
+        return;
+      }
+    }
+  } catch(e){}
+  // Sin sesión — mostrar formulario de registro
+  showRegisterView();
   renderAction();
 }
 
-function saveIdentity(data){ primo=data; try{localStorage.setItem('primoID',JSON.stringify(data));}catch(e){} }
-
-function showWelcome(){
-  document.getElementById('registerView').style.display='none';
-  document.getElementById('welcomeView').style.display='block';
-  document.getElementById('identityTitle').textContent='¡Hola de nuevo!';
-  document.getElementById('identityLabel').textContent='Tu identidad';
-  document.getElementById('welcomeName').textContent=getDisplayName();
-  document.getElementById('welcomeCode').textContent='Código · '+primo.codigo;
-  // Mostrar campo de apodo solo si no tiene uno aún
-  var apodoBlock=document.getElementById('apodoBlock');
-  if(!primo.apodo){ apodoBlock.style.display='block'; }
-  else { apodoBlock.style.display='none'; }
-  // Check nominaciones
-  loadMisNominaciones();
+function saveIdentity(data){
+  primo = data;
+  try { localStorage.setItem('primoID_v2', JSON.stringify(data)); } catch(e){}
 }
 
-function getDisplayName(){
-  if(!primo) return '';
-  if(primo.apodo){
-    var ap=primo.apodo.replace(/^primo\s+/i,'').trim();
-    return 'Primo '+ap;
+function showWelcomeView(){
+  if(!primo) return;
+  document.getElementById('registerView').style.display = 'none';
+  document.getElementById('welcomeView').style.display  = 'block';
+  document.getElementById('identityTitle').textContent  = '¡Hola de nuevo!';
+  document.getElementById('identityLabel').textContent  = 'Tu identidad';
+  document.getElementById('welcomeName').textContent    = getDisplayName();
+  document.getElementById('welcomeCode').textContent    = 'Código · ' + primo.codigo;
+  if(isAdmin()){
+    var tag = document.createElement('span');
+    tag.className = 'admin-tag'; tag.textContent = 'Admin';
+    document.getElementById('welcomeName').appendChild(tag);
   }
-  return 'Primo '+primo.nombreDisplay;
+  // Apodo solo si no tiene
+  document.getElementById('apodoBlock').style.display = (!primo.apodo) ? 'block' : 'none';
 }
 
-function getChatName(){
-  if(!primo) return 'Anónimo';
-  var base = primo.apodo ? 'Primo '+primo.apodo.replace(/^primo\s+/i,'').trim() : 'Primo '+primo.nombreDisplay;
-  return base+' ('+primo.nombreCompleto.split(' ')[0]+')';
+function showRegisterView(){
+  document.getElementById('welcomeView').style.display  = 'none';
+  document.getElementById('registerView').style.display = 'block';
+  document.getElementById('identityTitle').textContent  = '¿Quién eres, primo?';
+  document.getElementById('identityLabel').textContent  = 'Tu identidad';
 }
 
-// ─────────────────────────────────────────────────
-//  AUTOCOMPLETE: NOMBRE AL REGISTRARSE
-// ─────────────────────────────────────────────────
+// ─── AUTOCOMPLETE NOMBRE ──────────────────────────────────────
 function onNameInput(){
-  clearTimeout(nameAcTimeout);
-  var q=document.getElementById('nameInput').value.trim();
-  if(q.length<1){ document.getElementById('nameAcList').style.display='none'; return; }
-  nameAcTimeout=setTimeout(function(){
-    apiCall({action:'buscarPrimo',q:q},function(res){
-      var list=document.getElementById('nameAcList');
-      if(!res.resultados||res.resultados.length===0){ list.style.display='none'; return; }
-      list.innerHTML=res.resultados.map(function(r){
-        var sub=r.apodo?'<span class="ac-apodo">primo '+esc(r.apodo)+'</span>':'';
-        return '<div class="autocomplete-item" onclick="selectNameAc('+JSON.stringify(r.nombreCompleto)+')">'
+  clearTimeout(nameAcTimer);
+  var q = document.getElementById('nameInput').value.trim();
+  var list = document.getElementById('nameAcList');
+  if(q.length < 1){ list.style.display='none'; return; }
+  nameAcTimer = setTimeout(function(){
+    apiCall({action:'buscarPrimo', q:q}, function(res){
+      if(!res || !res.resultados || res.resultados.length===0){ list.style.display='none'; return; }
+      list.innerHTML = res.resultados.map(function(r){
+        var sub = r.apodo ? '<span class="ac-apodo">primo '+esc(r.apodo)+'</span>' : '';
+        return '<div class="ac-item" onclick="selectNameAc(\''+esc(r.nombreCompleto)+'\')">'
           +'<span class="ac-name">'+esc(r.nombreCompleto)+'</span>'+sub+'</div>';
       }).join('');
-      list.style.display='block';
+      list.style.display = 'block';
     });
-  },300);
-}
-
-function onNameKey(e){
-  if(e.key==='Enter') registrarPrimo();
+  }, 300);
 }
 
 function selectNameAc(nombre){
-  document.getElementById('nameInput').value=nombre;
-  document.getElementById('nameAcList').style.display='none';
+  document.getElementById('nameInput').value = nombre;
+  document.getElementById('nameAcList').style.display = 'none';
 }
 
-// ─────────────────────────────────────────────────
-//  REGISTRAR PRIMO
-// ─────────────────────────────────────────────────
+// ─── REGISTRAR PRIMO ──────────────────────────────────────────
 function registrarPrimo(){
-  var nombre=document.getElementById('nameInput').value.trim();
-  if(!nombre){showToast('Escribe tu nombre');return;}
+  var nombre = document.getElementById('nameInput').value.trim();
+  if(!nombre){ showToast('Escribe tu nombre'); return; }
+  document.getElementById('nameAcList').style.display = 'none';
   showToast('Verificando…');
-  document.getElementById('nameAcList').style.display='none';
-  apiCall({action:'registrarPrimo',nombre:nombre},function(res){
+  apiCall({action:'registrarPrimo', nombre:nombre}, function(res){
+    if(!res){ showToast('Error de conexión'); return; }
     if(res.ok){
-      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,apodo:res.apodo||''});
-      showWelcome(); renderAction();
-      showToast('¡Bienvenido, '+getDisplayName()+'! · '+res.codigo);
+      saveIdentity({
+        codigo: res.codigo,
+        nombreDisplay: res.nombreDisplay,
+        nombreCompleto: res.nombreCompleto,
+        apodo: res.apodo || '',
+        rol: res.rol || 'participante'
+      });
+      showWelcomeView();
+      renderAction();
+      loadMisNominaciones();
+      showToast('¡Bienvenido, ' + getDisplayName() + '!  Código: ' + res.codigo);
     } else {
-      showToast(res.msg||'No encontrado');
+      showToast(res.msg || 'No encontrado. Verifica tu nombre.');
     }
   });
 }
 
-// ─────────────────────────────────────────────────
-//  LOGIN CON CÓDIGO
-// ─────────────────────────────────────────────────
+// ─── LOGIN CON CÓDIGO ─────────────────────────────────────────
 function toggleCodeLogin(){
-  var b=document.getElementById('codeLoginBlock');
-  b.style.display=b.style.display==='none'?'block':'none';
+  var b = document.getElementById('codeLoginBlock');
+  b.style.display = (b.style.display === 'none') ? 'block' : 'none';
 }
 
 function loginCodigo(){
-  var c=document.getElementById('codeInput').value.trim().toUpperCase();
-  if(!c){showToast('Ingresa tu código');return;}
+  var c = (document.getElementById('codeInput').value || '').trim().toUpperCase();
+  if(!c){ showToast('Ingresa tu código'); return; }
   showToast('Verificando…');
-  apiCall({action:'loginCodigo',codigo:c},function(res){
+  apiCall({action:'loginCodigo', codigo:c}, function(res){
+    if(!res){ showToast('Error de conexión'); return; }
     if(res.ok){
-      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,apodo:res.apodo||''});
-      showWelcome(); renderAction();
-      showToast('¡Bienvenido de vuelta, '+getDisplayName()+'!');
-    } else { showToast(res.msg||'Código no válido'); }
-  });
-}
-
-// ─────────────────────────────────────────────────
-//  GUARDAR APODO
-// ─────────────────────────────────────────────────
-function guardarApodo(){
-  var ap=document.getElementById('apodoInput').value.trim();
-  if(!ap){showToast('Escribe un apodo');return;}
-  var apLimpio=ap.replace(/^primo\s+/i,'').trim();
-  apiCall({action:'guardarApodo',codigo:primo.codigo,apodo:apLimpio},function(res){
-    if(res.ok){
-      primo.apodo=apLimpio;
-      try{localStorage.setItem('primoID',JSON.stringify(primo));}catch(e){}
-      document.getElementById('apodoBlock').style.display='none';
-      document.getElementById('welcomeName').textContent=getDisplayName();
-      showToast('¡Apodo guardado! Ahora eres '+getDisplayName());
+      saveIdentity({
+        codigo: res.codigo,
+        nombreDisplay: res.nombreDisplay,
+        nombreCompleto: res.nombreCompleto,
+        apodo: res.apodo || '',
+        rol: res.rol || 'participante'
+      });
+      showWelcomeView();
+      renderAction();
+      loadMisNominaciones();
+      showToast('¡Bienvenido de vuelta, ' + getDisplayName() + '!');
+    } else {
+      showToast(res.msg || 'Código no válido');
     }
   });
 }
 
-// ─────────────────────────────────────────────────
-//  MIS NOMINACIONES (banner al nominado)
-// ─────────────────────────────────────────────────
+// ─── APODO ────────────────────────────────────────────────────
+function guardarApodo(){
+  var ap = (document.getElementById('apodoInput').value || '').trim();
+  if(!ap){ showToast('Escribe un apodo'); return; }
+  var apLimpio = ap.replace(/^primo\s+/i,'').trim();
+  apiCall({action:'guardarApodo', codigo:primo.codigo, apodo:apLimpio}, function(res){
+    if(res && res.ok){
+      primo.apodo = apLimpio;
+      try{ localStorage.setItem('primoID_v2', JSON.stringify(primo)); }catch(e){}
+      document.getElementById('apodoBlock').style.display = 'none';
+      document.getElementById('welcomeName').textContent = getDisplayName();
+      showToast('¡Apodo guardado! Ahora eres ' + getDisplayName());
+    }
+  });
+}
+
+// ─── MIS NOMINACIONES ─────────────────────────────────────────
 function loadMisNominaciones(){
-  if(!primo||getFase()!==1)return;
-  apiCall({action:'miNominaciones',codigo:primo.codigo},function(res){
-    if(!res.cats||res.cats.length===0)return;
-    var banner=document.getElementById('nominadoBanner');
-    var catsStr=res.cats.map(function(c){ return '<li>'+esc(c.cat)+'</li>'; }).join('');
-    var msg=res.cats.length===1?'para la siguiente categoría:':'para las siguientes categorías:';
-    banner.innerHTML='<div class="nominado-banner">'
+  if(!primo || getFase() !== 1) return;
+  apiCall({action:'miNominaciones', codigo:primo.codigo}, function(res){
+    if(!res || !res.cats || res.cats.length === 0) return;
+    var wrap = document.getElementById('nominadoBannerWrap');
+    var catsList = res.cats.map(function(c){ return '<li>'+esc(c.cat)+'</li>'; }).join('');
+    var plural = res.cats.length === 1 ? 'la siguiente categoría:' : 'las siguientes categorías:';
+    wrap.innerHTML = '<div class="nominado-banner">'
       +'<h4>🎉 ¡Fuiste nominado!</h4>'
-      +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.6);font-size:.95rem;margin-bottom:.8rem;">Fuiste nominado '+msg+'</p>'
-      +'<ul>'+catsStr+'</ul>'
+      +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.6);font-size:.98rem;margin-bottom:.8rem">Apareces en '+plural+'</p>'
+      +'<ul>'+catsList+'</ul>'
       +'<div class="field-group"><label class="field-label">Escribe algo para los primos</label>'
-      +'<input class="field-input" type="text" id="miDescInput" placeholder="Unas palabras para la gala…" maxlength="120">'
+      +'<input class="field-input" type="text" id="miDescInput" placeholder="Un mensaje para la gala…" maxlength="120" onkeydown="if(event.key===\'Enter\')guardarMiDesc()">'
       +'</div>'
-      +'<button class="btn-submit" onclick="guardarMiDesc()" style="margin-top:.5rem">Guardar mensaje ✦</button>'
+      +'<button class="btn-submit" onclick="guardarMiDesc()">Guardar mensaje ✦</button>'
       +'</div>';
-    banner.style.display='block';
   });
 }
 
 function guardarMiDesc(){
-  var desc=document.getElementById('miDescInput').value.trim();
-  if(!desc){showToast('Escribe algo primero');return;}
-  apiCall({action:'guardarDesc',codigo:primo.codigo,desc:desc},function(res){
-    if(res.ok) showToast('¡Mensaje guardado! ✦');
+  var desc = (document.getElementById('miDescInput').value || '').trim();
+  if(!desc){ showToast('Escribe algo primero'); return; }
+  apiCall({action:'guardarDesc', codigo:primo.codigo, desc:desc}, function(res){
+    if(res && res.ok) showToast('¡Mensaje guardado! ✦');
   });
 }
 
-// ─────────────────────────────────────────────────
-//  RENDER ACCIÓN
-// ─────────────────────────────────────────────────
+// ─── RENDER ACCIÓN ────────────────────────────────────────────
 function renderAction(){
-  var fase=getFase();
-  var label=document.getElementById('actionLabel');
-  var title=document.getElementById('actionTitle');
-  var content=document.getElementById('actionContent');
+  var fase = getFase();
+  var label   = document.getElementById('actionLabel');
+  var title   = document.getElementById('actionTitle');
+  var content = document.getElementById('actionContent');
+
   if(!primo){
-    label.textContent='Identificación requerida';
-    title.textContent='Identifícate arriba';
-    content.innerHTML=closedBlock('🔐','Solo para Primos','Ingresa tu nombre arriba para nominar y votar.');
+    label.textContent  = 'Identificación requerida';
+    title.textContent  = 'Ingresa tu nombre arriba';
+    content.innerHTML  = closedHtml('🔐','Solo para Primos','Identifícate arriba para nominar y votar.');
     return;
   }
-  if(fase===1){
-    label.textContent='Tu voz cuenta';
-    title.textContent='Emite tu Nominación';
-    content.innerHTML=buildNomForm();
-  } else if(fase===2){
-    label.textContent='Es hora de votar';
-    title.textContent='Emite tu Voto';
-    content.innerHTML=closedBlock('🗳️','Fase de Votación','Los nominados están listos. Pronto podrás votar.');
+
+  if(fase === 1){
+    label.textContent = 'Tu voz cuenta';
+    title.textContent = 'Emite tu Nominación';
+    content.innerHTML = buildNomForm();
+  } else if(fase === 2){
+    label.textContent = 'Es hora de votar';
+    title.textContent = 'Emite tu Voto';
+    content.innerHTML = closedHtml('🗳️','Fase de Votación','Entra a cada categoría arriba y vota por tu favorito.');
   } else {
-    label.textContent='Preparando la Gala';
-    title.textContent='Votaciones Cerradas';
-    content.innerHTML=closedBlock('🏆','¡Nos vemos el 4 de Junio!','Las votaciones han cerrado. La Gala está a punto de comenzar.');
+    label.textContent = 'Preparando la Gala';
+    title.textContent = 'Votaciones Cerradas';
+    content.innerHTML = closedHtml('🏆','¡Nos vemos el 4 de Junio!','Las votaciones cerraron. La Gala está a punto de comenzar.');
   }
 }
 
-function closedBlock(ico,h,p){
+function closedHtml(ico,h,p){
   return '<div class="phase-closed"><div class="phase-closed-icon">'+ico+'</div><h3>'+esc(h)+'</h3><p>'+esc(p)+'</p></div>';
 }
 
 function buildNomForm(){
-  var opts=CATS.map(function(c){ return '<option value="'+esc(c)+'">'+esc(c)+'</option>'; }).join('');
+  var opts = CATS.map(function(c){ return '<option value="'+esc(c)+'">'+esc(c)+'</option>'; }).join('');
   return '<div class="card">'
     +'<p class="hint-text">Puedes nominar hasta 2 personas por categoría.</p>'
     +'<div class="field-group"><label class="field-label">Categoría</label>'
     +'<div class="select-wrapper"><select class="field-select" id="catSelect">'+opts+'</select></div></div>'
     +'<div class="field-group"><label class="field-label">¿A quién nominas?</label>'
     +'<div class="autocomplete-wrap">'
-    +'<input class="field-input" type="text" id="nominadoInput" placeholder="Busca por nombre o apodo…" autocomplete="off" oninput="onNomInput()" onkeydown="onNomKey(event)">'
+    +'<input class="field-input" type="text" id="nominadoInput" placeholder="Busca por nombre o apodo…" autocomplete="off" oninput="onNomInput()" onkeydown="if(event.key===\'Enter\'&&acSelected)enviarNominacion()">'
     +'<div class="autocomplete-list" id="nomAcList" style="display:none"></div>'
-    +'</div></div>'
-    +'<div id="nomSelectedDisplay" style="display:none;font-family:Cormorant Garamond,serif;font-style:italic;font-size:.95rem;color:rgba(201,168,76,.8);margin-bottom:1rem;padding:.4rem 0;border-bottom:1px solid rgba(201,168,76,.15);"></div>'
+    +'</div>'
+    +'<div class="nom-selected-display" id="nomSelDisplay"></div></div>'
     +'<button class="btn-submit" onclick="enviarNominacion()">Enviar Nominación &nbsp;✦</button>'
     +'</div>';
 }
 
-// ─────────────────────────────────────────────────
-//  AUTOCOMPLETE: NOMINADO
-// ─────────────────────────────────────────────────
+// ─── AUTOCOMPLETE NOMINADO ────────────────────────────────────
 function onNomInput(){
-  acSelected=null;
-  var disp=document.getElementById('nomSelectedDisplay');
-  if(disp) disp.style.display='none';
-  clearTimeout(nomAcTimeout);
-  var q=document.getElementById('nominadoInput').value.trim();
-  if(q.length<1){ var l=document.getElementById('nomAcList'); if(l)l.style.display='none'; return; }
-  nomAcTimeout=setTimeout(function(){
-    apiCall({action:'buscarNominado',q:q},function(res){
-      var list=document.getElementById('nomAcList');
-      if(!list) return;
-      if(!res.resultados||res.resultados.length===0){
-        list.innerHTML='<div class="autocomplete-empty">No encontrado en la lista de primos</div>';
+  acSelected = null;
+  var disp = document.getElementById('nomSelDisplay');
+  if(disp) disp.style.display = 'none';
+  clearTimeout(nomAcTimer);
+  var q = (document.getElementById('nominadoInput').value || '').trim();
+  var list = document.getElementById('nomAcList');
+  if(!list) return;
+  if(q.length < 1){ list.style.display='none'; return; }
+  nomAcTimer = setTimeout(function(){
+    apiCall({action:'buscarNominado', q:q}, function(res){
+      if(!res || !res.resultados || res.resultados.length===0){
+        list.innerHTML='<div class="ac-empty">No encontrado en la lista de primos</div>';
         list.style.display='block'; return;
       }
-      list.innerHTML=res.resultados.map(function(r){
-        var label=r.apodo ? esc(r.nombreCompleto)+' <span style="color:rgba(201,168,76,.6)">(primo '+esc(r.apodo)+')</span>' : esc(r.nombreCompleto);
-        var sub=r.apodo?'<span class="ac-apodo">primo '+esc(r.apodo)+'</span>':'';
-        return '<div class="autocomplete-item" onclick="selectNomAc('+JSON.stringify(r)+')">'
-          +'<span class="ac-name">'+label+'</span>'+sub+'</div>';
+      list.innerHTML = res.resultados.map(function(r){
+        var lbl = r.apodo ? esc(r.nombreCompleto)+' <span style="color:rgba(201,168,76,.6)">(primo '+esc(r.apodo)+')</span>' : esc(r.nombreCompleto);
+        var sub = r.apodo ? '<span class="ac-apodo">primo '+esc(r.apodo)+'</span>' : '';
+        return '<div class="ac-item" onclick="selectNomAc('+JSON.stringify(r)+')">'
+          +'<span class="ac-name">'+lbl+'</span>'+sub+'</div>';
       }).join('');
       list.style.display='block';
     });
-  },280);
+  }, 280);
 }
-
-function onNomKey(e){ if(e.key==='Enter'&&acSelected) enviarNominacion(); }
 
 function selectNomAc(r){
-  acSelected=r;
-  var disp=document.getElementById('nomSelectedDisplay');
-  var list=document.getElementById('nomAcList');
-  var label=r.apodo ? r.nombreCompleto+' (primo '+r.apodo+')' : r.nombreCompleto;
-  document.getElementById('nominadoInput').value=label;
-  if(disp){ disp.textContent='Nominando a: '+label; disp.style.display='block'; }
+  acSelected = r;
+  var label = r.apodo ? r.nombreCompleto+' (primo '+r.apodo+')' : r.nombreCompleto;
+  document.getElementById('nominadoInput').value = label;
+  var list = document.getElementById('nomAcList');
   if(list) list.style.display='none';
+  var disp = document.getElementById('nomSelDisplay');
+  if(disp){ disp.textContent='Nominando a: '+label; disp.style.display='block'; }
 }
 
-// ─────────────────────────────────────────────────
-//  ENVIAR NOMINACIÓN
-// ─────────────────────────────────────────────────
 function enviarNominacion(){
-  if(!primo){showToast('Ingresa tu nombre primero');return;}
-  if(!acSelected){showToast('Selecciona un primo de la lista');return;}
-  var cat=document.getElementById('catSelect').value;
-  var dispNom=acSelected.apodo?acSelected.nombreCompleto+' (primo '+acSelected.apodo+')':acSelected.nombreCompleto;
+  if(!primo){ showToast('Ingresa tu nombre primero'); return; }
+  if(!acSelected){ showToast('Selecciona un primo de la lista de sugerencias'); return; }
+  var cat = document.getElementById('catSelect').value;
+  var dispNom = acSelected.apodo ? acSelected.nombreCompleto+' (primo '+acSelected.apodo+')' : acSelected.nombreCompleto;
   showToast('Enviando…');
   apiCall({
     action:'nominar', codigo:primo.codigo, nombre:getDisplayName(),
     categoria:cat, codNominado:acSelected.nombreCompleto, nominado:dispNom
-  },function(res){
-    showToast(res.msg||(res.ok?'¡Listo!':'Error'));
+  }, function(res){
+    if(!res){ showToast('Error de conexión'); return; }
+    showToast(res.msg || (res.ok ? '¡Listo!' : 'Error'));
     if(res.ok){
-      acSelected=null;
-      document.getElementById('nominadoInput').value='';
-      var d=document.getElementById('nomSelectedDisplay');
-      if(d) d.style.display='none';
+      acSelected = null;
+      var ni = document.getElementById('nominadoInput'); if(ni) ni.value='';
+      var nd = document.getElementById('nomSelDisplay'); if(nd) nd.style.display='none';
     }
   });
 }
 
-// ─────────────────────────────────────────────────
-//  MODAL DE CATEGORÍA
-// ─────────────────────────────────────────────────
+// ─── MODAL CATEGORÍA ──────────────────────────────────────────
 function openCatModal(cat){
-  document.getElementById('modalCatTitle').textContent=cat;
-  document.getElementById('modalCatContent').innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Cargando…</p>';
+  document.getElementById('modalCatTitle').textContent = cat;
+  document.getElementById('modalCatContent').innerHTML =
+    '<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Cargando…</p>';
   document.getElementById('catModal').classList.add('open');
-  document.body.style.overflow='hidden';
-  var fase=getFase();
-  if(fase===1){
-    apiCall({action:'statsCategoria',cat:cat},function(res){ renderCatStats(res,cat); });
+  document.body.style.overflow = 'hidden';
+  var fase = getFase();
+  if(fase === 1){
+    apiCall({action:'statsCategoria', cat:cat}, function(res){ renderNominadosRandom(res, cat); });
   } else {
-    apiCall({action:'nominadosCategoria',cat:cat},function(res){ renderCatNominados(res,cat); });
+    apiCall({action:'nominadosCategoria', cat:cat}, function(res){ renderNominadosFase2(res, cat); });
   }
 }
 
-function closeCatModal(e){
-  if(e.target===document.getElementById('catModal')) closeCatModalDirect();
-}
-function closeCatModalDirect(){
-  document.getElementById('catModal').classList.remove('open');
-  document.body.style.overflow='';
-}
+function closeCatModalBg(e){ if(e.target === document.getElementById('catModal')) closeCatModal(); }
+function closeCatModal(){ document.getElementById('catModal').classList.remove('open'); document.body.style.overflow=''; }
 
-function renderCatStats(res,cat){
-  var el=document.getElementById('modalCatContent');
-  if(!res.items||res.items.length===0){
-    el.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Aún no hay nominaciones en esta categoría.</p>';
+function renderNominadosRandom(res, cat){
+  var el = document.getElementById('modalCatContent');
+  var info = CAT_INFO[cat] || '';
+  var infoBtn = info ? '<button class="info-btn" onclick="toggleCatInfo()" title="Más info">i</button>' : '';
+  var infoPanel = info ? '<div class="cat-info-panel" id="catInfoPanel">'+esc(info)+'</div>' : '';
+
+  if(!res || !res.items || res.items.length === 0){
+    el.innerHTML = infoPanel
+      +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Aún no hay nominados en esta categoría.</p>';
     return;
   }
-  var max=res.items[0].count||1;
-  var html='<p style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:1.2rem">Nominaciones en vivo</p>';
-  html+='<div class="bar-chart">';
-  res.items.forEach(function(item,i){
-    var pct=Math.round((item.count/max)*100);
-    var vLabel=item.count===1?'1 nominación':item.count+' nominaciones';
-    html+='<div class="bar-row'+(i===0?' bar-rank-1':'')+'"><div class="bar-name"><span>'+esc(item.display)+'</span><span class="bar-votes">'+vLabel+'</span></div>'
-      +'<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
-  });
-  html+='</div>';
-  el.innerHTML=html;
-  // Animate bars
-  setTimeout(function(){
-    el.querySelectorAll('.bar-fill').forEach(function(b){ b.style.width=b.style.width; });
-  },50);
-}
 
-function renderCatNominados(res,cat){
-  var el=document.getElementById('modalCatContent');
-  if(!res.nominados||res.nominados.length===0){
-    el.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Los nominados se revelarán pronto.</p>';
-    return;
-  }
-  var html='<p style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:1.2rem">Los nominados son…</p>';
-  html+='<div class="nominados-grid">';
-  res.nominados.forEach(function(n){
-    var initial=n.display.charAt(0).toUpperCase();
-    var desc=n.descripcion||'';
-    html+='<div class="nominado-card">'
+  // Mostrar solo si admin o si es vista pública (sin votos)
+  var visibles = isAdmin() ? res.items : shuffleArr(res.items.slice());
+
+  var header = '<div style="display:flex;align-items:center;margin-bottom:1.2rem;">'
+    +'<span style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;flex:1">Nominados</span>'
+    +infoBtn+'</div>'+infoPanel;
+
+  // Admin: muestra conteo; participante: solo nombres en desorden
+  var html = header + '<div class="nominados-matrix">';
+  visibles.forEach(function(item){
+    var initial = item.display.charAt(0).toUpperCase();
+    var extraAdmin = isAdmin() ? '<span style="font-family:Cinzel,serif;font-size:.42rem;letter-spacing:.2em;color:rgba(201,168,76,.5);margin-top:.3rem;display:block">'+item.count+' nominaciones</span>' : '';
+    html += '<div class="nom-cell">'
       +'<div class="nom-avatar">'+esc(initial)+'</div>'
-      +'<div class="nom-name">'+esc(n.display)+'</div>'
-      +(desc?'<div class="nom-desc">'+esc(desc)+'</div>':'')
-      +'</div>';
+      +'<span class="nom-cell-name">'+esc(item.display)+'</span>'
+      +extraAdmin+'</div>';
   });
-  html+='</div>';
-  el.innerHTML=html;
+  html += '</div>';
+  el.innerHTML = html;
 }
 
-// ─────────────────────────────────────────────────
-//  CHAT
-// ─────────────────────────────────────────────────
+function renderNominadosFase2(res, cat){
+  var el = document.getElementById('modalCatContent');
+  var info = CAT_INFO[cat] || '';
+  var infoBtn = info ? '<button class="info-btn" onclick="toggleCatInfo()" title="Más info">i</button>' : '';
+  var infoPanel = info ? '<div class="cat-info-panel" id="catInfoPanel">'+esc(info)+'</div>' : '';
+
+  if(!res || !res.nominados || res.nominados.length === 0){
+    el.innerHTML = infoPanel + '<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.4);text-align:center;padding:2rem">Los nominados se revelarán pronto.</p>';
+    return;
+  }
+
+  var header = '<div style="display:flex;align-items:center;margin-bottom:1.2rem;">'
+    +'<span style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;flex:1">Los nominados son…</span>'
+    +infoBtn+'</div>'+infoPanel;
+
+  var html = header + '<div class="nominados-matrix">';
+  res.nominados.forEach(function(n){
+    var initial = n.display.charAt(0).toUpperCase();
+    var desc = n.descripcion ? '<div class="nom-desc">'+esc(n.descripcion)+'</div>' : '';
+    var adminVotes = isAdmin() ? '<span style="font-family:Cinzel,serif;font-size:.42rem;letter-spacing:.2em;color:rgba(201,168,76,.5);margin-top:.3rem;display:block">'+n.count+' nominaciones</span>' : '';
+    html += '<div class="nom-cell clickable" onclick="prepararVoto(\''+esc(cat)+'\',\''+esc(n.codigo)+'\',\''+esc(n.display)+'\')">'
+      +'<div class="nom-avatar">'+esc(initial)+'</div>'
+      +'<span class="nom-cell-name">'+esc(n.display)+'</span>'
+      +desc+adminVotes+'</div>';
+  });
+  html += '</div><p style="font-family:Cormorant Garamond,serif;font-style:italic;font-size:.88rem;color:rgba(245,237,224,.35);text-align:center;margin-top:1.2rem">Toca un nominado para votar por él.</p>';
+  el.innerHTML = html;
+}
+
+function toggleCatInfo(){
+  var p = document.getElementById('catInfoPanel');
+  if(p) p.classList.toggle('open');
+}
+
+// ─── CONFIRMAR VOTO ───────────────────────────────────────────
+function prepararVoto(cat, codNominado, displayNominado){
+  if(!primo){ showToast('Identifícate primero'); return; }
+  pendingVote = {cat:cat, codNominado:codNominado, displayNominado:displayNominado};
+  document.getElementById('confirmName').textContent = displayNominado;
+  document.getElementById('confirmSub').textContent  =
+    '¿Estás seguro que deseas votar por ' + displayNominado + '?\nSolo puedes votar una vez por categoría.';
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+
+function confirmarVoto(){
+  if(!pendingVote || !primo){ cancelarVoto(); return; }
+  document.getElementById('confirmOverlay').classList.remove('open');
+  showToast('Enviando voto…');
+  apiCall({
+    action:'votar', codigo:primo.codigo, nombre:getDisplayName(),
+    categoria:pendingVote.cat, codNominado:pendingVote.codNominado, nominado:pendingVote.displayNominado
+  }, function(res){
+    if(!res){ showToast('Error de conexión'); return; }
+    showToast(res.msg || (res.ok ? '¡Voto registrado!' : 'Error'));
+    pendingVote = null;
+  });
+}
+
+function cancelarVoto(){
+  pendingVote = null;
+  document.getElementById('confirmOverlay').classList.remove('open');
+}
+
+// ─── CHAT ─────────────────────────────────────────────────────
 var chatOpen=false, lastMsgCount=0, localMsgs=[];
 
 function toggleChat(){
-  chatOpen=!chatOpen;
-  document.getElementById('chatPanel').classList.toggle('open',chatOpen);
-  var fab=document.getElementById('chatFab');
-  fab.classList.toggle('open',chatOpen);
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  var fab = document.getElementById('chatFab');
+  fab.classList.toggle('open', chatOpen);
   if(chatOpen){ fab.classList.remove('has-unread'); setTimeout(function(){ var b=document.getElementById('mensajes'); b.scrollTop=b.scrollHeight; },100); }
 }
 
 function mandarChat(){
-  var user=getChatName();
-  var msg=document.getElementById('msgChat').value.trim();
+  var user = getChatName();
+  var msg  = (document.getElementById('msgChat').value || '').trim();
   if(!msg) return;
-  localMsgs.push([user,msg]); renderMsgs(localMsgs);
-  document.getElementById('msgChat').value='';
-  apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
-    if(res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
+  localMsgs.push([user, msg]); renderMsgs(localMsgs);
+  document.getElementById('msgChat').value = '';
+  apiCall({action:'chat', usuario:user, mensaje:msg}, function(res){
+    if(res && res.mensajes && Array.isArray(res.mensajes)){ localMsgs=res.mensajes; renderMsgs(localMsgs); }
   });
 }
 
 function renderMsgs(lista){
-  if(!lista||!lista.length) return;
-  var box=document.getElementById('mensajes');
-  box.innerHTML=lista.map(function(m){
-    // m[0] = "Primo Civil (Rodrigo)", m[1] = mensaje
-    var parts=String(m[0]).match(/^(.*?)\s*\(([^)]+)\)$/);
-    var nameHtml;
-    if(parts){ nameHtml='<strong>'+esc(parts[1].trim())+'</strong> <span class="chat-real-name">('+esc(parts[2].trim())+')</span>'; }
-    else { nameHtml='<strong>'+esc(String(m[0]))+'</strong>'; }
-    return '<div class="chat-msg">'+nameHtml+' &nbsp;'+esc(String(m[1]))+'</div>';
+  if(!lista || !lista.length) return;
+  var box = document.getElementById('mensajes');
+  box.innerHTML = lista.map(function(m){
+    var raw = String(m[0]||'');
+    var parts = raw.match(/^(.*?)\s*\(([^)]+)\)$/);
+    var nameHtml = parts
+      ? '<strong>'+esc(parts[1].trim())+'</strong> <span class="chat-real-name">('+esc(parts[2].trim())+')</span>'
+      : '<strong>'+esc(raw)+'</strong>';
+    return '<div class="chat-msg">'+nameHtml+' &nbsp;'+esc(String(m[1]||''))+'</div>';
   }).join('');
-  box.scrollTop=box.scrollHeight;
+  box.scrollTop = box.scrollHeight;
 }
 
 function startChatPoll(){
   function poll(){
-    apiCall({action:'mensajes'},function(res){
-      if(!res.mensajes||!Array.isArray(res.mensajes)) return;
+    apiCall({action:'mensajes'}, function(res){
+      if(!res||!res.mensajes||!Array.isArray(res.mensajes)) return;
       localMsgs=res.mensajes; renderMsgs(localMsgs);
-      if(!chatOpen&&res.mensajes.length>lastMsgCount) document.getElementById('chatFab').classList.add('has-unread');
-      lastMsgCount=res.mensajes.length;
+      if(!chatOpen && res.mensajes.length > lastMsgCount) document.getElementById('chatFab').classList.add('has-unread');
+      lastMsgCount = res.mensajes.length;
     });
   }
-  poll(); setInterval(poll,5000);
+  poll(); setInterval(poll, 5000);
 }
 
-// ─────────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────────
-function apiCall(params,cb){
-  var url=API+'?'+Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
-  fetch(url).then(function(r){return r.json();}).then(function(d){if(cb)cb(d);}).catch(function(){if(cb)cb({});});
+// ─── HELPERS ──────────────────────────────────────────────────
+function shuffleArr(arr){
+  for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
+  return arr;
+}
+
+function apiCall(params, cb){
+  var url = API+'?'+Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if(cb) cb(d); })
+    .catch(function(){ if(cb) cb(null); });
 }
 
 function showToast(msg){
   var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},3200);
+  setTimeout(function(){ t.classList.remove('show'); }, 3200);
 }
 
 function esc(s){
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 function observeFadeIns(){
   var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
   },{threshold:.08});
-  document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
+  document.querySelectorAll('.fade-in').forEach(function(el){ io.observe(el); });
   startChatPoll();
 }
 </script>
