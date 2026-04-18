@@ -363,6 +363,7 @@
       <h1 class="main-title">Primos<br>Awards</h1>
       <p class="main-subtitle">La noche más memorable de la familia</p>
       <div class="phase-badge" id="phaseBadge">— Fase 1: Nominaciones —</div>
+      <div class="event-date" id="cdLabel">Nominaciones abiertas</div>
       <div class="countdown-wrapper">
         <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
         <span class="cd-sep">·</span>
@@ -372,7 +373,6 @@
         <span class="cd-sep">·</span>
         <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Segs</span></div>
       </div>
-      <div class="event-date" id="cdLabel">Nominaciones abiertas</div>
     </div>
     <div class="scroll-hint"><span>Desplázate</span><div class="scroll-arrow"></div></div>
   </header>
@@ -484,7 +484,7 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <span class="cat-page-title" id="catPageTitle">—</span>
-    <button class="cat-info-btn" id="catInfoToggleBtn" onclick="toggleCatInfo()">i</button>
+    <button class="cat-info-btn" id="catInfoToggleBtn" onclick="toggleCatInfo()">!</button>
   </div>
   <div class="cat-page-body">
     <div class="cat-info-panel" id="catInfoPanel"></div>
@@ -539,7 +539,7 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbzAa0u5uS_A186HgFRvgyD3UdnOi4kzN23enrM38OuXrSnwBycqvxRyxmqoIP50jSWB/exec';
+var API = 'https://script.google.com/macros/s/AKfycbyxbeVyVZWDWUqFvhgPkWiLJIWCia4bQM3FNrhe_3asRCEJX7gqrH1UEIWTNhBVH5g/exec';
 
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
@@ -570,11 +570,10 @@ var CAT_INFO = {
 
 // ─── STATE ────────────────────────────────────────────────────
 var primo = null;
-var acSelected = null;   // primo seleccionado en autocomplete de nominaciones
-var acResults  = [];     // últimos resultados del autocomplete
+var acResults  = [[],[]];  // [slot0, slot1] for dupla support
+var acSelected = [null,null];
 var pendingVote = null;
 var codeVisible = false;
-var nomAcTimer = null;
 
 function getFase(){ var n=Date.now(); return n<FASE1_FIN?1:n<FASE2_FIN?2:3; }
 function isAdmin(){ return primo && primo.rol==='admin'; }
@@ -695,10 +694,23 @@ function registrarPrimo(){
   apiCall({action:'registrarPrimo',nombre:nombre},function(res){
     if(!res){showToast('Error de conexión');return;}
     if(res.ok){
-      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',rol:res.rol||'participante'});
+      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,
+        nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',rol:res.rol||'participante'});
       showWelcomeView(); renderAction(); loadMisNominaciones();
       showToast('¡Bienvenido, '+getDisplayName()+'!');
-    }else{ showToast(res.msg||'No encontrado. Verifica tu nombre.'); }
+    } else if(res.requiereCodigo){
+      // Account already exists — show code login automatically
+      showToast(res.msg);
+      var codeBlock=document.getElementById('codeLoginBlock');
+      if(codeBlock) codeBlock.style.display='block';
+      // Highlight the code input
+      setTimeout(function(){
+        var ci=document.getElementById('codeInput');
+        if(ci){ci.focus();ci.scrollIntoView({behavior:'smooth',block:'center'});}
+      },400);
+    } else {
+      showToast(res.msg||'No encontrado. Verifica tu nombre.');
+    }
   });
 }
 
@@ -770,7 +782,12 @@ function renderAction(){
     L.textContent='Identificación requerida'; T.textContent='Ingresa tu nombre arriba';
     C.innerHTML=closedHtml('🔐','Solo para Primos','Identifícate arriba para nominar y votar.'); return;
   }
-  if(fase===1){L.textContent='Tu voz cuenta';T.textContent='Emite tu Nominación';C.innerHTML=buildNomForm();}
+  if(fase===1){
+    L.textContent='Tu voz cuenta';T.textContent='Emite tu Nominación';
+    C.innerHTML=buildNomForm();
+    // Initialize fields for default category
+    onCatChange();
+  }
   else if(fase===2){L.textContent='Es hora de votar';T.textContent='Emite tu Voto';C.innerHTML=buildVotingInfo();}
   else{L.textContent='Preparando la Gala';T.textContent='Revelación de Ganadores';C.innerHTML=buildFase3Info();}
 }
@@ -778,93 +795,161 @@ function closedHtml(i,h,p){return '<div class="phase-closed"><div class="phase-c
 
 function buildNomForm(){
   var opts=CATS.map(function(c){return '<option value="'+esc(c)+'">'+esc(c)+'</option>';}).join('');
+  var isDupla=false; // will be checked dynamically
   return '<div class="action-card">'
-    +'<p class="hint-text">Puedes nominar hasta 2 personas por categoría.</p>'
+    +'<p class="hint-text">Puedes nominar hasta 2 veces por categoría.</p>'
     +'<div class="field-group"><label class="field-label">Categoría</label>'
-    +'<div class="select-wrapper"><select class="field-select" id="catSelect">'+opts+'</select></div></div>'
-    +'<div class="field-group"><label class="field-label">¿A quién nominas?</label>'
-    +'<div class="autocomplete-wrap">'
-    +'<input class="field-input" type="text" id="nominadoInput" placeholder="Busca por nombre o apodo…" autocomplete="off" oninput="onNomInput()" onkeydown="onNomKey(event)">'
-    +'<div class="autocomplete-list" id="nomAcList" style="display:none"></div>'
-    +'</div>'
-    +'<div class="nom-selected-display" id="nomSelDisplay"></div></div>'
+    +'<div class="select-wrapper"><select class="field-select" id="catSelect" onchange="onCatChange()">'+opts+'</select></div></div>'
+    +'<div id="nomFieldsWrap"></div>'
     +'<button class="btn-submit" onclick="enviarNominacion()">Enviar Nominación &nbsp;✦</button>'
     +'</div>';
 }
 
+function onCatChange(){
+  var cat=(document.getElementById('catSelect').value||'');
+  var wrap=document.getElementById('nomFieldsWrap');
+  if(!wrap) return;
+  if(cat.indexOf('Dupla')!==-1){
+    wrap.innerHTML=buildDuplaFields();
+  } else {
+    wrap.innerHTML=buildSingleNomField();
+  }
+}
+
+function buildSingleNomField(){
+  return '<div class="field-group"><label class="field-label">¿A quién nominas?</label>'
+    +'<div class="autocomplete-wrap">'
+    +'<input class="field-input" type="text" id="nominadoInput" placeholder="Busca por nombre o apodo…" autocomplete="off" oninput="onNomInput(0)" onkeydown="onNomKey(event,0)">'
+    +'<div class="autocomplete-list" id="nomAcList0" style="display:none"></div>'
+    +'</div>'
+    +'<div class="nom-selected-display" id="nomSelDisplay0"></div></div>';
+}
+
+function buildDuplaFields(){
+  return '<p style="font-family:Cormorant Garamond,serif;font-style:italic;font-size:.95rem;color:rgba(245,237,224,.5);margin-bottom:1rem;">Nomina a los dos primos de la dupla.</p>'
+    +'<div class="field-group"><label class="field-label">Primo 1 de la Dupla</label>'
+    +'<div class="autocomplete-wrap">'
+    +'<input class="field-input" type="text" id="nominadoInput0" placeholder="Busca primer primo…" autocomplete="off" oninput="onNomInput(0)" onkeydown="onNomKey(event,0)">'
+    +'<div class="autocomplete-list" id="nomAcList0" style="display:none"></div>'
+    +'</div>'
+    +'<div class="nom-selected-display" id="nomSelDisplay0"></div></div>'
+    +'<div class="field-group"><label class="field-label">Primo 2 de la Dupla</label>'
+    +'<div class="autocomplete-wrap">'
+    +'<input class="field-input" type="text" id="nominadoInput1" placeholder="Busca segundo primo…" autocomplete="off" oninput="onNomInput(1)" onkeydown="onNomKey(event,1)">'
+    +'<div class="autocomplete-list" id="nomAcList1" style="display:none"></div>'
+    +'</div>'
+    +'<div class="nom-selected-display" id="nomSelDisplay1"></div></div>';
+}
+
 // ─── AUTOCOMPLETE NOMINADO — búsqueda instantánea ─────────────
-function onNomInput(){
-  acSelected=null;
-  var disp=document.getElementById('nomSelDisplay'); if(disp) disp.style.display='none';
-  clearTimeout(nomAcTimer);
-  var q=(document.getElementById('nominadoInput').value||'').trim();
-  var list=document.getElementById('nomAcList'); if(!list) return;
-  if(q.length<1){list.style.display='none';acResults=[];return;}
-  // Sin debounce — llamada inmediata
+var acResults=[{},{}]; // index 0 and 1 for dupla
+var acSelected=[null,null];
+
+function onNomInput(idx){
+  acSelected[idx]=null;
+  var dispId='nomSelDisplay'+(idx||0);
+  var disp=document.getElementById(dispId); if(disp) disp.style.display='none';
+  var inputId=idx===1?'nominadoInput1':'nominadoInput'+(idx===0?'0':'');
+  // try both id formats
+  var inp=document.getElementById(inputId)||document.getElementById('nominadoInput');
+  var q=(inp?inp.value:'').trim();
+  var listId='nomAcList'+(idx||0);
+  var list=document.getElementById(listId); if(!list) return;
+  if(q.length<1){list.style.display='none';acResults[idx||0]=[];return;}
   apiCall({action:'buscarNominado',q:q},function(res){
-    list=document.getElementById('nomAcList'); if(!list) return;
+    list=document.getElementById(listId); if(!list) return;
+    var slot=idx||0;
     if(!res||!res.resultados||res.resultados.length===0){
-      acResults=[];
+      acResults[slot]=[];
       list.innerHTML='<div class="ac-empty">No encontrado en la lista de primos</div>';
       list.style.display='block'; return;
     }
-    acResults=res.resultados;
-    // Mostrar solo: nombre (primo apodo) si tiene apodo, o solo nombre si no
+    acResults[slot]=res.resultados;
     list.innerHTML=res.resultados.map(function(r,i){
       var display=r.apodo
         ? esc(r.nombreCompleto)+' <span style="color:rgba(201,168,76,.65);font-style:italic">(primo '+esc(r.apodo)+')</span>'
         : esc(r.nombreCompleto);
-      return '<div class="ac-item" data-idx="'+i+'" onclick="selectNomAc('+i+')">'
+      return '<div class="ac-item" onclick="selectNomAc('+slot+','+i+')">'
         +'<span class="ac-name">'+display+'</span></div>';
     }).join('');
     list.style.display='block';
   });
 }
 
-function onNomKey(e){
+function onNomKey(e,idx){
+  var slot=idx||0;
   if(e.key==='Enter'){
-    if(acResults.length>0 && !acSelected) selectNomAc(0);
-    else if(acSelected) enviarNominacion();
+    if(acResults[slot]&&acResults[slot].length>0&&!acSelected[slot]) selectNomAc(slot,0);
+    else if(acSelected[slot]) enviarNominacion();
   }
 }
 
-function selectNomAc(idx){
-  var r=acResults[idx]; if(!r) return;
-  acSelected=r;
-  // Mostrar limpio en el input: "Nombre (primo Apodo)" o solo "Nombre"
+function selectNomAc(slot,i){
+  var r=(acResults[slot]||[])[i]; if(!r) return;
+  acSelected[slot]=r;
   var inputLabel=r.apodo?r.nombreCompleto+' (primo '+r.apodo+')':r.nombreCompleto;
-  var inp=document.getElementById('nominadoInput'); if(inp) inp.value=inputLabel;
-  var list=document.getElementById('nomAcList'); if(list) list.style.display='none';
-  var disp=document.getElementById('nomSelDisplay');
-  if(disp){disp.textContent='✦ Nominando a: '+inputLabel;disp.style.display='block';}
+  // Try both input id formats
+  var inp=document.getElementById('nominadoInput'+slot)||document.getElementById('nominadoInput');
+  if(inp) inp.value=inputLabel;
+  var list=document.getElementById('nomAcList'+slot); if(list) list.style.display='none';
+  var disp=document.getElementById('nomSelDisplay'+slot);
+  if(disp){disp.textContent='✦ '+inputLabel;disp.style.display='block';}
 }
 
 // ─── ENVIAR NOMINACIÓN ────────────────────────────────────────
 function enviarNominacion(){
   if(!primo){showToast('Ingresa tu nombre primero');return;}
-  // Auto-seleccionar primer resultado si no seleccionó manualmente
-  if(!acSelected && acResults.length>0) selectNomAc(0);
-  if(!acSelected){
-    // Si escribió algo pero no hay resultados aún, intentar búsqueda
-    var q=(document.getElementById('nominadoInput').value||'').trim();
-    if(q) showToast('Selecciona un primo de la lista que aparece');
-    else showToast('Busca el nombre del primo a nominar');
-    return;
-  }
   var cat=document.getElementById('catSelect').value;
-  var dispNom=acSelected.apodo?acSelected.nombreCompleto+' (primo '+acSelected.apodo+')':acSelected.nombreCompleto;
-  showToast('Enviando…');
-  apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),
-    categoria:cat,codNominado:acSelected.nombreCompleto,nominado:dispNom},
-  function(res){
-    if(!res){showToast('Error de conexión');return;}
-    showToast(res.msg||(res.ok?'¡Listo!':'Error'));
-    if(res.ok){
-      acSelected=null; acResults=[];
-      var ni=document.getElementById('nominadoInput'); if(ni) ni.value='';
-      var nd=document.getElementById('nomSelDisplay'); if(nd) nd.style.display='none';
-      var nl=document.getElementById('nomAcList'); if(nl) nl.style.display='none';
-    }
+  var isDupla=cat.indexOf('Dupla')!==-1;
+
+  if(isDupla){
+    // Auto-select first result for each slot if needed
+    if(!acSelected[0]&&acResults[0]&&acResults[0].length>0) selectNomAc(0,0);
+    if(!acSelected[1]&&acResults[1]&&acResults[1].length>0) selectNomAc(1,0);
+    if(!acSelected[0]||!acSelected[1]){showToast('Busca y selecciona los 2 primos de la dupla');return;}
+    var r0=acSelected[0], r1=acSelected[1];
+    var dispNom=getNomDisplayName(r0)+' & '+getNomDisplayName(r1);
+    var codNom=r0.nombreCompleto+' & '+r1.nombreCompleto;
+    showToast('Enviando…');
+    apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),
+      categoria:cat,codNominado:codNom,nominado:dispNom},
+    function(res){
+      if(!res){showToast('Error de conexión');return;}
+      showToast(res.msg||(res.ok?'¡Dupla nominada!':'Error'));
+      if(res.ok) resetNomForm();
+    });
+  } else {
+    if(!acSelected[0]&&acResults[0]&&acResults[0].length>0) selectNomAc(0,0);
+    if(!acSelected[0]){showToast('Busca el primo a nominar');return;}
+    var r=acSelected[0];
+    var dispNom=getNomDisplayName(r);
+    showToast('Enviando…');
+    apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),
+      categoria:cat,codNominado:r.nombreCompleto,nominado:dispNom},
+    function(res){
+      if(!res){showToast('Error de conexión');return;}
+      showToast(res.msg||(res.ok?'¡Nominación enviada!':'Error'));
+      if(res.ok) resetNomForm();
+    });
+  }
+}
+
+function getNomDisplayName(r){
+  // Use only first name
+  var firstName=r.nombreCompleto.split(' ')[0];
+  return r.apodo?firstName+' (primo '+r.apodo+')':firstName;
+}
+
+function resetNomForm(){
+  acSelected=[null,null]; acResults=[[],[]];
+  ['nominadoInput','nominadoInput0','nominadoInput1'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  ['nomSelDisplay0','nomSelDisplay1'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.style.display='none';
+  });
+  ['nomAcList0','nomAcList1'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.style.display='none';
   });
 }
 
@@ -891,10 +976,24 @@ function openCatPage(cat){
 function closeCatPage(){
   document.getElementById('catPage').classList.remove('open');
   document.body.style.overflow='';
+  stopPageStars();
 }
 
 function toggleCatInfo(){
   document.getElementById('catInfoPanel').classList.toggle('open');
+}
+
+// Helper: extract display name from stored display string — first name + apodo only
+function cardDisplayName(display){
+  // Check if it's a dupla (contains &)
+  if(display.indexOf(' & ')!==-1) return display; // keep dupla as-is
+  var parts=display.match(/^(.*?)\s*\(primo\s+(.*?)\)$/i);
+  if(parts){
+    var firstName=parts[1].trim().split(' ')[0];
+    return {apodo:'Primo '+parts[2].trim(), name:firstName};
+  }
+  var firstName=display.split(' ')[0];
+  return {apodo:'Primo '+firstName, name:null};
 }
 
 function renderCatFase1(res,cat){
@@ -903,38 +1002,58 @@ function renderCatFase1(res,cat){
     el.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Aún no hay nominados en esta categoría.<br>¡Sé el primero en nominar!</p></div>';
     return;
   }
-  // Desorden para participantes, con conteo para admins
   var lista=isAdmin()?res.items:shuffleArr(res.items.slice());
   var html='<div class="nom-matrix">';
   lista.forEach(function(item){
-    var parts=item.display.match(/^(.*?)\s*\(primo\s+(.*?)\)$/i);
-    var apodoLine=parts?'<span class="nom-card-apodo">Primo '+esc(parts[2])+'</span><span class="nom-card-name">'+esc(parts[1].trim())+'</span>':'<span class="nom-card-apodo">Primo '+esc(item.display)+'</span>';
-    var initial=item.display.charAt(0).toUpperCase();
+    var d=cardDisplayName(item.display);
+    var isDupla=typeof d==='string';
+    var apodoLine,nameLine,initial;
+    if(isDupla){
+      apodoLine='<span class="nom-card-apodo">'+esc(item.display)+'</span>';
+      nameLine='';
+      initial='👯';
+    } else {
+      apodoLine='<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';
+      nameLine=d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'';
+      initial=d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
+    }
     var adminLine=isAdmin()?'<span class="nom-card-votes">'+item.count+' nominaciones</span>':'';
-    html+='<div class="nom-card"><div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+adminLine+'</div>';
+    html+='<div class="nom-card"><div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine+adminLine+'</div>';
   });
   html+='</div>';
   el.innerHTML=html;
+  // Primo del Año: trigger star animation for everyone
+  if(cat==='Primo del Año 🏆') startPageStars();
 }
 
 function renderCatFase2(res,cat){
   var el=document.getElementById('catPageContent');
   if(!res||!res.nominados||res.nominados.length===0){
-    el.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Los nominados se revelarán pronto.</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Aún no hay nominados suficientes.<br>Los nominados aparecerán pronto.</p></div>';
     return;
   }
   var html='<div class="nom-matrix">';
   res.nominados.forEach(function(n){
-    var parts=n.display.match(/^(.*?)\s*\(primo\s+(.*?)\)$/i);
-    var apodoLine=parts?'<span class="nom-card-apodo">Primo '+esc(parts[2])+'</span><span class="nom-card-name">'+esc(parts[1].trim())+'</span>':'<span class="nom-card-apodo">Primo '+esc(n.display)+'</span>';
-    var initial=n.display.charAt(0).toUpperCase();
+    var d=cardDisplayName(n.display);
+    var isDupla=typeof d==='string';
+    var apodoLine,nameLine,initial;
+    if(isDupla){
+      apodoLine='<span class="nom-card-apodo">'+esc(n.display)+'</span>';
+      nameLine='';
+      initial='👯';
+    } else {
+      apodoLine='<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';
+      nameLine=d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'';
+      initial=d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
+    }
     var desc=n.descripcion?'<div class="nom-card-desc">'+esc(n.descripcion)+'</div>':'';
     var adminLine=isAdmin()?'<span class="nom-card-votes">'+n.count+' nominaciones</span>':'';
     html+='<div class="nom-card clickable" onclick="prepararVoto(\''+esc(cat)+'\',\''+esc(n.codigo)+'\',\''+esc(n.display)+'\')">'
-      +'<div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+desc+adminLine+'</div>';
+      +'<div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine+desc+adminLine+'</div>';
   });
   html+='</div><p class="vote-hint">Toca a un nominado para votar por él.</p>';
   el.innerHTML=html;
+  if(cat==='Primo del Año 🏆') startPageStars();
 }
 
 // ─── CONFIRMAR VOTO ───────────────────────────────────────────
@@ -1067,13 +1186,15 @@ function buildFase3Info(){
 // ─── ADMIN: REVELAR GANADOR ───────────────────────────────────
 function adminRevealWinner(cat){
   if(!isAdmin()) return;
-  // Buscar el ganador (primer lugar en votos)
-  apiCall({action:'ganadorCategoria',cat:cat}, function(res){
-    if(!res||!res.ganador){
-      showToast('No hay votos aún en esta categoría');
-      return;
-    }
-    showWinnerReveal(cat, res.ganador);
+  apiCall({action:'ganadorCategoria',cat:cat},function(res){
+    if(!res||!res.ganador){showToast('No hay votos aún en esta categoría');return;}
+    apiCall({action:'nominadosCategoria',cat:cat},function(res2){
+      var allNom=(res2&&res2.nominados)||[];
+      res.ganador._allNominados=allNom;
+      res.ganador._cat=cat;
+      document.getElementById('winnerReveal')._pendingWinner=res.ganador;
+      showWinnerReveal(cat,res.ganador,allNom);
+    });
   });
 }
 
@@ -1088,19 +1209,69 @@ function verGanador(cat){
   });
 }
 
-function showWinnerReveal(cat, ganador){
-  // Extraer nombre display
+
+// ─── PAGE STARS (Primo del Año ambient) ──────────────────────
+var pageStarsId=null;
+function startPageStars(){
+  var existing=document.getElementById('pageStarsCanvas');
+  if(existing) existing.remove();
+  var canvas=document.createElement('canvas');
+  canvas.id='pageStarsCanvas';
+  canvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5;opacity:.6;';
+  document.getElementById('catPage').appendChild(canvas);
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  var ctx=canvas.getContext('2d');
+  var stars=[];
+  for(var i=0;i<40;i++){
+    stars.push({x:Math.random()*canvas.width,y:-10-Math.random()*200,vx:(Math.random()-.5)*.8,vy:.8+Math.random()*1.5,size:2+Math.random()*3,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.06});
+  }
+  function frame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(function(s){
+      s.x+=s.vx; s.y+=s.vy; s.rot+=s.vrot;
+      if(s.y>canvas.height+20){s.y=-10;s.x=Math.random()*canvas.width;}
+      ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.rot);
+      ctx.fillStyle='rgba(201,168,76,0.7)';
+      ctx.beginPath();
+      for(var k=0;k<5;k++){var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;if(k===0)ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);}
+      ctx.closePath();ctx.fill();ctx.restore();
+    });
+    pageStarsId=requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+function stopPageStars(){
+  if(pageStarsId){cancelAnimationFrame(pageStarsId);pageStarsId=null;}
+  var c=document.getElementById('pageStarsCanvas'); if(c) c.remove();
+}
+
+// Override closeCatPage to also stop page stars — merged below
+
+// ─── WINNER REVEAL — updated with winner/loser cards ──────────
+function showWinnerReveal(cat,ganador,allNominados){
   var display=ganador.display||'';
-  var parts=display.match(/^(.*?)\s*\(primo\s+(.*?)\)$/i);
-  var apodoDisplay=parts?'Primo '+parts[2].trim():('Primo '+display);
-  var realName=parts?parts[1].trim():(ganador.nombreCompleto||'');
-  var initial=display.charAt(0).toUpperCase();
+  var d=cardDisplayName(display);
+  var isDupla=typeof d==='string';
+  var apodoDisplay=isDupla?display:(d.apodo);
+  var realName=isDupla?'':(d.name||'');
+  var initial=isDupla?'👯':d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
 
   document.getElementById('winnerCatLabel').textContent=cat;
   document.getElementById('winnerAvatar').textContent=initial;
   document.getElementById('winnerName').textContent=apodoDisplay;
   document.getElementById('winnerRealName').textContent=realName;
   document.getElementById('winnerDesc').textContent=ganador.descripcion||'';
+
+  // Winner/loser notification for current user
+  if(primo){
+    var isWinner=ganador.codigo.indexOf(primo.nombreCompleto||'')!==-1||ganador.display.indexOf(primo.nombreDisplay||'')!==-1;
+    var isNominado=allNominados&&allNominados.some(function(n){return n.codigo.indexOf(primo.nombreCompleto||'')!==-1;});
+    // Show notification after reveal closes if applicable
+    ganador._isWinner=isWinner;
+    ganador._allNominados=allNominados;
+    ganador._cat=cat;
+  }
 
   var reveal=document.getElementById('winnerReveal');
   var stage=document.getElementById('winnerStage');
@@ -1109,22 +1280,56 @@ function showWinnerReveal(cat, ganador){
   spot.classList.remove('on');
   reveal.classList.add('active');
   document.body.style.overflow='hidden';
-
-  // Phase 1: darkness
-  setTimeout(function(){ spot.classList.add('on'); }, 300);
-  // Phase 2: winner appears
-  setTimeout(function(){ stage.classList.add('shown'); }, 1200);
-  // Phase 3: stars
-  setTimeout(function(){ startStars(); }, 1500);
+  setTimeout(function(){spot.classList.add('on');},300);
+  setTimeout(function(){stage.classList.add('shown');},1200);
+  setTimeout(function(){startStars();},1500);
 }
 
 function closeWinnerReveal(){
-  document.getElementById('winnerReveal').classList.remove('active');
+  var reveal=document.getElementById('winnerReveal');
+  var winner=reveal._pendingWinner;
+  reveal.classList.remove('active');
   document.body.style.overflow='';
   stopStars();
+  // Show winner/loser notification if applicable
+  if(winner&&primo){
+    var myCode=primo.nombreCompleto||'';
+    var isWinner=winner.codigo&&(winner.codigo===myCode||winner.codigo.indexOf(myCode)!==-1);
+    var isNominado=winner._allNominados&&winner._allNominados.some(function(n){return n.codigo&&n.codigo.indexOf(myCode)!==-1;});
+    if(isWinner) showWinnerCard(winner._cat,winner);
+    else if(isNominado) showLoserCard(winner._cat);
+  }
 }
 
-// ─── STARS ANIMATION ──────────────────────────────────────────
+// ─── WINNER NOTIFICATION CARD ─────────────────────────────────
+function showWinnerCard(cat,ganador){
+  var d=cardDisplayName(ganador.display||'');
+  var name=typeof d==='string'?d:d.apodo;
+  var html='<div id="notifCard" style="position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:2rem;">'
+    +'<div style="background:linear-gradient(160deg,rgba(201,168,76,.15),rgba(13,10,6,.95));border:1px solid rgba(201,168,76,.5);padding:2.5rem 2rem;max-width:360px;width:100%;text-align:center;position:relative;">'
+    +'<div style="position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.2) 25%,transparent 50%,rgba(201,168,76,.15) 75%,transparent);animation:auraSpin 4s linear infinite;pointer-events:none;"></div>'
+    +'<div style="position:absolute;inset:1px;background:rgba(8,8,8,.92);z-index:0;"></div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div style="font-size:2.5rem;margin-bottom:.8rem">🏆</div>'
+    +'<div style="font-family:Cinzel,serif;font-size:.55rem;letter-spacing:.4em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:.6rem">¡Felicidades!</div>'
+    +'<div style="font-family:Cinzel Decorative,serif;font-size:1.4rem;background:linear-gradient(135deg,#e8d08a,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem">'+esc(name)+'</div>'
+    +'<div style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.6);font-size:1rem;line-height:1.6;margin-bottom:1.5rem">Eres el ganador de <em>'+esc(cat)+'</em>. Los primos lo decidieron. ¡Lo lograste!</div>'
+    +'<button onclick="document.getElementById(\'notifCard\').remove()" style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid rgba(201,168,76,.4);padding:.7rem 1.5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;">Cerrar ✕</button>'
+    +'</div></div></div>';
+  document.body.insertAdjacentHTML('beforeend',html);
+}
+
+function showLoserCard(cat){
+  var html='<div id="notifCard" style="position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:2rem;">'
+    +'<div style="background:linear-gradient(160deg,rgba(180,180,180,.08),rgba(13,10,6,.95));border:1px solid rgba(180,180,180,.25);padding:2.5rem 2rem;max-width:360px;width:100%;text-align:center;position:relative;">'
+    +'<div style="font-size:2rem;margin-bottom:.8rem">🥈</div>'
+    +'<div style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.4em;color:rgba(200,200,200,.6);text-transform:uppercase;margin-bottom:.6rem">Esta vez no fue</div>'
+    +'<div style="font-family:Cinzel Decorative,serif;font-size:1.3rem;color:rgba(220,220,220,.8);margin-bottom:.5rem">Llegaste lejos</div>'
+    +'<div style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.45);font-size:1rem;line-height:1.6;margin-bottom:1.5rem">En <em>'+esc(cat)+'</em> los primos eligieron a otro. El próximo año será… sigue esforzándote. ✦</div>'
+    +'<button onclick="document.getElementById(\'notifCard\').remove()" style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(200,200,200,.6);background:transparent;border:1px solid rgba(180,180,180,.25);padding:.7rem 1.5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;">Cerrar</button>'
+    +'</div></div>';
+  document.body.insertAdjacentHTML('beforeend',html);
+}
 var starsAnimId=null;
 function startStars(){
   var canvas=document.getElementById('starsCanvas');
