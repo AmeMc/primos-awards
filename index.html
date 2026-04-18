@@ -185,10 +185,10 @@
     .nom-card::before{top:6px;left:6px;border-width:1px 0 0 1px;}
     .nom-card::after{bottom:6px;right:6px;border-width:0 1px 1px 0;}
     .nom-card-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.08));border:1px solid rgba(201,168,76,.35);margin:0 auto .75rem;display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;font-size:1.1rem;color:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.12);}
-    .nom-card-apodo{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.15em;color:var(--gold-light);text-transform:uppercase;display:block;margin-bottom:.2rem;line-height:1.4;}
-    .nom-card-name{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.5);display:block;line-height:1.3;}
-    .nom-card-desc{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:rgba(245,237,224,.35);margin-top:.4rem;line-height:1.4;}
-    .nom-card-votes{font-family:'Cinzel',serif;font-size:.4rem;letter-spacing:.2em;color:rgba(201,168,76,.45);margin-top:.4rem;text-transform:uppercase;}
+    .nom-card-apodo{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.1em;color:var(--gold-light);text-transform:uppercase;display:block;margin-bottom:.3rem;line-height:1.35;}
+    .nom-card-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,224,.55);display:block;line-height:1.3;}
+    .nom-card-desc{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.35);margin-top:.4rem;line-height:1.4;}
+    .nom-card-votes{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.2em;color:rgba(201,168,76,.5);margin-top:.4rem;text-transform:uppercase;}
     .vote-hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.92rem;color:rgba(245,237,224,.3);text-align:center;margin-top:1.2rem;line-height:1.5;}
 
     /* ACTION (nom form) */
@@ -300,6 +300,18 @@
     .winner-close-btn:hover{border-color:var(--gold);color:var(--gold);}
     /* Gold stars rain */
     .stars-canvas{position:absolute;inset:0;pointer-events:none;}
+
+    /* PAGE STARS CANVAS — fixed to viewport, not catPage */
+    #pageStarsCanvas{position:fixed;inset:0;pointer-events:none;z-index:301;opacity:.7;}
+
+    /* MINI-GAME — all nominations done */
+    .minigame-wrap{text-align:center;padding:1.5rem 1rem;}
+    .minigame-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;}
+    .minigame-sub{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.45);margin-bottom:1.5rem;line-height:1.5;}
+    #mgCanvas{display:block;margin:0 auto;border:1px solid rgba(201,168,76,.2);background:rgba(0,0,0,.4);cursor:none;touch-action:none;}
+    .mg-score-row{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.25em;color:rgba(201,168,76,.6);text-transform:uppercase;}
+    .mg-restart{margin-top:.8rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.6);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;padding:.55rem 1.2rem;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;}
+    .mg-restart:hover{border-color:var(--gold);color:var(--gold);}
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
@@ -539,9 +551,9 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbyxbeVyVZWDWUqFvhgPkWiLJIWCia4bQM3FNrhe_3asRCEJX7gqrH1UEIWTNhBVH5g/exec';
+var API = 'https://script.google.com/macros/s/AKfycbz-pTVmRE2NKWsPNo5NaPFn5ZouOKDoFtaDUmtIiKDzkQC7Ai07QBcuWpN-YJUwxyu3/exec';
 
-var FASE1_FIN = new Date('2026-04-11T00:00:00').getTime();
+var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
 var GALA_DATE = new Date('2026-06-27T20:00:00').getTime(); // actualizado al 27 junio
 
@@ -783,13 +795,21 @@ function renderAction(){
     C.innerHTML=closedHtml('🔐','Solo para Primos','Identifícate arriba para nominar y votar.'); return;
   }
   if(fase===1){
-    L.textContent='Tu voz cuenta';T.textContent='Emite tu Nominación';
-    C.innerHTML=buildNomForm();
-    // Initialize fields for default category
-    onCatChange();
+    L.textContent='Tu voz cuenta'; T.textContent='Emite tu Nominación';
+    // Check how many nominations emitted — show mini-game if all done
+    apiCall({action:'misEmitidas',codigo:primo.codigo},function(res){
+      var total=(res&&res.total!==undefined)?res.total:0;
+      var maxPosible=CATS.length*2;
+      if(total>=maxPosible){
+        L.textContent='¡Todo listo!'; T.textContent='Nominaciones completadas';
+        C.innerHTML=buildMiniGame(); initMiniGame();
+      } else {
+        C.innerHTML=buildNomForm(); onCatChange();
+      }
+    });
   }
   else if(fase===2){L.textContent='Es hora de votar';T.textContent='Emite tu Voto';C.innerHTML=buildVotingInfo();}
-  else{L.textContent='Preparando la Gala';T.textContent='Revelación de Ganadores';C.innerHTML=buildFase3Info();}
+  else{L.textContent='La Gran Noche';T.textContent='Revelación de Ganadores';C.innerHTML=buildFase3Info();}
 }
 function closedHtml(i,h,p){return '<div class="phase-closed"><div class="phase-closed-icon">'+i+'</div><h3>'+esc(h)+'</h3><p>'+esc(p)+'</p></div>';}
 
@@ -1217,23 +1237,37 @@ function startPageStars(){
   if(existing) existing.remove();
   var canvas=document.createElement('canvas');
   canvas.id='pageStarsCanvas';
-  canvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5;opacity:.6;';
-  document.getElementById('catPage').appendChild(canvas);
+  // Attach to body so fixed positioning works correctly
+  document.body.appendChild(canvas);
   canvas.width=window.innerWidth; canvas.height=window.innerHeight;
   var ctx=canvas.getContext('2d');
   var stars=[];
-  for(var i=0;i<40;i++){
-    stars.push({x:Math.random()*canvas.width,y:-10-Math.random()*200,vx:(Math.random()-.5)*.8,vy:.8+Math.random()*1.5,size:2+Math.random()*3,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.06});
+  for(var i=0;i<50;i++){
+    stars.push({
+      x:Math.random()*canvas.width,
+      y:-10-Math.random()*canvas.height*0.5,
+      vx:(Math.random()-.5)*.9,
+      vy:1+Math.random()*2,
+      size:2.5+Math.random()*3.5,
+      rot:Math.random()*Math.PI*2,
+      vrot:(Math.random()-.5)*.08
+    });
   }
   function frame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     stars.forEach(function(s){
       s.x+=s.vx; s.y+=s.vy; s.rot+=s.vrot;
-      if(s.y>canvas.height+20){s.y=-10;s.x=Math.random()*canvas.width;}
+      if(s.y>canvas.height+20){s.y=-15;s.x=Math.random()*canvas.width;}
       ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.rot);
-      ctx.fillStyle='rgba(201,168,76,0.7)';
+      ctx.fillStyle='rgba(201,168,76,0.75)';
       ctx.beginPath();
-      for(var k=0;k<5;k++){var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;if(k===0)ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);}
+      for(var k=0;k<5;k++){
+        var a=k*4*Math.PI/5-Math.PI/2;
+        var ai=a+2*Math.PI/5;
+        if(k===0) ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);
+        else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);
+        ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);
+      }
       ctx.closePath();ctx.fill();ctx.restore();
     });
     pageStarsId=requestAnimationFrame(frame);
@@ -1378,6 +1412,153 @@ function stopStars(){
 function shuffleArr(arr){
   for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
   return arr;
+}
+
+// ─── MINI-GAME — Atrapa las Estrellas ────────────────────────
+function buildMiniGame(){
+  return '<div class="minigame-wrap">'
+    +'<div class="minigame-title">✦ Mientras esperas ✦</div>'
+    +'<div class="minigame-sub">Completaste todas tus nominaciones. Atrapa las estrellas doradas, esquiva las rojas.</div>'
+    +'<canvas id="mgCanvas" width="320" height="220"></canvas>'
+    +'<div class="mg-score-row">'
+    +'<span>Puntos: <strong id="mgScore">0</strong></span>'
+    +'<span>Nivel: <strong id="mgLevel">1</strong></span>'
+    +'<span>Vidas: <span id="mgLives">❤️❤️❤️</span></span>'
+    +'</div>'
+    +'<button class="mg-restart" onclick="initMiniGame()">Reiniciar ↺</button>'
+    +'</div>';
+}
+
+var mgRAF=null;
+function initMiniGame(){
+  if(mgRAF){cancelAnimationFrame(mgRAF);mgRAF=null;}
+  var canvas=document.getElementById('mgCanvas');
+  if(!canvas) return;
+  var W=Math.min(320,window.innerWidth-56);
+  var H=Math.round(W*0.68);
+  canvas.width=W; canvas.height=H;
+  var ctx=canvas.getContext('2d');
+
+  var state={
+    score:0,level:1,lives:3,frame:0,spawnRate:70,
+    running:true,gameover:false,
+    paddle:{x:W/2-32,w:64,h:9,y:H-16},
+    stars:[],bombs:[]
+  };
+
+  // Controls
+  function getX(e){
+    var r=canvas.getBoundingClientRect();
+    return (e.touches?e.touches[0].clientX:e.clientX)-r.left;
+  }
+  canvas.onmousemove=function(e){
+    if(!state.running) return;
+    state.paddle.x=Math.max(0,Math.min(W-state.paddle.w,getX(e)-state.paddle.w/2));
+  };
+  canvas.ontouchmove=function(e){
+    e.preventDefault();
+    if(!state.running) return;
+    state.paddle.x=Math.max(0,Math.min(W-state.paddle.w,getX(e)-state.paddle.w/2));
+  };
+  canvas.onclick=function(){if(state.gameover) initMiniGame();};
+
+  function updUI(){
+    var s=document.getElementById('mgScore');if(s)s.textContent=state.score;
+    var l=document.getElementById('mgLevel');if(l)l.textContent=state.level;
+    var v=document.getElementById('mgLives');if(v)v.textContent=state.lives>0?'❤️'.repeat(state.lives):'💔';
+  }
+
+  function drawStarShape(ctx,x,y,size,rot,color,glow){
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+    if(glow){ctx.shadowColor=color;ctx.shadowBlur=10;}
+    ctx.fillStyle=color;
+    ctx.beginPath();
+    for(var k=0;k<5;k++){
+      var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;
+      if(k===0)ctx.moveTo(Math.cos(a)*size,Math.sin(a)*size);
+      else ctx.lineTo(Math.cos(a)*size,Math.sin(a)*size);
+      ctx.lineTo(Math.cos(ai)*size*.42,Math.sin(ai)*size*.42);
+    }
+    ctx.closePath();ctx.fill();ctx.restore();
+  }
+
+  function loop(){
+    if(!state.running){
+      // Game over screen
+      ctx.fillStyle='rgba(0,0,0,0.82)';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='rgba(201,168,76,0.9)';
+      ctx.font='bold '+Math.round(W*.065)+'px Cinzel,serif';ctx.textAlign='center';
+      ctx.fillText('FIN DEL JUEGO',W/2,H*.38);
+      ctx.font=Math.round(W*.048)+'px Cinzel,serif';
+      ctx.fillText('Puntos: '+state.score,W/2,H*.54);
+      ctx.fillStyle='rgba(245,237,224,.4)';
+      ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';
+      ctx.fillText('Toca para reiniciar',W/2,H*.7);
+      state.gameover=true; return;
+    }
+
+    state.frame++;
+    // Level up
+    if(state.frame%420===0){
+      state.level=Math.min(12,state.level+1);
+      state.spawnRate=Math.max(28,state.spawnRate-7);
+    }
+    // Spawn
+    if(state.frame%state.spawnRate===0){
+      state.stars.push({x:10+Math.random()*(W-20),y:-12,
+        vy:1.2+state.level*.35+Math.random()*.7,
+        size:7+Math.random()*5,rot:Math.random()*Math.PI*2,vrot:.05+Math.random()*.05});
+    }
+    if(state.frame%(state.spawnRate*4)===0&&state.level>=2){
+      state.bombs.push({x:10+Math.random()*(W-20),y:-12,
+        vy:.9+state.level*.25+Math.random()*.4,r:7});
+    }
+
+    // Draw BG
+    ctx.fillStyle='rgba(8,8,8,0.97)';ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(201,168,76,0.04)';ctx.lineWidth=1;
+    for(var gx=0;gx<W;gx+=36){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
+    for(var gy=0;gy<H;gy+=36){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
+
+    // Paddle
+    var p=state.paddle;
+    var g=ctx.createLinearGradient(p.x,0,p.x+p.w,0);
+    g.addColorStop(0,'rgba(138,106,32,0.9)');g.addColorStop(.5,'rgba(232,208,138,0.95)');g.addColorStop(1,'rgba(138,106,32,0.9)');
+    ctx.fillStyle=g;ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=8;
+    ctx.fillRect(p.x,p.y,p.w,p.h);ctx.shadowBlur=0;
+
+    // Stars
+    state.stars=state.stars.filter(function(s){
+      s.y+=s.vy;s.rot+=s.vrot;
+      var caught=(s.y+s.size>p.y&&s.y-s.size<p.y+p.h&&s.x>p.x&&s.x<p.x+p.w);
+      if(caught){state.score+=10*state.level;updUI();return false;}
+      if(s.y>H+16){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
+      drawStarShape(ctx,s.x,s.y,s.size,s.rot,'rgba(201,168,76,.92)',true);
+      return true;
+    });
+
+    // Bombs
+    state.bombs=state.bombs.filter(function(b){
+      b.y+=b.vy;
+      var hit=(b.y+b.r>p.y&&b.y-b.r<p.y+p.h&&b.x>p.x&&b.x<p.x+p.w);
+      if(hit){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
+      if(b.y>H+16) return false;
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(210,55,55,.88)';ctx.shadowColor='rgba(210,55,55,.5)';ctx.shadowBlur=6;
+      ctx.fill();ctx.shadowBlur=0;
+      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+      ctx.fillText('✕',b.x,b.y+3.5);
+      return true;
+    });
+
+    // Score overlay
+    ctx.fillStyle='rgba(201,168,76,.35)';
+    ctx.font=Math.round(W*.042)+'px Cinzel,serif';ctx.textAlign='right';
+    ctx.fillText('Lvl '+state.level,W-8,16);
+
+    mgRAF=requestAnimationFrame(loop);
+  }
+  loop();
 }
 function apiCall(params,cb){
   var url=API+'?'+Object.keys(params).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}).join('&');
