@@ -106,7 +106,7 @@
     .code-value{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;color:rgba(201,168,76,.7);}
     .code-eye-btn{background:none;border:1px solid rgba(201,168,76,.25);color:rgba(201,168,76,.5);width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .25s;flex-shrink:0;}
     .code-eye-btn:hover{border-color:var(--gold);color:var(--gold);}
-    .admin-tag{font-family:'Cinzel',serif;font-size:.38rem;letter-spacing:.25em;color:var(--black);background:linear-gradient(135deg,var(--gold-light),var(--gold));padding:.18rem .45rem;text-transform:uppercase;margin-left:.5rem;vertical-align:middle;}
+    .admin-tag{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.28em;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-transform:uppercase;margin-left:.6rem;vertical-align:middle;border:1px solid rgba(201,168,76,.4);padding:.2rem .5rem;display:inline-block;}
     .welcome-bottom{padding:1.5rem 2rem;}
     /* Apodo block inside welcome */
     .apodo-block{padding:1rem 1.5rem;background:rgba(201,168,76,.03);border-top:1px solid rgba(201,168,76,.1);}
@@ -253,18 +253,51 @@
     .footer-title{font-family:'Cinzel Decorative',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .footer-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:rgba(245,237,224,.3);letter-spacing:.1em;line-height:2.2;}
 
-    /* VOTING INFO SECTION */
-    .voting-info-card{background:linear-gradient(135deg,rgba(201,168,76,.04),rgba(13,10,6,.8));border:1px solid rgba(201,168,76,.2);padding:1.75rem 1.25rem;position:relative;}
+    /* VOTING INFO — mobile-first readable */
+    .voting-info-card{background:linear-gradient(135deg,rgba(201,168,76,.04),rgba(13,10,6,.8));border:1px solid rgba(201,168,76,.2);padding:1.5rem 1.1rem;position:relative;}
     .voting-info-card::before,.voting-info-card::after{content:'';position:absolute;width:14px;height:14px;border-color:rgba(201,168,76,.5);border-style:solid;}
     .voting-info-card::before{top:9px;left:9px;border-width:1px 0 0 1px;}
     .voting-info-card::after{bottom:9px;right:9px;border-width:0 1px 1px 0;}
-    .voting-steps{list-style:none;margin:1.2rem 0;}
-    .voting-steps li{display:flex;gap:.9rem;align-items:flex-start;padding:.75rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:rgba(245,237,224,.7);line-height:1.55;}
+    .voting-steps{list-style:none;margin:1rem 0;}
+    .voting-steps li{display:grid;grid-template-columns:28px 1fr;gap:.7rem;align-items:flex-start;padding:.75rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.8);line-height:1.55;}
     .voting-steps li:last-child{border-bottom:none;}
-    .step-num{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;color:var(--gold);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.15rem;}
-    .closing-date-box{margin-top:1.5rem;border:1px solid rgba(201,168,76,.3);padding:1.1rem 1.2rem;text-align:center;background:rgba(201,168,76,.04);}
-    .closing-label{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.45em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:.4rem;display:block;}
-    .closing-date{font-family:'Cinzel Decorative',serif;font-size:clamp(1rem,4vw,1.4rem);background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .voting-steps li em{color:var(--gold-light);font-style:italic;}
+    .step-num{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;color:var(--gold);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.15rem;}
+    .closing-date-box{margin-top:1.2rem;border:1px solid rgba(201,168,76,.3);padding:.9rem 1rem;text-align:center;background:rgba(201,168,76,.04);}
+    .closing-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.38em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:.35rem;display:block;}
+    .closing-date{font-family:'Cinzel Decorative',serif;font-size:clamp(.9rem,3.5vw,1.25rem);background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* LEADERBOARD */
+    .lb-wrap{margin-top:1rem;border:1px solid rgba(201,168,76,.15);background:rgba(0,0,0,.3);}
+    .lb-title{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.38em;color:rgba(201,168,76,.6);text-transform:uppercase;text-align:center;padding:.7rem;border-bottom:1px solid rgba(201,168,76,.1);}
+    .lb-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;border-bottom:1px solid rgba(201,168,76,.06);}
+    .lb-row:last-child{border-bottom:none;}
+    .lb-rank{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;color:rgba(201,168,76,.45);min-width:20px;text-align:center;flex-shrink:0;}
+    .lb-rank.gold{color:var(--gold-light);}
+    .lb-name{flex:1;font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.7);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .lb-name.gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;position:relative;}
+    .lb-name.gold::before{content:'';position:absolute;inset:-3px -6px;background:radial-gradient(ellipse,rgba(201,168,76,.15) 0%,transparent 70%);animation:glowPulse 2s ease-in-out infinite;pointer-events:none;border-radius:3px;}
+    .lb-score{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;color:rgba(201,168,76,.65);flex-shrink:0;}
+    .lb-me{background:rgba(201,168,76,.05);}
+
+    /* GAMES SCREEN */
+    #gamesScreen{position:fixed;inset:0;z-index:400;background:var(--black);overflow-y:auto;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+    #gamesScreen.open{transform:translateX(0);}
+    .games-header{position:sticky;top:0;z-index:10;background:rgba(8,8,8,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.15);padding:.9rem 1.25rem;display:flex;align-items:center;gap:.8rem;}
+    .games-back-btn{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .25s;flex-shrink:0;}
+    .games-back-btn:hover{border-color:var(--gold);}
+    .games-header-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;flex:1;text-align:center;}
+    .games-body{padding:1.5rem 1.25rem 4rem;max-width:600px;margin:0 auto;}
+    .game-tabs{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem;}
+    .game-tab{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.18);padding:1rem .7rem;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .3s;}
+    .game-tab:hover,.game-tab:active,.game-tab.active{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.08);}
+    .game-tab-emoji{font-size:1.5rem;display:block;margin-bottom:.4rem;}
+    .game-tab-name{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;}
+
+    /* DODGE GAME */
+    #mgCanvas2{display:block;margin:0 auto;border:1px solid rgba(201,168,76,.2);background:rgba(0,0,0,.4);touch-action:none;}
+
+
 
     /* ADMIN PANEL */
     .admin-panel{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.25);padding:1.5rem 1.25rem;margin-bottom:1.5rem;}
@@ -505,6 +538,39 @@
   </div>
 </div>
 
+<!-- GAMES SCREEN (fase 3) -->
+<div id="gamesScreen">
+  <div class="games-header">
+    <button class="games-back-btn" onclick="closeGamesScreen()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span class="games-header-title">✦ Primos Games ✦</span>
+    <div style="width:36px"></div>
+  </div>
+  <div class="games-body">
+    <div class="game-tabs">
+      <div class="game-tab active" id="gameTab1" onclick="switchGame(1)">
+        <span class="game-tab-emoji">⭐</span>
+        <span class="game-tab-name">Atrapa Estrellas</span>
+      </div>
+      <div class="game-tab" id="gameTab2" onclick="switchGame(2)">
+        <span class="game-tab-emoji">🏃</span>
+        <span class="game-tab-name">Esquiva Bombas</span>
+      </div>
+    </div>
+    <div id="gameZone1"><canvas id="mgCanvas" width="320" height="220"></canvas>
+      <div class="mg-score-row"><span>Puntos: <strong id="mgScore">0</strong></span><span>Nivel: <strong id="mgLevel">1</strong></span><span>Vidas: <span id="mgLives">❤️❤️❤️</span></span></div>
+      <button class="mg-restart" onclick="initMiniGame()">Reiniciar ↺</button>
+      <div class="lb-wrap" id="lb1"><div class="lb-title">🏆 Ranking Global</div><div id="lb1rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>
+    </div>
+    <div id="gameZone2" style="display:none"><canvas id="mgCanvas2" width="320" height="220"></canvas>
+      <div class="mg-score-row"><span>Puntos: <strong id="mg2Score">0</strong></span><span>Nivel: <strong id="mg2Level">1</strong></span><span>Vidas: <span id="mg2Lives">❤️❤️❤️</span></span></div>
+      <button class="mg-restart" onclick="initDodgeGame()">Reiniciar ↺</button>
+      <div class="lb-wrap" id="lb2"><div class="lb-title">🏆 Ranking Global</div><div id="lb2rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- WINNER REVEAL SCREEN -->
 <div id="winnerReveal">
   <canvas class="stars-canvas" id="starsCanvas"></canvas>
@@ -551,7 +617,7 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbz-pTVmRE2NKWsPNo5NaPFn5ZouOKDoFtaDUmtIiKDzkQC7Ai07QBcuWpN-YJUwxyu3/exec';
+var API = 'https://script.google.com/macros/s/AKfycbx-Sde1dD8qdqbEqd9Wqq37SvdVMDikpuLA1B_LvISrRwoOHCf8r7lrY8GKClyEAvJ9/exec';
 
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
@@ -641,7 +707,24 @@ function loadSavedIdentity(){
     if(s){
       var d=JSON.parse(s);
       if(d&&d.codigo&&d.nombreDisplay&&d.nombreCompleto){
-        primo=d; showWelcomeView(); renderAction(); loadMisNominaciones(); return;
+        // Verify against server — if deleted from Primos sheet, auto-logout
+        apiCall({action:'loginCodigo',codigo:d.codigo},function(res){
+          if(res&&res.ok){
+            // Still valid — restore session
+            primo=d;
+            // Update rol in case it changed
+            if(res.rol) primo.rol=res.rol;
+            try{localStorage.setItem('primoID_v2',JSON.stringify(primo));}catch(e){}
+            showWelcomeView(); renderAction(); loadMisNominaciones();
+          } else {
+            // Deleted from sheet — clear session, force re-register
+            try{localStorage.removeItem('primoID_v2');}catch(e){}
+            primo=null;
+            showRegisterView(); renderAction();
+            showToast('Tu sesión fue cerrada. Vuelve a ingresar tu nombre.');
+          }
+        });
+        return;
       }
     }
   }catch(e){}
@@ -767,6 +850,7 @@ function loadMisNominaciones(){
   apiCall({action:'miNominaciones',codigo:primo.codigo},function(res){
     if(!res||!res.cats||res.cats.length===0) return;
     var wrap=document.getElementById('nominadoBannerWrap');
+    if(!wrap) return;
     var plural=res.cats.length===1?'la siguiente categoría:':'las siguientes categorías:';
     var li=res.cats.map(function(c){return '<li>'+esc(c.cat)+'</li>';}).join('');
     wrap.innerHTML='<div class="nominado-banner">'
@@ -775,7 +859,16 @@ function loadMisNominaciones(){
       +'<ul>'+li+'</ul>'
       +'<div class="field-group"><label class="field-label">Escribe algo para los primos</label>'
       +'<input class="field-input" type="text" id="miDescInput" placeholder="Un mensaje para la gala…" maxlength="120" onkeydown="if(event.key===\'Enter\')guardarMiDesc()">'
-      +'</div><button class="btn-submit" onclick="guardarMiDesc()">Guardar mensaje ✦</button></div>';
+      +'</div>'
+      +'<div class="field-group" style="margin-top:.5rem"><label class="field-label">Tu canción de entrada 🎵</label>'
+      +'<input class="field-input" type="text" id="miCancionInput" placeholder="Artista - Canción…" maxlength="120" onkeydown="if(event.key===\'Enter\')guardarMiCancion()">'
+      +'<p style="font-family:Cormorant Garamond,serif;font-size:.82rem;font-style:italic;color:rgba(245,237,224,.3);margin-top:.4rem">Solo visible para ti y los administradores.</p>'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">'
+      +'<button class="btn-submit" onclick="guardarMiDesc()" style="margin-top:0">Guardar mensaje ✦</button>'
+      +'<button class="btn-submit" onclick="guardarMiCancion()" style="margin-top:0;border-color:rgba(201,168,76,.25);color:rgba(201,168,76,.6)">Guardar canción 🎵</button>'
+      +'</div>'
+      +'</div>';
   });
 }
 function guardarMiDesc(){
@@ -783,6 +876,13 @@ function guardarMiDesc(){
   if(!desc){showToast('Escribe algo primero');return;}
   apiCall({action:'guardarDesc',codigo:primo.codigo,desc:desc},function(res){
     if(res&&res.ok) showToast('¡Mensaje guardado! ✦');
+  });
+}
+function guardarMiCancion(){
+  var cancion=(document.getElementById('miCancionInput').value||'').trim();
+  if(!cancion){showToast('Escribe el nombre de la canción');return;}
+  apiCall({action:'guardarCancion',codigo:primo.codigo,cancion:cancion},function(res){
+    if(res&&res.ok) showToast('¡Canción guardada! 🎵');
   });
 }
 
@@ -808,8 +908,23 @@ function renderAction(){
       }
     });
   }
-  else if(fase===2){L.textContent='Es hora de votar';T.textContent='Emite tu Voto';C.innerHTML=buildVotingInfo();}
-  else{L.textContent='La Gran Noche';T.textContent='Revelación de Ganadores';C.innerHTML=buildFase3Info();}
+  else if(fase===2){
+    L.textContent='Es hora de votar';T.textContent='Emite tu Voto';
+    // Check if all votes done
+    apiCall({action:'misVotosEmitidos',codigo:primo.codigo},function(res){
+      var total=(res&&res.total!==undefined)?res.total:0;
+      if(total>=CATS.length){
+        L.textContent='¡Todo listo!'; T.textContent='Votaciones completadas';
+        C.innerHTML=buildMiniGame2(); initDodgeGame();
+      } else {
+        C.innerHTML=buildVotingInfo();
+      }
+    });
+  }
+  else{
+    L.textContent='La Gran Noche';T.textContent='Revelación de Ganadores';
+    C.innerHTML=buildFase3Info();
+  }
 }
 function closedHtml(i,h,p){return '<div class="phase-closed"><div class="phase-closed-icon">'+i+'</div><h3>'+esc(h)+'</h3><p>'+esc(p)+'</p></div>';}
 
@@ -1167,13 +1282,13 @@ function buildVotingInfo(){
   }
   return adminPanel
     +'<div class="voting-info-card">'
-    +'<p style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.4em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:1rem">¿Cómo votar?</p>'
+    +'<p style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:1rem;text-align:center">¿Cómo votar?</p>'
     +'<ul class="voting-steps">'
-    +'<li><span class="step-num">1</span>Sube a la sección <em>Categorías en Juego</em> y toca la categoría que quieras votar.</li>'
-    +'<li><span class="step-num">2</span>Verás los 6 primos más nominados de esa categoría. Lee sus nombres y descripciones.</li>'
-    +'<li><span class="step-num">3</span>Toca la tarjeta del primo por quien quieres votar y confirma tu voto.</li>'
-    +'<li><span class="step-num">4</span>Solo puedes votar <em>una vez por categoría</em>. Elige bien, ¡no hay cambios!</li>'
-    +'<li><span class="step-num">5</span>Puedes votar en todas las categorías — cada una cuenta de forma independiente.</li>'
+    +'<li><div class="step-num">1</div><div>Sube a <em>Categorías en Juego</em> y toca la que quieras votar.</div></li>'
+    +'<li><div class="step-num">2</div><div>Verás los primos más nominados. Lee sus nombres y descripciones.</div></li>'
+    +'<li><div class="step-num">3</div><div>Toca la tarjeta del primo y confirma tu voto.</div></li>'
+    +'<li><div class="step-num">4</div><div>Solo puedes votar <em>una vez por categoría</em>. ¡No hay cambios!</div></li>'
+    +'<li><div class="step-num">5</div><div>Puedes votar en <em>todas las categorías</em> de forma independiente.</div></li>'
     +'</ul>'
     +'<div class="closing-date-box">'
     +'<span class="closing-label">Las votaciones cierran el</span>'
@@ -1200,7 +1315,9 @@ function buildFase3Info(){
     +'<div class="phase-closed-icon">🏆</div>'
     +'<h3>¡Nos vemos el 27 de Junio!</h3>'
     +'<p>Las votaciones han cerrado. La Gala está a punto de comenzar.<br><em>Esta noche se revelan los ganadores.</em></p>'
-    +'</div>';
+    +'</div>'
+    +'<button class="btn-submit" onclick="openGamesScreen()" style="margin-top:1rem">'
+    +'🎮 &nbsp;Jugar mientras esperas</button>';
 }
 
 // ─── ADMIN: REVELAR GANADOR ───────────────────────────────────
@@ -1414,7 +1531,163 @@ function shuffleArr(arr){
   return arr;
 }
 
-// ─── MINI-GAME — Atrapa las Estrellas ────────────────────────
+// ─── LEADERBOARD ──────────────────────────────────────────────
+function saveScore(game, score){
+  if(!primo||score<=0) return;
+  apiCall({action:'guardarScore',codigo:primo.codigo,nombre:getDisplayName(),game:game,score:score},function(){});
+}
+
+function loadLeaderboard(game, containerId){
+  apiCall({action:'getScores',game:game},function(res){
+    var el=document.getElementById(containerId); if(!el) return;
+    if(!res||!res.scores||res.scores.length===0){
+      el.innerHTML='<p style="padding:.8rem;text-align:center;font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.3)">Aún no hay puntajes.</p>';
+      return;
+    }
+    el.innerHTML=res.scores.slice(0,10).map(function(r,i){
+      var isMe=primo&&r.codigo===primo.codigo;
+      var rank=i+1;
+      var rankClass=rank===1?'gold':'';
+      var nameClass=rank===1?'gold gold-aura':(isMe?'':'' );
+      var medal=rank===1?'👑 ':rank===2?'🥈 ':rank===3?'🥉 ':rank+'.';
+      return '<div class="lb-row'+(isMe?' lb-me':'')+'">'+
+        '<span class="lb-rank '+rankClass+'">'+medal+'</span>'+
+        '<span class="lb-name '+nameClass+'">'+esc(r.nombre)+'</span>'+
+        '<span class="lb-score">'+r.score+' pts</span>'+
+        '</div>';
+    }).join('');
+  });
+}
+
+// ─── GAMES SCREEN ─────────────────────────────────────────────
+var activeGame=1;
+function openGamesScreen(){
+  document.getElementById('gamesScreen').classList.add('open');
+  document.body.style.overflow='hidden';
+  switchGame(1);
+}
+function closeGamesScreen(){
+  document.getElementById('gamesScreen').classList.remove('open');
+  document.body.style.overflow='';
+  if(mgRAF){cancelAnimationFrame(mgRAF);mgRAF=null;}
+  if(mg2RAF){cancelAnimationFrame(mg2RAF);mg2RAF=null;}
+}
+function switchGame(n){
+  activeGame=n;
+  document.getElementById('gameTab1').classList.toggle('active',n===1);
+  document.getElementById('gameTab2').classList.toggle('active',n===2);
+  document.getElementById('gameZone1').style.display=n===1?'block':'none';
+  document.getElementById('gameZone2').style.display=n===2?'block':'none';
+  if(n===1){initMiniGame();loadLeaderboard('stars','lb1rows');}
+  else{initDodgeGame();loadLeaderboard('dodge','lb2rows');}
+}
+
+// ─── DODGE GAME — Esquiva las Bombas ──────────────────────────
+var mg2RAF=null;
+function initDodgeGame(){
+  if(mg2RAF){cancelAnimationFrame(mg2RAF);mg2RAF=null;}
+  var canvas=document.getElementById('mgCanvas2'); if(!canvas) return;
+  var W=Math.min(320,window.innerWidth-56);
+  var H=Math.round(W*0.78);
+  canvas.width=W; canvas.height=H;
+  var ctx=canvas.getContext('2d');
+
+  var state={
+    score:0,level:1,lives:3,frame:0,spawnRate:60,running:true,gameover:false,
+    player:{x:W/2,y:H-30,r:12,vx:0},
+    bombs:[],coins:[]
+  };
+
+  // Touch/mouse controls — move player horizontally
+  function getX(e){var r=canvas.getBoundingClientRect();return(e.touches?e.touches[0].clientX:e.clientX)-r.left;}
+  canvas.ontouchmove=function(e){e.preventDefault();if(!state.running)return;state.player.x=Math.max(state.player.r,Math.min(W-state.player.r,getX(e)));};
+  canvas.onmousemove=function(e){if(!state.running)return;state.player.x=Math.max(state.player.r,Math.min(W-state.player.r,getX(e)));};
+  canvas.onclick=function(){if(state.gameover)initDodgeGame();};
+
+  function updUI(){
+    var s=document.getElementById('mg2Score');if(s)s.textContent=state.score;
+    var l=document.getElementById('mg2Level');if(l)l.textContent=state.level;
+    var v=document.getElementById('mg2Lives');if(v)v.textContent=state.lives>0?'❤️'.repeat(state.lives):'💔';
+  }
+
+  function loop(){
+    if(!state.running){
+      ctx.fillStyle='rgba(0,0,0,.82)';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='rgba(201,168,76,.9)';
+      ctx.font='bold '+Math.round(W*.065)+'px Cinzel,serif';ctx.textAlign='center';
+      ctx.fillText('FIN',W/2,H*.35);
+      ctx.font=Math.round(W*.048)+'px Cinzel,serif';
+      ctx.fillText('Puntos: '+state.score,W/2,H*.5);
+      ctx.fillStyle='rgba(245,237,224,.4)';
+      ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';
+      ctx.fillText('Toca para reiniciar',W/2,H*.65);
+      // Save score
+      saveScore('dodge',state.score);
+      loadLeaderboard('dodge','lb2rows');
+      state.gameover=true; return;
+    }
+
+    state.frame++;
+    if(state.frame%380===0){state.level=Math.min(12,state.level+1);state.spawnRate=Math.max(25,state.spawnRate-6);}
+    if(state.frame%state.spawnRate===0){
+      state.bombs.push({x:10+Math.random()*(W-20),y:-12,vy:1.5+state.level*.35+Math.random()*.6,r:9});
+    }
+    if(state.frame%(state.spawnRate*2+10)===0){
+      state.coins.push({x:10+Math.random()*(W-20),y:-12,vy:.9+state.level*.2,r:7,rot:0,vrot:.08});
+    }
+
+    // BG
+    ctx.fillStyle='rgba(8,8,6,0.97)';ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(201,168,76,.04)';ctx.lineWidth=1;
+    for(var gx=0;gx<W;gx+=36){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
+    for(var gy=0;gy<H;gy+=36){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
+
+    // Player — stylized primo figure
+    var px=state.player.x,py=state.player.y,pr=state.player.r;
+    ctx.fillStyle='rgba(201,168,76,.9)';ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=10;
+    ctx.beginPath();ctx.arc(px,py-pr*.4,pr*.55,0,Math.PI*2);ctx.fill(); // head
+    ctx.fillRect(px-pr*.35,py-pr*.2,pr*.7,pr*.9); // body
+    ctx.shadowBlur=0;
+
+    // Bombs
+    state.bombs=state.bombs.filter(function(b){
+      b.y+=b.vy;
+      var hit=Math.hypot(b.x-px,b.y-py)<b.r+pr*.6;
+      if(hit){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
+      if(b.y>H+16) return false;
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(210,55,55,.88)';ctx.shadowColor='rgba(210,55,55,.4)';ctx.shadowBlur=6;
+      ctx.fill();ctx.shadowBlur=0;
+      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+      ctx.fillText('💣',b.x,b.y+4);
+      return true;
+    });
+
+    // Coins
+    state.coins=state.coins.filter(function(c){
+      c.y+=c.vy;c.rot+=c.vrot;
+      var hit=Math.hypot(c.x-px,c.y-py)<c.r+pr*.6;
+      if(hit){state.score+=15*state.level;updUI();return false;}
+      if(c.y>H+16) return false;
+      ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rot);
+      ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(201,168,76,.9)';ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=8;
+      ctx.fill();ctx.shadowBlur=0;
+      ctx.fillStyle='rgba(8,8,8,.8)';ctx.font='bold 8px sans-serif';ctx.textAlign='center';
+      ctx.fillText('★',0,3);
+      ctx.restore();
+      return true;
+    });
+
+    // Level HUD
+    ctx.fillStyle='rgba(201,168,76,.35)';
+    ctx.font=Math.round(W*.04)+'px Cinzel,serif';ctx.textAlign='right';
+    ctx.fillText('Lvl '+state.level,W-8,16);
+
+    mg2RAF=requestAnimationFrame(loop);
+  }
+  loop();
+}
 function buildMiniGame(){
   return '<div class="minigame-wrap">'
     +'<div class="minigame-title">✦ Mientras esperas ✦</div>'
@@ -1426,6 +1699,24 @@ function buildMiniGame(){
     +'<span>Vidas: <span id="mgLives">❤️❤️❤️</span></span>'
     +'</div>'
     +'<button class="mg-restart" onclick="initMiniGame()">Reiniciar ↺</button>'
+    +'<div class="lb-wrap" id="lb1"><div class="lb-title">🏆 Ranking Global</div>'
+    +'<div id="lb1rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>'
+    +'</div>';
+}
+
+function buildMiniGame2(){
+  return '<div class="minigame-wrap">'
+    +'<div class="minigame-title">✦ ¡Esquiva las Bombas! ✦</div>'
+    +'<div class="minigame-sub">Votaste en todo. Mueve el primo para esquivar las bombas y atrapar monedas doradas.</div>'
+    +'<canvas id="mgCanvas2" width="320" height="260"></canvas>'
+    +'<div class="mg-score-row">'
+    +'<span>Puntos: <strong id="mg2Score">0</strong></span>'
+    +'<span>Nivel: <strong id="mg2Level">1</strong></span>'
+    +'<span>Vidas: <span id="mg2Lives">❤️❤️❤️</span></span>'
+    +'</div>'
+    +'<button class="mg-restart" onclick="initDodgeGame()">Reiniciar ↺</button>'
+    +'<div class="lb-wrap" id="lb2"><div class="lb-title">🏆 Ranking Global · Esquiva</div>'
+    +'<div id="lb2rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>'
     +'</div>';
 }
 
@@ -1494,6 +1785,11 @@ function initMiniGame(){
       ctx.fillStyle='rgba(245,237,224,.4)';
       ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';
       ctx.fillText('Toca para reiniciar',W/2,H*.7);
+      if(!state._scoreSaved){
+        state._scoreSaved=true;
+        saveScore('stars',state.score);
+        loadLeaderboard('stars','lb1rows');
+      }
       state.gameover=true; return;
     }
 
