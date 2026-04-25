@@ -153,11 +153,13 @@
     .cat-item:hover,.cat-item:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07);}
     .cat-emoji{font-size:1.5rem;display:block;margin-bottom:.45rem;}
     .cat-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;display:block;line-height:1.4;}
-    .cat-item.special{grid-column:1/-1;overflow:hidden;}
-    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.12) 25%,transparent 50%,rgba(201,168,76,.08) 75%,transparent);animation:auraSpin 5s linear infinite;}
+    .cat-item.special{grid-column:1/-1;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);}
+    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.18) 25%,transparent 50%,rgba(201,168,76,.12) 75%,transparent);animation:auraSpin 4s linear infinite;}
     .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.85);z-index:0;}
     .cat-item.special>*{position:relative;z-index:1;}
     .cat-item.special .cat-name{color:var(--gold-light);font-size:.55rem;letter-spacing:.18em;}
+    .special-shimmer{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);animation:sweepShimmer 3.5s ease-in-out infinite;z-index:2;pointer-events:none;}
+    @keyframes sweepShimmer{0%,100%{left:-100%}45%,55%{left:150%}}
 
     /* ── CATEGORY PAGE (full screen, not modal) ── */
     #catPage{position:fixed;inset:0;z-index:300;background:var(--black);overflow-y:auto;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
@@ -268,17 +270,17 @@
     .closing-date{font-family:'Cinzel Decorative',serif;font-size:clamp(.9rem,3.5vw,1.25rem);background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
     /* LEADERBOARD */
-    .lb-wrap{margin-top:1rem;border:1px solid rgba(201,168,76,.15);background:rgba(0,0,0,.3);}
-    .lb-title{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.38em;color:rgba(201,168,76,.6);text-transform:uppercase;text-align:center;padding:.7rem;border-bottom:1px solid rgba(201,168,76,.1);}
-    .lb-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;border-bottom:1px solid rgba(201,168,76,.06);}
+    .lb-wrap{margin-top:1rem;border:1px solid rgba(201,168,76,.18);background:rgba(0,0,0,.35);}
+    .lb-title{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;text-align:center;padding:.85rem;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(201,168,76,.04);}
+    .lb-row{display:flex;align-items:center;gap:.7rem;padding:.6rem .85rem;border-bottom:1px solid rgba(201,168,76,.06);}
     .lb-row:last-child{border-bottom:none;}
-    .lb-rank{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;color:rgba(201,168,76,.45);min-width:20px;text-align:center;flex-shrink:0;}
-    .lb-rank.gold{color:var(--gold-light);}
-    .lb-name{flex:1;font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.7);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .lb-name.gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;position:relative;}
-    .lb-name.gold::before{content:'';position:absolute;inset:-3px -6px;background:radial-gradient(ellipse,rgba(201,168,76,.15) 0%,transparent 70%);animation:glowPulse 2s ease-in-out infinite;pointer-events:none;border-radius:3px;}
-    .lb-score{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;color:rgba(201,168,76,.65);flex-shrink:0;}
-    .lb-me{background:rgba(201,168,76,.05);}
+    .lb-rank{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:rgba(201,168,76,.45);min-width:24px;text-align:center;flex-shrink:0;}
+    .lb-rank.gold{color:var(--gold-light);font-size:.65rem;}
+    .lb-name{flex:1;font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(245,237,224,.75);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .lb-name.gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;font-size:1.1rem;position:relative;}
+    .lb-name.gold::before{content:'';position:absolute;inset:-4px -8px;background:radial-gradient(ellipse,rgba(201,168,76,.18) 0%,transparent 70%);animation:glowPulse 2s ease-in-out infinite;pointer-events:none;border-radius:3px;}
+    .lb-score{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;color:rgba(201,168,76,.7);flex-shrink:0;}
+    .lb-me{background:rgba(201,168,76,.06);}
 
     /* GAMES SCREEN */
     #gamesScreen{position:fixed;inset:0;z-index:400;background:var(--black);overflow-y:auto;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
@@ -365,28 +367,12 @@
   </svg>
   <div class="intro-seal-wrap">
     <div class="intro-seal">
-      <svg width="145" height="255" viewBox="0 0 160 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8a6a20"/><stop offset="25%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#e8d08a"/><stop offset="75%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a20"/></linearGradient>
-          <linearGradient id="bsG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6b5018"/><stop offset="40%" stop-color="#c9a84c"/><stop offset="60%" stop-color="#e8d08a"/><stop offset="100%" stop-color="#6b5018"/></linearGradient>
-          <linearGradient id="hG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8a6a20"/><stop offset="35%" stop-color="#e8d08a"/><stop offset="65%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a20"/></linearGradient>
-          <filter id="gw"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <rect x="20" y="248" width="120" height="18" rx="3" fill="url(#bsG)" filter="url(#gw)"/>
-        <rect x="32" y="234" width="96" height="16" rx="2" fill="url(#bsG)"/>
-        <rect x="44" y="222" width="72" height="14" rx="2" fill="url(#bG)"/>
-        <path d="M58 222L58 130Q58 124 64 122L80 118L96 122Q102 124 102 130L102 222Z" fill="url(#bG)" filter="url(#gw)"/>
-        <line x1="80" y1="120" x2="80" y2="222" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
-        <path d="M70 118Q70 108 74 104L80 100L86 104Q90 108 90 118Z" fill="url(#hG)"/>
-        <ellipse cx="80" cy="90" rx="22" ry="28" fill="url(#hG)" filter="url(#gw)"/>
-        <ellipse cx="74" cy="84" rx="7" ry="10" fill="rgba(255,255,255,.1)"/>
-        <path d="M80 58L83 68L93 68L85 74L88 84L80 78L72 84L75 74L67 68L77 68Z" fill="rgba(232,208,138,.2)" stroke="#c9a84c" stroke-width=".8"/>
-        <line x1="62" y1="160" x2="62" y2="200" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
-        <line x1="98" y1="160" x2="98" y2="200" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
-        <rect x="62" y="167" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="62" y="177" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="62" y="187" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <rect x="92" y="167" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="92" y="177" width="6" height="4" fill="rgba(201,168,76,.15)"/><rect x="92" y="187" width="6" height="4" fill="rgba(201,168,76,.15)"/>
-        <text x="80" y="244" font-family="Cinzel,serif" font-size="6.5" font-weight="700" fill="rgba(8,8,8,.8)" text-anchor="middle" letter-spacing="2">PRIMOS AWARDS</text>
-      </svg>
+      <!-- LOGO SIZE: change width/height below to resize (keep same ratio) -->
+      <img src="https://i.imgur.com/TAxrBiC.png"
+           width="500" height="500"
+           style="object-fit:contain;display:block;"
+           alt="Primos Awards"
+           onerror="this.style.display='none'">
     </div>
     <div class="oscar-glow"></div>
   </div>
@@ -502,7 +488,7 @@
       <div class="cat-item" onclick="openCatPage('Primo más Ligador 💘')"><span class="cat-emoji">💘</span><span class="cat-name">Más Ligador</span></div>
       <div class="cat-item" onclick="openCatPage('Mejor Dupla de Primos 👯')"><span class="cat-emoji">👯</span><span class="cat-name">Mejor Dupla</span></div>
       <div class="cat-item" onclick="openCatPage('Primo con mejor Apodo 🤙')"><span class="cat-emoji">🤙</span><span class="cat-name">Mejor Apodo</span></div>
-      <div class="cat-item special" onclick="openCatPage('Primo del Año 🏆')"><span class="cat-emoji">🏆</span><span class="cat-name">Primo del Año</span></div>
+      <div class="cat-item special" onclick="openCatPage('Primo del Año 🏆')"><div class="special-shimmer"></div><span class="cat-emoji">🏆</span><span class="cat-name">Primo del Año</span></div>
     </div>
   </section>
 
@@ -617,7 +603,7 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbx-Sde1dD8qdqbEqd9Wqq37SvdVMDikpuLA1B_LvISrRwoOHCf8r7lrY8GKClyEAvJ9/exec';
+var API = 'https://script.google.com/macros/s/AKfycby7e7vxluYEqb-2n-2GFfhBTZrM5gXy0xYKimH6k4ayF4215GRpxQkzH3ojAj9Ljoke/exec';
 
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
@@ -701,33 +687,45 @@ function initCountdown(){
 function pad(n){return String(n).padStart(2,'0');}
 
 // ─── IDENTITY ─────────────────────────────────────────────────
+// ─── PRELOAD IDENTITY — called as soon as page loads ─────────
+(function preloadIdentity(){
+  try{
+    var s=localStorage.getItem('primoID_v2');
+    if(s){
+      var d=JSON.parse(s);
+      if(d&&d.codigo&&d.nombreDisplay){
+        // Store tentatively so getChatName works immediately
+        primo=d;
+      }
+    }
+  }catch(e){}
+})();
+
 function loadSavedIdentity(){
   try{
     var s=localStorage.getItem('primoID_v2');
     if(s){
       var d=JSON.parse(s);
       if(d&&d.codigo&&d.nombreDisplay&&d.nombreCompleto){
-        // Verify against server — if deleted from Primos sheet, auto-logout
+        // Verify against server
         apiCall({action:'loginCodigo',codigo:d.codigo},function(res){
           if(res&&res.ok){
-            // Still valid — restore session
             primo=d;
-            // Update rol in case it changed
             if(res.rol) primo.rol=res.rol;
             try{localStorage.setItem('primoID_v2',JSON.stringify(primo));}catch(e){}
             showWelcomeView(); renderAction(); loadMisNominaciones();
           } else {
-            // Deleted from sheet — clear session, force re-register
             try{localStorage.removeItem('primoID_v2');}catch(e){}
             primo=null;
             showRegisterView(); renderAction();
-            showToast('Tu sesión fue cerrada. Vuelve a ingresar tu nombre.');
+            showToast('Tu sesión fue cerrada. Ingresa tu nombre de nuevo.');
           }
         });
         return;
       }
     }
   }catch(e){}
+  primo=null;
   showRegisterView(); renderAction();
 }
 
@@ -847,7 +845,7 @@ function guardarApodo(){
 // ─── MIS NOMINACIONES ─────────────────────────────────────────
 function loadMisNominaciones(){
   if(!primo||getFase()!==1) return;
-  apiCall({action:'miNominaciones',codigo:primo.codigo},function(res){
+  apiCall({action:'miNominaciones',nombre:primo.nombreCompleto},function(res){
     if(!res||!res.cats||res.cats.length===0) return;
     var wrap=document.getElementById('nominadoBannerWrap');
     if(!wrap) return;
@@ -874,14 +872,14 @@ function loadMisNominaciones(){
 function guardarMiDesc(){
   var desc=(document.getElementById('miDescInput').value||'').trim();
   if(!desc){showToast('Escribe algo primero');return;}
-  apiCall({action:'guardarDesc',codigo:primo.codigo,desc:desc},function(res){
+  apiCall({action:'guardarDesc',nombre:primo.nombreCompleto,desc:desc},function(res){
     if(res&&res.ok) showToast('¡Mensaje guardado! ✦');
   });
 }
 function guardarMiCancion(){
   var cancion=(document.getElementById('miCancionInput').value||'').trim();
   if(!cancion){showToast('Escribe el nombre de la canción');return;}
-  apiCall({action:'guardarCancion',codigo:primo.codigo,cancion:cancion},function(res){
+  apiCall({action:'guardarCancion',nombre:primo.nombreCompleto,cancion:cancion},function(res){
     if(res&&res.ok) showToast('¡Canción guardada! 🎵');
   });
 }
@@ -977,24 +975,20 @@ function buildDuplaFields(){
 }
 
 // ─── AUTOCOMPLETE NOMINADO — búsqueda instantánea ─────────────
-var acResults=[{},{}]; // index 0 and 1 for dupla
+var acResults=[[],[]];
 var acSelected=[null,null];
 
 function onNomInput(idx){
-  acSelected[idx]=null;
-  var dispId='nomSelDisplay'+(idx||0);
-  var disp=document.getElementById(dispId); if(disp) disp.style.display='none';
-  var inputId=idx===1?'nominadoInput1':'nominadoInput'+(idx===0?'0':'');
-  // try both id formats
-  var inp=document.getElementById(inputId)||document.getElementById('nominadoInput');
+  var slot=idx||0;
+  acSelected[slot]=null;
+  var dispEl=document.getElementById('nomSelDisplay'+slot); if(dispEl) dispEl.style.display='none';
+  var inp=document.getElementById('nominadoInput'+slot)||document.getElementById('nominadoInput');
   var q=(inp?inp.value:'').trim();
-  var listId='nomAcList'+(idx||0);
-  var list=document.getElementById(listId); if(!list) return;
-  if(q.length<1){list.style.display='none';acResults[idx||0]=[];return;}
+  var list=document.getElementById('nomAcList'+slot); if(!list) return;
+  if(q.length<1){list.style.display='none';acResults[slot]=[];return;}
   apiCall({action:'buscarNominado',q:q},function(res){
-    list=document.getElementById(listId); if(!list) return;
-    var slot=idx||0;
-    if(!res||!res.resultados||res.resultados.length===0){
+    list=document.getElementById('nomAcList'+slot); if(!list) return;
+    if(!res||!res.resultados||!res.resultados.length){
       acResults[slot]=[];
       list.innerHTML='<div class="ac-empty">No encontrado en la lista de primos</div>';
       list.style.display='block'; return;
@@ -1014,7 +1008,7 @@ function onNomInput(idx){
 function onNomKey(e,idx){
   var slot=idx||0;
   if(e.key==='Enter'){
-    if(acResults[slot]&&acResults[slot].length>0&&!acSelected[slot]) selectNomAc(slot,0);
+    if(!acSelected[slot]&&acResults[slot]&&acResults[slot].length>0) selectNomAc(slot,0);
     else if(acSelected[slot]) enviarNominacion();
   }
 }
@@ -1022,13 +1016,12 @@ function onNomKey(e,idx){
 function selectNomAc(slot,i){
   var r=(acResults[slot]||[])[i]; if(!r) return;
   acSelected[slot]=r;
-  var inputLabel=r.apodo?r.nombreCompleto+' (primo '+r.apodo+')':r.nombreCompleto;
-  // Try both input id formats
+  var label=r.apodo?r.nombreCompleto+' (primo '+r.apodo+')':r.nombreCompleto;
   var inp=document.getElementById('nominadoInput'+slot)||document.getElementById('nominadoInput');
-  if(inp) inp.value=inputLabel;
+  if(inp) inp.value=label;
   var list=document.getElementById('nomAcList'+slot); if(list) list.style.display='none';
   var disp=document.getElementById('nomSelDisplay'+slot);
-  if(disp){disp.textContent='✦ '+inputLabel;disp.style.display='block';}
+  if(disp){disp.textContent='✦ '+label;disp.style.display='block';}
 }
 
 // ─── ENVIAR NOMINACIÓN ────────────────────────────────────────
@@ -1038,13 +1031,17 @@ function enviarNominacion(){
   var isDupla=cat.indexOf('Dupla')!==-1;
 
   if(isDupla){
-    // Auto-select first result for each slot if needed
     if(!acSelected[0]&&acResults[0]&&acResults[0].length>0) selectNomAc(0,0);
     if(!acSelected[1]&&acResults[1]&&acResults[1].length>0) selectNomAc(1,0);
     if(!acSelected[0]||!acSelected[1]){showToast('Busca y selecciona los 2 primos de la dupla');return;}
     var r0=acSelected[0], r1=acSelected[1];
-    var dispNom=getNomDisplayName(r0)+' & '+getNomDisplayName(r1);
-    var codNom=r0.nombreCompleto+' & '+r1.nombreCompleto;
+    if(r0.nombreCompleto===r1.nombreCompleto){showToast('No puedes nominar al mismo primo dos veces');return;}
+    // Normalize: sort alphabetically so order doesn't matter
+    var names=[r0.nombreCompleto,r1.nombreCompleto].sort();
+    var disps=[getNomDisplayName(r0),getNomDisplayName(r1)];
+    if(names[0]!==r0.nombreCompleto) disps=[disps[1],disps[0]]; // keep aligned
+    var codNom=names[0]+' & '+names[1];
+    var dispNom=disps[0]+' & '+disps[1];
     showToast('Enviando…');
     apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),
       categoria:cat,codNominado:codNom,nominado:dispNom},
@@ -1054,8 +1051,9 @@ function enviarNominacion(){
       if(res.ok) resetNomForm();
     });
   } else {
+    // Auto-select first result if user typed but didn't click
     if(!acSelected[0]&&acResults[0]&&acResults[0].length>0) selectNomAc(0,0);
-    if(!acSelected[0]){showToast('Busca el primo a nominar');return;}
+    if(!acSelected[0]){showToast('Busca el nombre del primo a nominar');return;}
     var r=acSelected[0];
     var dispNom=getNomDisplayName(r);
     showToast('Enviando…');
@@ -1222,6 +1220,7 @@ function toggleChat(){
   if(chatOpen){fab.classList.remove('has-unread');setTimeout(function(){var b=document.getElementById('mensajes');b.scrollTop=b.scrollHeight;},100);}
 }
 function mandarChat(){
+  if(!primo){showToast('Identifícate para chatear');return;}
   var user=getChatName();
   var msg=(document.getElementById('msgChat').value||'').trim(); if(!msg) return;
   localMsgs.push([user,msg]); renderMsgs(localMsgs);
@@ -1534,7 +1533,8 @@ function shuffleArr(arr){
 // ─── LEADERBOARD ──────────────────────────────────────────────
 function saveScore(game, score){
   if(!primo||score<=0) return;
-  apiCall({action:'guardarScore',codigo:primo.codigo,nombre:getDisplayName(),game:game,score:score},function(){});
+  var display=getDisplayName();
+  apiCall({action:'guardarScore',codigo:primo.codigo,display:display,game:game,score:score},function(){});
 }
 
 function loadLeaderboard(game, containerId){
