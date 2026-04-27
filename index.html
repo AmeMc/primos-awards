@@ -153,12 +153,13 @@
     .cat-item:hover,.cat-item:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07);}
     .cat-emoji{font-size:1.5rem;display:block;margin-bottom:.45rem;}
     .cat-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;display:block;line-height:1.4;}
-    .cat-item.special{grid-column:1/-1;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);}
-    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.18) 25%,transparent 50%,rgba(201,168,76,.12) 75%,transparent);animation:auraSpin 4s linear infinite;}
-    .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.85);z-index:0;}
-    .cat-item.special>*{position:relative;z-index:1;}
-    .cat-item.special .cat-name{color:var(--gold-light);font-size:.55rem;letter-spacing:.18em;}
-    .special-shimmer{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);animation:sweepShimmer 3.5s ease-in-out infinite;z-index:2;pointer-events:none;}
+    .cat-item.special{grid-column:1/-1;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);padding:1.3rem .9rem;display:flex;align-items:center;justify-content:center;gap:.7rem;}
+    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.18) 25%,transparent 50%,rgba(201,168,76,.12) 75%,transparent);animation:auraSpin 4s linear infinite;z-index:0;}
+    .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.85);z-index:1;}
+    .cat-item.special>*{position:relative;z-index:2;}
+    .cat-item.special .cat-emoji{font-size:1.6rem;display:inline;margin-bottom:0;}
+    .cat-item.special .cat-name{color:var(--gold-light);font-size:.6rem;letter-spacing:.2em;display:inline;margin-bottom:0;}
+    .special-shimmer{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);animation:sweepShimmer 3.5s ease-in-out infinite;z-index:3;pointer-events:none;}
     @keyframes sweepShimmer{0%,100%{left:-100%}45%,55%{left:150%}}
 
     /* ── CATEGORY PAGE (full screen, not modal) ── */
@@ -367,7 +368,7 @@
   </svg>
   <div class="intro-seal-wrap">
     <div class="intro-seal">
-      <!-- LOGO SIZE: change width/height below to resize (keep same ratio) -->
+      <!-- LOGO: cambia width/height para ajustar tamaño -->
       <img src="https://i.imgur.com/TAxrBiC.png"
            width="300" height="300"
            style="object-fit:contain;display:block;"
@@ -603,11 +604,20 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycby7e7vxluYEqb-2n-2GFfhBTZrM5gXy0xYKimH6k4ayF4215GRpxQkzH3ojAj9Ljoke/exec';
+var API = 'https://script.google.com/macros/s/AKfycbxlnNLPXZgui-p4A-Erqtaldg_DeuPQVAWzUoL6YXvHWCZgoT_eVjl2vTOX7Xmq-aam/exec';
 
-var FASE1_FIN = new Date('2026-04-11T00:00:00').getTime();
+// ══════════════════════════════════════════════════════
+//  TESTING: cambia este número para forzar una fase:
+//  0 = automático (usa fechas)
+//  1 = Fase 1: Nominaciones
+//  2 = Fase 2: Votaciones  ← cámbialo a 2 para probar
+//  3 = Fase 3: Gala
+// ══════════════════════════════════════════════════════
+var FASE_OVERRIDE = 0;
+
+var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
-var GALA_DATE = new Date('2026-06-27T20:00:00').getTime(); // actualizado al 27 junio
+var GALA_DATE = new Date('2026-06-27T20:00:00').getTime();
 
 var CATS = [
   'Primo más Sucha 😏','Primo más Migajero/a 🕊️','Primo más Borracho/a 🍻',
@@ -639,7 +649,11 @@ var acSelected = [null,null];
 var pendingVote = null;
 var codeVisible = false;
 
-function getFase(){ var n=Date.now(); return n<FASE1_FIN?1:n<FASE2_FIN?2:3; }
+function getFase(){
+  if(FASE_OVERRIDE>=1&&FASE_OVERRIDE<=3) return FASE_OVERRIDE;
+  var n=Date.now();
+  return n<FASE1_FIN?1:n<FASE2_FIN?2:3;
+}
 function isAdmin(){ return primo && primo.rol==='admin'; }
 
 function getDisplayName(){
@@ -844,29 +858,39 @@ function guardarApodo(){
 
 // ─── MIS NOMINACIONES ─────────────────────────────────────────
 function loadMisNominaciones(){
-  if(!primo||getFase()!==1) return;
+  // Solo en fase 2 — cuando ya están definidos los nominados
+  if(!primo||getFase()!==2) return;
   apiCall({action:'miNominaciones',nombre:primo.nombreCompleto},function(res){
     if(!res||!res.cats||res.cats.length===0) return;
     var wrap=document.getElementById('nominadoBannerWrap');
     if(!wrap) return;
-    var plural=res.cats.length===1?'la siguiente categoría:':'las siguientes categorías:';
-    var li=res.cats.map(function(c){return '<li>'+esc(c.cat)+'</li>';}).join('');
-    wrap.innerHTML='<div class="nominado-banner">'
-      +'<h4>🎉 ¡Fuiste nominado!</h4>'
-      +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.6);font-size:.98rem;margin-bottom:.8rem">Apareces en '+plural+'</p>'
-      +'<ul>'+li+'</ul>'
-      +'<div class="field-group"><label class="field-label">Escribe algo para los primos</label>'
-      +'<input class="field-input" type="text" id="miDescInput" placeholder="Un mensaje para la gala…" maxlength="120" onkeydown="if(event.key===\'Enter\')guardarMiDesc()">'
+    var catsList=res.cats.map(function(c){
+      return '<div style="padding:.5rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-family:Cormorant Garamond,serif;font-size:1rem;color:rgba(245,237,224,.8);">'
+        +'<span style="color:var(--gold);margin-right:.5rem">✦</span>'+esc(c.cat)+'</div>';
+    }).join('');
+    wrap.innerHTML=
+      '<div style="position:relative;overflow:hidden;border:1px solid rgba(201,168,76,.4);margin-top:1.5rem;">'
+      +'<div style="position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.15) 25%,transparent 50%,rgba(201,168,76,.1) 75%,transparent);animation:auraSpin 5s linear infinite;pointer-events:none;z-index:0;"></div>'
+      +'<div style="position:absolute;inset:1px;background:linear-gradient(160deg,rgba(201,168,76,.07),rgba(8,8,8,.96));z-index:1;"></div>'
+      +'<div style="position:relative;z-index:2;padding:1.75rem 1.5rem;">'
+      +'<div style="font-family:Cinzel Decorative,serif;font-size:clamp(.9rem,3vw,1.2rem);background:linear-gradient(135deg,#e8d08a,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:.4rem;">¡Fuiste Nominado!</div>'
+      +'<div style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.5);font-size:.95rem;text-align:center;margin-bottom:1.2rem;line-height:1.5;">Los primos te eligieron en '+(res.cats.length===1?'esta categoría:':'estas categorías:')+'</div>'
+      +'<div style="margin-bottom:1.4rem;">'+catsList+'</div>'
+      +'<div style="margin-bottom:1rem;">'
+      +'<label style="display:block;font-family:Cinzel,serif;font-size:.44rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:.5rem;">Tu mensaje para los primos</label>'
+      +'<input type="text" id="miDescInput" placeholder="Diles algo especial…" maxlength="120" '
+      +'style="width:100%;background:rgba(8,8,8,.5);border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5ede0;font-family:Cormorant Garamond,serif;font-size:1.05rem;padding:.65rem 0;outline:none;-webkit-appearance:none;" '
+      +'onkeydown="if(event.key===\'Enter\')guardarMiDesc()"></div>'
+      +'<div style="margin-bottom:1.2rem;">'
+      +'<label style="display:block;font-family:Cinzel,serif;font-size:.44rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:.5rem;">Tu canción de entrada 🎵 <span style="color:rgba(245,237,224,.25);letter-spacing:.15em">(privada)</span></label>'
+      +'<input type="text" id="miCancionInput" placeholder="Artista — Canción…" maxlength="120" '
+      +'style="width:100%;background:rgba(8,8,8,.5);border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5ede0;font-family:Cormorant Garamond,serif;font-size:1.05rem;padding:.65rem 0;outline:none;-webkit-appearance:none;" '
+      +'onkeydown="if(event.key===\'Enter\')guardarMiCancion()"></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">'
+      +'<button onclick="guardarMiDesc()" style="background:transparent;border:1px solid rgba(201,168,76,.45);color:#c9a84c;font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;padding:.9rem .5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;">Guardar ✦</button>'
+      +'<button onclick="guardarMiCancion()" style="background:transparent;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.5);font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;padding:.9rem .5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;">Canción 🎵</button>'
       +'</div>'
-      +'<div class="field-group" style="margin-top:.5rem"><label class="field-label">Tu canción de entrada 🎵</label>'
-      +'<input class="field-input" type="text" id="miCancionInput" placeholder="Artista - Canción…" maxlength="120" onkeydown="if(event.key===\'Enter\')guardarMiCancion()">'
-      +'<p style="font-family:Cormorant Garamond,serif;font-size:.82rem;font-style:italic;color:rgba(245,237,224,.3);margin-top:.4rem">Solo visible para ti y los administradores.</p>'
-      +'</div>'
-      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">'
-      +'<button class="btn-submit" onclick="guardarMiDesc()" style="margin-top:0">Guardar mensaje ✦</button>'
-      +'<button class="btn-submit" onclick="guardarMiCancion()" style="margin-top:0;border-color:rgba(201,168,76,.25);color:rgba(201,168,76,.6)">Guardar canción 🎵</button>'
-      +'</div>'
-      +'</div>';
+      +'</div></div>';
   });
 }
 function guardarMiDesc(){
@@ -1857,8 +1881,15 @@ function initMiniGame(){
   loop();
 }
 function apiCall(params,cb){
-  var url=API+'?'+Object.keys(params).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}).join('&');
-  fetch(url).then(function(r){return r.json();}).then(function(d){if(cb)cb(d);}).catch(function(){if(cb)cb(null);});
+  // Add cache-buster to prevent Apps Script caching stale responses
+  params._cb=Date.now();
+  var url=API+'?'+Object.keys(params).map(function(k){
+    return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);
+  }).join('&');
+  fetch(url)
+    .then(function(r){return r.json();})
+    .then(function(d){if(cb)cb(d);})
+    .catch(function(){if(cb)cb(null);});
 }
 function showToast(msg){
   var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
