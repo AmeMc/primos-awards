@@ -153,12 +153,12 @@
     .cat-item:hover,.cat-item:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07);}
     .cat-emoji{font-size:1.5rem;display:block;margin-bottom:.45rem;}
     .cat-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;display:block;line-height:1.4;}
-    .cat-item.special{grid-column:1/-1;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);padding:1.3rem .9rem;display:flex;align-items:center;justify-content:center;gap:.7rem;}
+    .cat-item.special{grid-column:1/-1;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);padding:1.3rem .9rem;text-align:center;}
     .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.18) 25%,transparent 50%,rgba(201,168,76,.12) 75%,transparent);animation:auraSpin 4s linear infinite;z-index:0;}
     .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.85);z-index:1;}
     .cat-item.special>*{position:relative;z-index:2;}
-    .cat-item.special .cat-emoji{font-size:1.6rem;display:inline;margin-bottom:0;}
-    .cat-item.special .cat-name{color:var(--gold-light);font-size:.6rem;letter-spacing:.2em;display:inline;margin-bottom:0;}
+    .cat-item.special .cat-emoji{font-size:1.6rem;display:block;margin-bottom:.4rem;}
+    .cat-item.special .cat-name{color:var(--gold-light);font-size:.6rem;letter-spacing:.2em;display:block;text-align:center;}
     .special-shimmer{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);animation:sweepShimmer 3.5s ease-in-out infinite;z-index:3;pointer-events:none;}
     @keyframes sweepShimmer{0%,100%{left:-100%}45%,55%{left:150%}}
 
@@ -604,7 +604,7 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbxlnNLPXZgui-p4A-Erqtaldg_DeuPQVAWzUoL6YXvHWCZgoT_eVjl2vTOX7Xmq-aam/exec';
+var API = 'https://script.google.com/macros/s/AKfycbwNcn_A0Xq514iNycghlbR7rXdRx6kZi5B9xssFy_TQM_4vmafeNd36SGQj5UTWXKqP/exec';
 
 // ══════════════════════════════════════════════════════
 //  TESTING: cambia este número para forzar una fase:
@@ -1124,10 +1124,28 @@ function openCatPage(cat){
   document.body.style.overflow='hidden';
   var fase=getFase();
   if(fase===1){
-    apiCall({action:'statsCategoria',cat:cat},function(res){renderCatFase1(res,cat);});
+    apiCall({action:'statsCategoria',cat:cat},function(res){
+      if(!res) return showCatError('No se pudo conectar con el servidor. Verifica el link /exec.');
+      renderCatFase1(res,cat);
+    });
   } else {
-    apiCall({action:'nominadosCategoria',cat:cat},function(res){renderCatFase2(res,cat);});
+    apiCall({action:'nominadosCategoria',cat:cat},function(res){
+      if(!res) return showCatError('No se pudo conectar con el servidor. Verifica el link /exec y que hayas hecho New Deployment.');
+      if(res.ok===false) return showCatError('Error del servidor: '+(res.msg||'desconocido'));
+      renderCatFase2(res,cat);
+    });
   }
+}
+
+function showCatError(msg){
+  document.getElementById('catPageContent').innerHTML=
+    '<div style="text-align:center;padding:2rem;">'
+    +'<div style="font-size:2rem;margin-bottom:1rem">⚠️</div>'
+    +'<p style="font-family:Cinzel,serif;font-size:.6rem;letter-spacing:.2em;color:rgba(201,168,76,.7);margin-bottom:.8rem">Error de conexión</p>'
+    +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.45);font-size:.95rem;line-height:1.6">'+esc(msg)+'</p>'
+    +'<button onclick="openCatPage(document.getElementById(\'catPageTitle\').textContent)" '
+    +'style="margin-top:1.5rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;padding:.7rem 1.5rem;cursor:pointer;">Reintentar</button>'
+    +'</div>';
 }
 
 function closeCatPage(){
