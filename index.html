@@ -153,13 +153,12 @@
     .cat-item:hover,.cat-item:active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07);}
     .cat-emoji{font-size:1.5rem;display:block;margin-bottom:.45rem;}
     .cat-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;display:block;line-height:1.4;}
-    .cat-item.special{grid-column:1/-1;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);padding:1.3rem .9rem;text-align:center;}
-    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.18) 25%,transparent 50%,rgba(201,168,76,.12) 75%,transparent);animation:auraSpin 4s linear infinite;z-index:0;}
-    .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.85);z-index:1;}
-    .cat-item.special>*{position:relative;z-index:2;}
-    .cat-item.special .cat-emoji{font-size:1.6rem;display:block;margin-bottom:.4rem;}
-    .cat-item.special .cat-name{color:var(--gold-light);font-size:.6rem;letter-spacing:.2em;display:block;text-align:center;}
-    .special-shimmer{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);animation:sweepShimmer 3.5s ease-in-out infinite;z-index:3;pointer-events:none;}
+    .cat-item.special{grid-column:1/-1;position:relative;overflow:hidden;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.25);padding:1.4rem 1rem;text-align:center;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;}
+    .cat-item.special::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.18) 25%,transparent 50%,rgba(201,168,76,.12) 75%,transparent);animation:auraSpin 4s linear infinite;z-index:0;pointer-events:none;}
+    .cat-item.special::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.88);z-index:1;pointer-events:none;}
+    .cat-item.special .special-shimmer{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);animation:sweepShimmer 3.5s ease-in-out infinite;z-index:3;pointer-events:none;}
+    .cat-item.special .cat-emoji{font-size:1.6rem;display:block;position:relative;z-index:4;margin:0;}
+    .cat-item.special .cat-name{color:var(--gold-light);font-size:.6rem;letter-spacing:.2em;display:block;text-align:center;position:relative;z-index:4;margin:0;}
     @keyframes sweepShimmer{0%,100%{left:-100%}45%,55%{left:150%}}
 
     /* ── CATEGORY PAGE (full screen, not modal) ── */
@@ -613,7 +612,7 @@ var API = 'https://script.google.com/macros/s/AKfycbwNcn_A0Xq514iNycghlbR7rXdRx6
 //  2 = Fase 2: Votaciones  ← cámbialo a 2 para probar
 //  3 = Fase 3: Gala
 // ══════════════════════════════════════════════════════
-var FASE_OVERRIDE = 2;
+var FASE_OVERRIDE = 0;
 
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
