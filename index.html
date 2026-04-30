@@ -296,8 +296,43 @@
     .game-tab-emoji{font-size:1.5rem;display:block;margin-bottom:.4rem;}
     .game-tab-name{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;}
 
-    /* DODGE GAME */
-    #mgCanvas2{display:block;margin:0 auto;border:1px solid rgba(201,168,76,.2);background:rgba(0,0,0,.4);touch-action:none;}
+    /* GENDER SWITCH */
+    .gender-switch-wrap{margin-bottom:1.5rem;text-align:center;}
+    .gender-label-top{display:block;font-family:'Cinzel',serif;font-size:.44rem;letter-spacing:.42em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:.8rem;}
+    .gender-toggle{display:inline-flex;background:rgba(8,8,8,.6);border:1px solid rgba(201,168,76,.25);border-radius:2px;overflow:hidden;width:100%;}
+    .gender-opt{flex:1;padding:.75rem .5rem;cursor:pointer;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.45);text-align:center;transition:all .3s;-webkit-tap-highlight-color:transparent;user-select:none;border:none;background:transparent;}
+    .gender-opt.active{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08));color:var(--gold-light);border-bottom:2px solid var(--gold);}
+    .gender-opt:first-child{border-right:1px solid rgba(201,168,76,.15);}
+
+    /* ADMIN PANEL FULL */
+    .admin-full-panel{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.2);margin-bottom:1.5rem;}
+    .admin-panel-header{padding:1rem 1.25rem;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+    .admin-panel-header-title{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+    .admin-panel-header-arrow{color:rgba(201,168,76,.5);font-size:.7rem;transition:transform .3s;}
+    .admin-panel-header-arrow.open{transform:rotate(180deg);}
+    .admin-panel-body{display:none;padding:1.25rem;}
+    .admin-panel-body.open{display:block;}
+    .admin-section-title{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.1);}
+    .admin-action-row{display:flex;gap:.5rem;align-items:stretch;margin-bottom:.7rem;}
+    .admin-input{flex:1;background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;padding:.55rem 0;outline:none;-webkit-appearance:none;}
+    .admin-input:focus{border-bottom-color:var(--gold);}
+    .admin-btn{background:transparent;border:1px solid rgba(201,168,76,.35);color:rgba(201,168,76,.7);font-family:'Cinzel',serif;font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;padding:.55rem .8rem;cursor:pointer;white-space:nowrap;transition:all .3s;-webkit-tap-highlight-color:transparent;}
+    .admin-btn:hover,.admin-btn:active{border-color:var(--gold);color:var(--gold);}
+    .admin-btn.danger{border-color:rgba(200,60,60,.35);color:rgba(200,100,100,.7);}
+    .admin-btn.danger:hover{border-color:rgba(200,60,60,.8);color:rgba(220,80,80,1);}
+    .admin-btn.success{border-color:rgba(60,200,100,.35);color:rgba(80,200,100,.7);}
+    .admin-btn.success:hover{border-color:rgba(60,200,100,.8);color:rgba(60,200,100,1);}
+    .admin-toggle-btn{width:100%;margin-bottom:.7rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.65);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;padding:.85rem;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;}
+    .admin-toggle-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .admin-toggle-btn.active{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold-light);}
+    .admin-list{margin-top:.5rem;max-height:200px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent;}
+    .admin-list-item{display:flex;align-items:center;justify-content:space-between;padding:.55rem .7rem;border-bottom:1px solid rgba(201,168,76,.06);font-family:'Cormorant Garamond',serif;font-size:.95rem;color:rgba(245,237,224,.7);}
+    .admin-list-item:last-child{border-bottom:none;}
+    .admin-list-item-btns{display:flex;gap:.35rem;}
+    .admin-msg-row{display:flex;align-items:flex-start;gap:.5rem;padding:.55rem .7rem;border-bottom:1px solid rgba(201,168,76,.06);}
+    .admin-msg-row:last-child{border-bottom:none;}
+    .admin-msg-text{flex:1;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,237,224,.6);line-height:1.4;word-break:break-word;}
+    .admin-msg-author{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.15em;color:rgba(201,168,76,.6);margin-bottom:.2rem;}
 
 
 
@@ -422,6 +457,13 @@
           <div class="reg-title">Identifícate</div>
           <div class="reg-sub">Escribe tu nombre tal como quedaste registrado.<br>El sistema verificará que eres un primo de la lista.</div>
           <div id="loginByNameBlock">
+            <div class="gender-switch-wrap">
+              <span class="gender-label-top">¿Eres primo o prima?</span>
+              <div class="gender-toggle">
+                <div class="gender-opt active" id="genderMasc" onclick="setGenero('m')">👨 Primo</div>
+                <div class="gender-opt" id="genderFem" onclick="setGenero('f')">👩 Prima</div>
+              </div>
+            </div>
             <div class="reg-field-wrap">
               <label class="reg-field-label">Tu nombre</label>
               <input class="reg-input" type="text" id="nameInput" placeholder="Escribe tu nombre…"
@@ -494,8 +536,74 @@
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- ACTION -->
-  <section class="fade-in">
+  <!-- ADMIN PANEL — only shown to admins -->
+  <section class="fade-in" id="adminPanelSection" style="display:none">
+    <div class="section-label">Administración</div>
+    <div class="section-title">Panel de Control</div>
+    <div class="admin-full-panel" id="adminFullPanel">
+
+      <!-- NOMINAR TOGGLE -->
+      <div style="padding:1.25rem;border-bottom:1px solid rgba(201,168,76,.1);">
+        <div class="admin-section-title">Control de Nominaciones</div>
+        <button class="admin-toggle-btn" id="nomActivoBtn" onclick="toggleNominaciones()">
+          ⏸ Deshabilitar nominaciones
+        </button>
+        <p style="font-family:Cormorant Garamond,serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.35);line-height:1.5;">Al desactivar, nadie podrá nominar hasta que lo reactives.</p>
+      </div>
+
+      <!-- PRIMOS ACTIVOS -->
+      <div class="admin-panel-header" onclick="toggleAdminSection('secPrimos')">
+        <span class="admin-panel-header-title">👥 Primos Registrados</span>
+        <span class="admin-panel-header-arrow" id="arrowSecPrimos">▾</span>
+      </div>
+      <div class="admin-panel-body" id="secPrimos">
+        <div class="admin-section-title">Gestionar Primos</div>
+        <div class="admin-action-row">
+          <input class="admin-input" type="text" id="adminSearchPrimo" placeholder="Buscar primo…" oninput="adminLoadPrimos()">
+        </div>
+        <div class="admin-list" id="adminPrimosList">
+          <p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Cargando…</p>
+        </div>
+      </div>
+
+      <!-- BANS -->
+      <div class="admin-panel-header" onclick="toggleAdminSection('secBans')">
+        <span class="admin-panel-header-title">🚫 Bans Activos</span>
+        <span class="admin-panel-header-arrow" id="arrowSecBans">▾</span>
+      </div>
+      <div class="admin-panel-body" id="secBans">
+        <div class="admin-section-title">Banear Primo</div>
+        <div class="admin-action-row">
+          <input class="admin-input" type="text" id="banCodigoInput" placeholder="Código (PRIMO####X)…">
+          <select id="banDuracion" style="background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:Cormorant Garamond,serif;font-size:.95rem;padding:.55rem .3rem;outline:none;-webkit-appearance:none;flex-shrink:0;">
+            <option value="perm">Permanente</option>
+            <option value="1">1 hora</option>
+            <option value="24">24 horas</option>
+            <option value="168">7 días</option>
+          </select>
+          <button class="admin-btn danger" onclick="adminBan()">Ban</button>
+        </div>
+        <div class="admin-list" id="adminBansList">
+          <p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin bans activos.</p>
+        </div>
+      </div>
+
+      <!-- CHAT MOD -->
+      <div class="admin-panel-header" onclick="toggleAdminSection('secChat')">
+        <span class="admin-panel-header-title">💬 Moderar Chat</span>
+        <span class="admin-panel-header-arrow" id="arrowSecChat">▾</span>
+      </div>
+      <div class="admin-panel-body" id="secChat">
+        <div class="admin-section-title">Mensajes recientes</div>
+        <div class="admin-list" id="adminChatList">
+          <p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Cargando…</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
     <div class="section-label" id="actionLabel">Tu voz cuenta</div>
     <div class="section-title" id="actionTitle">Emite tu Nominación</div>
     <div id="actionContent"></div>
@@ -603,7 +711,7 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbwNcn_A0Xq514iNycghlbR7rXdRx6kZi5B9xssFy_TQM_4vmafeNd36SGQj5UTWXKqP/exec';
+var API = 'https://script.google.com/macros/s/AKfycbzyvOlgDUYyy3UI0DoHynNPNbbS8sVtTpkzSnw6qeJXHJtMzL3L7lZTC8udu3Ja0aHg/exec';
 
 // ══════════════════════════════════════════════════════
 //  TESTING: cambia este número para forzar una fase:
@@ -655,20 +763,36 @@ function getFase(){
 }
 function isAdmin(){ return primo && primo.rol==='admin'; }
 
+// ─── GÉNERO ───────────────────────────────────────────────────
+var generoSeleccionado = 'm'; // default: primo
+
+function setGenero(g){
+  generoSeleccionado = g;
+  document.getElementById('genderMasc').classList.toggle('active', g==='m');
+  document.getElementById('genderFem').classList.toggle('active', g==='f');
+}
+
+function getTratamiento(){
+  var g = primo ? (primo.genero||'m') : 'm';
+  return g==='f' ? 'Prima' : 'Primo';
+}
+
 function getDisplayName(){
   if(!primo||!primo.nombreDisplay) return '';
+  var trat = getTratamiento();
   if(primo.apodo&&primo.apodo.trim()){
-    return 'Primo '+primo.apodo.trim().replace(/^primo\s+/i,'');
+    return trat+' '+primo.apodo.trim().replace(/^primo\s+/i,'').replace(/^prima\s+/i,'');
   }
-  return 'Primo '+primo.nombreDisplay;
+  return trat+' '+primo.nombreDisplay;
 }
 function getChatName(){
   if(!primo||!primo.nombreDisplay) return 'Anónimo';
   var first=(primo.nombreCompleto||primo.nombreDisplay||'').split(' ')[0];
+  var trat=getTratamiento();
   if(primo.apodo&&primo.apodo.trim()){
-    return 'Primo '+primo.apodo.trim().replace(/^primo\s+/i,'')+' ('+first+')';
+    return trat+' '+primo.apodo.trim().replace(/^primo\s+/i,'').replace(/^prima\s+/i,'')+' ('+first+')';
   }
-  return 'Primo '+primo.nombreDisplay+' ('+first+')';
+  return trat+' '+primo.nombreDisplay+' ('+first+')';
 }
 
 // ─── INTRO ────────────────────────────────────────────────────
@@ -726,7 +850,7 @@ function loadSavedIdentity(){
             primo=d;
             if(res.rol) primo.rol=res.rol;
             try{localStorage.setItem('primoID_v2',JSON.stringify(primo));}catch(e){}
-            showWelcomeView(); renderAction(); loadMisNominaciones();
+            showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminPanel();
           } else {
             try{localStorage.removeItem('primoID_v2');}catch(e){}
             primo=null;
@@ -751,30 +875,27 @@ function showWelcomeView(){
   if(!primo) return;
   document.getElementById('registerView').style.display='none';
   document.getElementById('welcomeView').style.display='block';
-  document.getElementById('identityTitle').textContent='¡Hola de nuevo!';
+  var esFem=primo.genero==='f';
+  document.getElementById('identityTitle').textContent=esFem?'¡Hola de nuevo, prima!':'¡Hola de nuevo, primo!';
   document.getElementById('identityLabel').textContent='Tu identidad';
-  // Display name
-  var dn = getDisplayName();
-  var dnEl = document.getElementById('welcomeDisplayName');
-  dnEl.textContent = dn;
+  var dn=getDisplayName();
+  var dnEl=document.getElementById('welcomeDisplayName');
+  dnEl.textContent=dn;
   if(isAdmin()){
     var tag=document.createElement('span'); tag.className='admin-tag'; tag.textContent='Admin';
     dnEl.appendChild(tag);
   }
-  // Real name (just first name, italic)
-  document.getElementById('welcomeRealName').textContent = primo.nombreCompleto || '';
-  // Code hidden by default
+  document.getElementById('welcomeRealName').textContent=primo.nombreCompleto||'';
   codeVisible=false;
   document.getElementById('codeValue').textContent='••••••••••';
   updateEyeIcon();
-  // Apodo block
   document.getElementById('apodoBlock').style.display=(!primo.apodo)?'block':'none';
 }
 
 function showRegisterView(){
   document.getElementById('welcomeView').style.display='none';
   document.getElementById('registerView').style.display='block';
-  document.getElementById('identityTitle').textContent='¿Quién eres, primo?';
+  document.getElementById('identityTitle').textContent='¿Quién eres, primo/a?';
   document.getElementById('identityLabel').textContent='Tu identidad';
 }
 
@@ -796,14 +917,29 @@ function updateEyeIcon(){
 function registrarPrimo(){
   var nombre=(document.getElementById('nameInput').value||'').trim();
   if(!nombre){showToast('Escribe tu nombre');return;}
+  // Género ya tiene default 'm', siempre válido
   showToast('Verificando…');
-  apiCall({action:'registrarPrimo',nombre:nombre},function(res){
+  apiCall({action:'registrarPrimo',nombre:nombre,genero:generoSeleccionado},function(res){
     if(!res){showToast('Error de conexión');return;}
     if(res.ok){
       saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,
-        nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',rol:res.rol||'participante'});
-      showWelcomeView(); renderAction(); loadMisNominaciones();
-      showToast('¡Bienvenido, '+getDisplayName()+'!');
+        nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',
+        rol:res.rol||'participante',genero:generoSeleccionado});
+      showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminPanel();
+      showToast('¡Bienvenido'+( generoSeleccionado==='f'?'a':'')+'!, '+getDisplayName());
+    } else if(res.requiereCodigo){
+      showToast(res.msg);
+      var codeBlock=document.getElementById('codeLoginBlock');
+      if(codeBlock) codeBlock.style.display='block';
+      setTimeout(function(){
+        var ci=document.getElementById('codeInput');
+        if(ci){ci.focus();ci.scrollIntoView({behavior:'smooth',block:'center'});}
+      },400);
+    } else {
+      showToast(res.msg||'No encontrado. Verifica tu nombre.');
+    }
+  });
+}
     } else if(res.requiereCodigo){
       // Account already exists — show code login automatically
       showToast(res.msg);
@@ -832,9 +968,11 @@ function loginCodigo(){
   apiCall({action:'loginCodigo',codigo:c},function(res){
     if(!res){showToast('Error de conexión');return;}
     if(res.ok){
-      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',rol:res.rol||'participante'});
-      showWelcomeView(); renderAction(); loadMisNominaciones();
-      showToast('¡Bienvenido de vuelta, '+getDisplayName()+'!');
+      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,
+        nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',
+        rol:res.rol||'participante',genero:res.genero||'m'});
+      showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminPanel();
+      showToast('¡Bienvenid'+(primo.genero==='f'?'a':'o')+' de vuelta, '+getDisplayName()+'!');
     }else{ showToast(res.msg||'Código no válido'); }
   });
 }
@@ -917,16 +1055,26 @@ function renderAction(){
   }
   if(fase===1){
     L.textContent='Tu voz cuenta'; T.textContent='Emite tu Nominación';
-    // Check how many nominations emitted — show mini-game if all done
-    apiCall({action:'misEmitidas',codigo:primo.codigo},function(res){
-      var total=(res&&res.total!==undefined)?res.total:0;
-      var maxPosible=CATS.length*2;
-      if(total>=maxPosible){
-        L.textContent='¡Todo listo!'; T.textContent='Nominaciones completadas';
-        C.innerHTML=buildMiniGame(); initMiniGame();
-      } else {
-        C.innerHTML=buildNomForm(); onCatChange();
+    // Load nom status then check nominations done
+    apiCall({action:'getNomStatus'},function(nomRes){
+      window._nomActivo=(nomRes&&nomRes.activo!==false);
+      updateNomBtn();
+      if(!window._nomActivo){
+        L.textContent='Nominaciones pausadas'; T.textContent='Espera un momento';
+        C.innerHTML=closedHtml('⏸','Nominaciones Pausadas','El organizador pausó las nominaciones temporalmente. Vuelve en un momento.');
+        return;
       }
+      apiCall({action:'misEmitidas',codigo:primo.codigo},function(res){
+        var porCat=(res&&res.porCat)||{};
+        var catsConNom=CATS.filter(function(c){return (porCat[c]||0)>=1;}).length;
+        if(catsConNom>=CATS.length){
+          L.textContent='¡Todo nominado!'; T.textContent='Emite más nominaciones';
+          C.innerHTML='<div style="margin-bottom:1.5rem;">'+buildNomForm()+'</div>'+buildMiniGame();
+          onCatChange(); initMiniGame(); loadLeaderboard('stars','lb1rows');
+        } else {
+          C.innerHTML=buildNomForm(); onCatChange();
+        }
+      });
     });
   }
   else if(fase===2){
@@ -1049,6 +1197,15 @@ function selectNomAc(slot,i){
 
 // ─── ENVIAR NOMINACIÓN ────────────────────────────────────────
 function enviarNominacion(){
+  if(!primo){showToast('Ingresa tu nombre primero');return;}
+  if(window._nomActivo===false){showToast('Las nominaciones están desactivadas temporalmente');return;}
+  checkBan(function(baneado){
+    if(baneado) return;
+    _doEnviarNominacion();
+  });
+}
+
+function _doEnviarNominacion(){
   if(!primo){showToast('Ingresa tu nombre primero');return;}
   var cat=document.getElementById('catSelect').value;
   var isDupla=cat.indexOf('Dupla')!==-1;
@@ -1241,13 +1398,16 @@ function prepararVoto(cat,codNominado,displayNominado){
 function confirmarVoto(){
   if(!pendingVote||!primo){cancelarVoto();return;}
   document.getElementById('confirmOverlay').classList.remove('open');
-  showToast('Enviando voto…');
-  apiCall({action:'votar',codigo:primo.codigo,nombre:getDisplayName(),
-    categoria:pendingVote.cat,codNominado:pendingVote.codNominado,nominado:pendingVote.displayNominado},
-  function(res){
-    if(!res){showToast('Error de conexión');return;}
-    showToast(res.msg||(res.ok?'¡Voto registrado!':'Error'));
-    pendingVote=null;
+  checkBan(function(baneado){
+    if(baneado){pendingVote=null;return;}
+    showToast('Enviando voto…');
+    apiCall({action:'votar',codigo:primo.codigo,nombre:getDisplayName(),
+      categoria:pendingVote.cat,codNominado:pendingVote.codNominado,nominado:pendingVote.displayNominado},
+    function(res){
+      if(!res){showToast('Error de conexión');return;}
+      showToast(res.msg||(res.ok?'¡Voto registrado!':'Error'));
+      pendingVote=null;
+    });
   });
 }
 function cancelarVoto(){pendingVote=null;document.getElementById('confirmOverlay').classList.remove('open');}
@@ -1262,12 +1422,15 @@ function toggleChat(){
 }
 function mandarChat(){
   if(!primo){showToast('Identifícate para chatear');return;}
-  var user=getChatName();
   var msg=(document.getElementById('msgChat').value||'').trim(); if(!msg) return;
-  localMsgs.push([user,msg]); renderMsgs(localMsgs);
-  document.getElementById('msgChat').value='';
-  apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
-    if(res&&res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
+  checkBan(function(baneado){
+    if(baneado) return;
+    var user=getChatName();
+    localMsgs.push([user,msg]); renderMsgs(localMsgs);
+    document.getElementById('msgChat').value='';
+    apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
+      if(res&&res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
+    });
   });
 }
 function renderMsgs(lista){
@@ -1566,6 +1729,174 @@ function stopStars(){
   var canvas=document.getElementById('starsCanvas');
   if(canvas){var ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);}
 }
+// ─── ADMIN PANEL ──────────────────────────────────────────────
+window._nomActivo = true;
+
+function showAdminPanel(){
+  var sec=document.getElementById('adminPanelSection');
+  if(!sec) return;
+  if(isAdmin()){
+    sec.style.display='block';
+    adminLoadPrimos();
+    adminLoadBans();
+    adminLoadChatMessages();
+    adminLoadNomStatus();
+  } else {
+    sec.style.display='none';
+  }
+}
+
+function toggleAdminSection(secId){
+  var body=document.getElementById(secId);
+  var arrowId='arrow'+secId.charAt(0).toUpperCase()+secId.slice(1);
+  var arrow=document.getElementById(arrowId);
+  if(!body) return;
+  var isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  if(arrow) arrow.classList.toggle('open',!isOpen);
+}
+
+function adminLoadNomStatus(){
+  apiCall({action:'getNomStatus'},function(res){
+    if(!res) return;
+    window._nomActivo=(res.activo!==false);
+    updateNomBtn();
+  });
+}
+
+function updateNomBtn(){
+  var btn=document.getElementById('nomActivoBtn');
+  if(!btn) return;
+  if(window._nomActivo){
+    btn.textContent='⏸ Deshabilitar Nominaciones';
+    btn.classList.remove('active');
+  } else {
+    btn.textContent='▶ Habilitar Nominaciones';
+    btn.classList.add('active');
+  }
+}
+
+function toggleNominaciones(){
+  var nuevo=!window._nomActivo;
+  apiCall({action:'setNomStatus',activo:nuevo?'1':'0',codigo:primo.codigo},function(res){
+    if(!res){showToast('Error de conexión');return;}
+    if(res.ok){
+      window._nomActivo=nuevo;
+      updateNomBtn();
+      showToast(nuevo?'Nominaciones habilitadas ✦':'Nominaciones desactivadas ⏸');
+      renderAction();
+    } else showToast(res.msg||'Error');
+  });
+}
+
+function adminLoadPrimos(){
+  var q=(document.getElementById('adminSearchPrimo')?document.getElementById('adminSearchPrimo').value:'').toLowerCase();
+  apiCall({action:'getPrimos'},function(res){
+    var list=document.getElementById('adminPrimosList'); if(!list) return;
+    if(!res||!res.primos||!res.primos.length){
+      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin primos registrados.</p>';
+      return;
+    }
+    var filtered=res.primos.filter(function(p){
+      return !q||(p.nombre||'').toLowerCase().indexOf(q)!==-1||(p.codigo||'').toLowerCase().indexOf(q)!==-1;
+    });
+    if(!filtered.length){
+      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin resultados.</p>';
+      return;
+    }
+    list.innerHTML=filtered.map(function(p){
+      var genLabel=p.genero==='f'?' · Prima':' · Primo';
+      var rolLabel=p.rol==='admin'?' · 👑 Admin':'';
+      return '<div class="admin-list-item">'
+        +'<div><div style="font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.18em;color:var(--gold)">'+esc(p.nombre||'')+'</div>'
+        +'<div style="font-family:Cormorant Garamond,serif;font-size:.82rem;color:rgba(245,237,224,.38)">'+esc(p.codigo||'')+genLabel+rolLabel+'</div></div>'
+        +'<div class="admin-list-item-btns">'
+        +'<button class="admin-btn danger" onclick="adminKick(\''+esc(p.codigo)+'\',\''+esc(p.nombre)+'\')">Sacar</button>'
+        +'</div></div>';
+    }).join('');
+  });
+}
+
+function adminKick(codigo, nombre){
+  if(!confirm('¿Sacar a '+nombre+'? Deberá registrarse de nuevo.')) return;
+  apiCall({action:'kickPrimo',codigo:codigo,adminCodigo:primo.codigo},function(res){
+    if(!res){showToast('Error de conexión');return;}
+    if(res.ok){showToast(nombre+' fue removido ✦');adminLoadPrimos();}
+    else showToast(res.msg||'Error');
+  });
+}
+
+function adminLoadBans(){
+  apiCall({action:'getBans'},function(res){
+    var list=document.getElementById('adminBansList'); if(!list) return;
+    if(!res||!res.bans||!res.bans.length){
+      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin bans activos.</p>';
+      return;
+    }
+    list.innerHTML=res.bans.map(function(b){
+      var expText=b.expiry==='perm'?'Permanente':new Date(parseInt(b.expiry)).toLocaleString();
+      return '<div class="admin-list-item">'
+        +'<div><div style="font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.18em;color:rgba(210,80,80,.8)">'+esc(b.nombre||b.codigo)+'</div>'
+        +'<div style="font-family:Cormorant Garamond,serif;font-size:.82rem;color:rgba(245,237,224,.38)">Hasta: '+esc(expText)+'</div></div>'
+        +'<button class="admin-btn success" onclick="adminUnban(\''+esc(b.codigo)+'\')">Quitar ban</button>'
+        +'</div>';
+    }).join('');
+  });
+}
+
+function adminBan(){
+  var cod=(document.getElementById('banCodigoInput').value||'').trim().toUpperCase();
+  var dur=document.getElementById('banDuracion').value;
+  if(!cod){showToast('Ingresa el código del primo');return;}
+  apiCall({action:'banPrimo',codigo:cod,duracion:dur,adminCodigo:primo.codigo},function(res){
+    if(!res){showToast('Error de conexión');return;}
+    if(res.ok){showToast('Ban aplicado ✦');document.getElementById('banCodigoInput').value='';adminLoadBans();}
+    else showToast(res.msg||'Error');
+  });
+}
+
+function adminUnban(codigo){
+  apiCall({action:'unbanPrimo',codigo:codigo,adminCodigo:primo.codigo},function(res){
+    if(res&&res.ok){showToast('Ban removido ✦');adminLoadBans();}
+    else showToast('Error al quitar ban');
+  });
+}
+
+function checkBan(cb){
+  if(!primo){if(cb)cb(false);return;}
+  apiCall({action:'checkBan',codigo:primo.codigo},function(res){
+    if(res&&res.baneado){
+      var msg=res.expiry==='perm'?'Estás baneado permanentemente de Primos Awards.':'Estás baneado hasta: '+new Date(parseInt(res.expiry)).toLocaleString();
+      showToast(msg); if(cb)cb(true); return;
+    }
+    if(cb)cb(false);
+  });
+}
+
+function adminLoadChatMessages(){
+  apiCall({action:'getMensajesAdmin',codigo:primo.codigo},function(res){
+    var list=document.getElementById('adminChatList'); if(!list) return;
+    if(!res||!res.mensajes||!res.mensajes.length){
+      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin mensajes.</p>';
+      return;
+    }
+    list.innerHTML=res.mensajes.map(function(m){
+      return '<div class="admin-msg-row">'
+        +'<div style="flex:1"><div class="admin-msg-author">'+esc(String(m[0]))+'</div>'
+        +'<div class="admin-msg-text">'+esc(String(m[1]))+'</div></div>'
+        +'<button class="admin-btn danger" onclick="adminDeleteMsg(\''+esc(String(m[2]))+'\',\''+esc(String(m[1]))+'\')" style="flex-shrink:0;align-self:center;margin-left:.5rem">✕</button>'
+        +'</div>';
+    }).join('');
+  });
+}
+
+function adminDeleteMsg(timestamp, texto){
+  apiCall({action:'deleteMensaje',timestamp:timestamp,texto:texto,codigo:primo.codigo},function(res){
+    if(res&&res.ok){showToast('Mensaje eliminado');adminLoadChatMessages();}
+    else showToast('No se pudo eliminar');
+  });
+}
+
 function shuffleArr(arr){
   for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
   return arr;
