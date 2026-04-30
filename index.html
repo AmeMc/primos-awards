@@ -940,21 +940,6 @@ function registrarPrimo(){
     }
   });
 }
-    } else if(res.requiereCodigo){
-      // Account already exists — show code login automatically
-      showToast(res.msg);
-      var codeBlock=document.getElementById('codeLoginBlock');
-      if(codeBlock) codeBlock.style.display='block';
-      // Highlight the code input
-      setTimeout(function(){
-        var ci=document.getElementById('codeInput');
-        if(ci){ci.focus();ci.scrollIntoView({behavior:'smooth',block:'center'});}
-      },400);
-    } else {
-      showToast(res.msg||'No encontrado. Verifica tu nombre.');
-    }
-  });
-}
 
 function toggleCodeLogin(){
   var b=document.getElementById('codeLoginBlock');
