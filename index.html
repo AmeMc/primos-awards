@@ -574,7 +574,7 @@
       <div class="admin-panel-body" id="secBans">
         <div class="admin-section-title">Banear Primo</div>
         <div class="admin-action-row">
-          <input class="admin-input" type="text" id="banCodigoInput" placeholder="Código (PRIMO####X)…">
+          <input class="admin-input" type="text" id="banCodigoInput" placeholder="Código o nombre del primo…">
           <select id="banDuracion" style="background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:Cormorant Garamond,serif;font-size:.95rem;padding:.55rem .3rem;outline:none;-webkit-appearance:none;flex-shrink:0;">
             <option value="perm">Permanente</option>
             <option value="1">1 hora</option>
@@ -604,6 +604,35 @@
   </section>
 
   <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+
+  <!-- PRESENTADOR PANEL — only shown to presenters -->
+  <section class="fade-in" id="presentadorPanelSection" style="display:none">
+    <div class="section-label">Panel de Presentador</div>
+    <div class="section-title">Estadísticas en Vivo</div>
+    <div class="admin-panel" id="presentadorPanel">
+      <div class="admin-panel-title">Información Actual</div>
+      <div style="padding:1.5rem;">
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.3em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.8rem;">Total de Primos Registrados</div>
+          <div style="font-family:Cinzel Decorative,serif;font-size:2rem;color:var(--gold-light);" id="statTotalPrimos">0</div>
+        </div>
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.3em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.8rem;">Estado Actual</div>
+          <div style="font-family:Cinzel,serif;font-size:1rem;color:rgba(201,168,76,.7);" id="statFase">Cargando...</div>
+        </div>
+        <div>
+          <div style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.3em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.8rem;">Por Categoría</div>
+          <div id="statsCatsWrap" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;"></div>
+        </div>
+        <button class="btn-submit" onclick="actualizarStatsPresent()" style="margin-top:1.5rem;">🔄 Actualizar ahora</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+
+  <!-- ACTION SECTION -->
+  <section class="fade-in" id="actionSection">
     <div class="section-label" id="actionLabel">Tu voz cuenta</div>
     <div class="section-title" id="actionTitle">Emite tu Nominación</div>
     <div id="actionContent"></div>
@@ -711,7 +740,7 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
-var API = 'https://script.google.com/macros/s/AKfycbzyvOlgDUYyy3UI0DoHynNPNbbS8sVtTpkzSnw6qeJXHJtMzL3L7lZTC8udu3Ja0aHg/exec';
+var API = 'https://script.google.com/macros/s/AKfycbyfrX10fqMEvq_wVIsUYzbIdW1-vLlgQk_ct3EOiTg11pt69HXsDcwQf4iSKnLmtoMM/exec';
 
 // ══════════════════════════════════════════════════════
 //  TESTING: cambia este número para forzar una fase:
@@ -1034,6 +1063,12 @@ function guardarMiCancion(){
 function renderAction(){
   var fase=getFase();
   var L=document.getElementById('actionLabel'),T=document.getElementById('actionTitle'),C=document.getElementById('actionContent');
+
+  // Si es presentador, actualizar stats pero seguir mostrando acción
+  if(primo&&primo.rol==='presentador'){
+    actualizarStatsPresent();
+  }
+
   if(!primo){
     L.textContent='Identificación requerida'; T.textContent='Ingresa tu nombre arriba';
     C.innerHTML=closedHtml('🔐','Solo para Primos','Identifícate arriba para nominar y votar.'); return;
@@ -1398,7 +1433,7 @@ function confirmarVoto(){
 function cancelarVoto(){pendingVote=null;document.getElementById('confirmOverlay').classList.remove('open');}
 
 // ─── CHAT ─────────────────────────────────────────────────────
-var chatOpen=false,lastMsgCount=0,localMsgs=[];
+var chatOpen=false,lastMsgCount=0,localMsgs=[],chatSending=false;
 function toggleChat(){
   chatOpen=!chatOpen;
   document.getElementById('chatPanel').classList.toggle('open',chatOpen);
@@ -1407,14 +1442,17 @@ function toggleChat(){
 }
 function mandarChat(){
   if(!primo){showToast('Identifícate para chatear');return;}
+  if(chatSending){showToast('Esperando respuesta...');return;}
   var msg=(document.getElementById('msgChat').value||'').trim(); if(!msg) return;
   checkBan(function(baneado){
     if(baneado) return;
     var user=getChatName();
-    localMsgs.push([user,msg]); renderMsgs(localMsgs);
+    chatSending=true;
     document.getElementById('msgChat').value='';
     apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
+      chatSending=false;
       if(res&&res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
+      setTimeout(function(){var b=document.getElementById('mensajes');if(b)b.scrollTop=b.scrollHeight;},50);
     });
   });
 }
@@ -1717,17 +1755,60 @@ function stopStars(){
 // ─── ADMIN PANEL ──────────────────────────────────────────────
 window._nomActivo = true;
 
+function actualizarStatsPresent(){
+  if(!primo||primo.rol!=='presentador') return;
+  document.getElementById('presentadorPanelSection').style.display='block';
+  apiCall({action:'statsPublicas'},function(res){
+    if(!res) return;
+    // Total de primos
+    document.getElementById('statTotalPrimos').textContent=res.totalPrimos||0;
+    // Fase actual
+    var faseText='';
+    if(res.fase===1) faseText='Fase 1: Nominaciones abiertas';
+    else if(res.fase===2) faseText='Fase 2: Votaciones abiertas';
+    else faseText='Fase 3: Gala en vivo';
+    document.getElementById('statFase').textContent=faseText;
+    // Stats por categoría
+    var wrap=document.getElementById('statsCatsWrap');
+    var html='';
+    Object.keys(res.cats).forEach(function(cat){
+      var stat=res.cats[cat];
+      var label=res.fase===1?'Nominaciones':'Votos';
+      var count=stat.nominaciones||stat.votos||0;
+      html+='<div style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);padding:1rem;border-radius:4px;">'
+        +'<div style="font-family:Cinzel,serif;font-size:.42rem;letter-spacing:.2em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:.4rem;word-break:break-word;">'+esc(cat)+'</div>'
+        +'<div style="font-family:Cinzel Decorative,serif;font-size:1.3rem;color:var(--gold-light);">'+count+'</div>'
+        +'<div style="font-family:Cormorant Garamond,serif;font-size:.75rem;color:rgba(245,237,224,.4);margin-top:.3rem;">'+label+'</div>'
+        +'</div>';
+    });
+    wrap.innerHTML=html||'<p style="grid-column:1/-1;text-align:center;color:rgba(245,237,224,.3)">Cargando datos...</p>';
+  });
+}
+
 function showAdminPanel(){
   var sec=document.getElementById('adminPanelSection');
+  var psec=document.getElementById('presentadorPanelSection');
+  var asec=document.getElementById('actionSection');
+
   if(!sec) return;
+
   if(isAdmin()){
     sec.style.display='block';
+    if(psec) psec.style.display='none';
+    if(asec) asec.style.display='block';
     adminLoadPrimos();
     adminLoadBans();
     adminLoadChatMessages();
     adminLoadNomStatus();
+  } else if(primo&&primo.rol==='presentador'){
+    sec.style.display='none';
+    if(psec) psec.style.display='block';
+    if(asec) asec.style.display='block'; // Mostrar ambas secciones
+    actualizarStatsPresent();
   } else {
     sec.style.display='none';
+    if(psec) psec.style.display='none';
+    if(asec) asec.style.display='block';
   }
 }
 
