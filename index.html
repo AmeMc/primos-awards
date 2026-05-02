@@ -61,16 +61,18 @@
     @keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
     /* DIVIDER */
-    .divider{display:flex;align-items:center;justify-content:center;gap:1rem;padding:2rem 1.5rem 0;}
+    .divider{display:flex;align-items:center;justify-content:center;gap:1rem;padding:2rem 1.5rem;}
     .divider-line{flex:1;max-width:400px;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent);}
     .divider-gem{width:7px;height:7px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
+    /* Dividers dinámicos — ocultos por defecto, JS los gestiona */
+    .divider.dynamic{display:none;}
 
     /* SECTIONS */
-    section{max-width:680px;margin:0 auto;padding:3.5rem 1.25rem;}
+    section{max-width:680px;margin:0 auto;padding:1.5rem 1.25rem 3.5rem;}
     .section-label{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;opacity:.85;margin-bottom:.6rem;}
     .section-title{font-family:'Cinzel',serif;font-size:clamp(1.15rem,4vw,1.7rem);font-weight:600;color:var(--cream);letter-spacing:.04em;margin-bottom:2rem;}
 
-    /* ── IDENTITY CARD — elegant redesign ── */
+    /* IDENTITY CARD */
     .identity-outer{position:relative;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,rgba(13,10,6,.9) 100%);border:1px solid rgba(201,168,76,.25);}
     .identity-outer::before,.identity-outer::after{content:'';position:absolute;width:18px;height:18px;border-color:rgba(201,168,76,.6);border-style:solid;}
     .identity-outer::before{top:10px;left:10px;border-width:1px 0 0 1px;}
@@ -97,7 +99,6 @@
     .code-login-block{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(201,168,76,.1);}
 
     /* Welcome view */
-    .welcome-inner{padding:0;}
     .welcome-top{padding:2rem 2rem 1.5rem;text-align:center;border-bottom:1px solid rgba(201,168,76,.1);}
     .welcome-display-name{font-family:'Cinzel Decorative',serif;font-size:clamp(1.3rem,5vw,2rem);background:linear-gradient(160deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem;}
     .welcome-real-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(245,237,224,.5);letter-spacing:.1em;}
@@ -107,20 +108,11 @@
     .code-eye-btn{background:none;border:1px solid rgba(201,168,76,.25);color:rgba(201,168,76,.5);width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .25s;flex-shrink:0;}
     .code-eye-btn:hover{border-color:var(--gold);color:var(--gold);}
     .admin-tag{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.28em;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-transform:uppercase;margin-left:.6rem;vertical-align:middle;border:1px solid rgba(201,168,76,.4);padding:.2rem .5rem;display:inline-block;}
-    .welcome-bottom{padding:1.5rem 2rem;}
-    /* Apodo block inside welcome */
     .apodo-block{padding:1rem 1.5rem;background:rgba(201,168,76,.03);border-top:1px solid rgba(201,168,76,.1);}
     .apodo-block p{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.45);margin-bottom:.9rem;text-align:center;}
-    .nominado-banner{background:rgba(201,168,76,.05);border-top:1px solid rgba(201,168,76,.2);padding:1.5rem 2rem;position:relative;overflow:hidden;}
-    .nominado-banner::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.1) 25%,transparent 50%,rgba(201,168,76,.07) 75%,transparent);animation:auraSpin 6s linear infinite;}
-    .nominado-banner::after{content:'';position:absolute;inset:1px;background:rgba(8,8,8,.9);z-index:0;}
-    .nominado-banner>*{position:relative;z-index:1;}
     @keyframes auraSpin{to{transform:rotate(360deg)}}
-    .nominado-banner h4{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;color:var(--gold-light);text-transform:uppercase;margin-bottom:.5rem;}
-    .nominado-banner ul{list-style:none;margin-bottom:1rem;}
-    .nominado-banner ul li{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(245,237,224,.7);padding:.3rem 0;border-bottom:1px solid rgba(201,168,76,.08);}
 
-    /* Form fields (shared) */
+    /* Form fields */
     .field-group{margin-bottom:1.4rem;}
     .field-label{display:block;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.38em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.55rem;}
     .field-input,.field-select{width:100%;background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.08rem;padding:.65rem 0;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;border-radius:0;}
@@ -137,13 +129,12 @@
     .btn-submit{width:100%;margin-top:.3rem;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;padding:.95rem 1.5rem;cursor:pointer;transition:all .4s;-webkit-tap-highlight-color:transparent;min-height:48px;}
     .btn-submit:hover,.btn-submit:active{border-color:var(--gold);color:var(--gold-light);}
 
-    /* AUTOCOMPLETE (only for nominations) */
+    /* AUTOCOMPLETE */
     .autocomplete-wrap{position:relative;}
     .autocomplete-list{position:absolute;top:100%;left:0;right:0;background:rgba(10,8,5,.98);border:1px solid rgba(201,168,76,.25);border-top:none;z-index:50;max-height:220px;overflow-y:auto;}
     .ac-item{padding:.75rem 1rem;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,224,.8);border-bottom:1px solid rgba(201,168,76,.08);transition:background .2s;display:flex;flex-direction:column;gap:.15rem;}
     .ac-item:hover,.ac-item:active{background:rgba(201,168,76,.1);}
     .ac-name{color:var(--cream);}
-    .ac-apodo{font-size:.82rem;font-style:italic;color:rgba(201,168,76,.7);}
     .ac-empty{padding:.75rem 1rem;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);}
     .nom-selected-display{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.98rem;color:rgba(201,168,76,.85);margin-bottom:1rem;padding:.5rem .8rem;border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);display:none;}
 
@@ -161,7 +152,7 @@
     .cat-item.special .cat-name{color:var(--gold-light);font-size:.6rem;letter-spacing:.2em;display:block;text-align:center;position:relative;z-index:4;margin:0;}
     @keyframes sweepShimmer{0%,100%{left:-100%}45%,55%{left:150%}}
 
-    /* ── CATEGORY PAGE (full screen, not modal) ── */
+    /* CATEGORY PAGE */
     #catPage{position:fixed;inset:0;z-index:300;background:var(--black);overflow-y:auto;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
     #catPage.open{transform:translateX(0);}
     .cat-page-header{position:sticky;top:0;z-index:10;background:rgba(8,8,8,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.15);padding:.9rem 1.25rem;display:flex;align-items:center;gap:.8rem;}
@@ -178,7 +169,7 @@
     .empty-state-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.4;}
     .empty-state p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(245,237,224,.3);line-height:1.6;}
 
-    /* ── NOMINATION CARDS ── */
+    /* NOMINATION CARDS */
     .nom-matrix{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
     .nom-card{background:linear-gradient(160deg,rgba(201,168,76,.05) 0%,rgba(13,10,6,.8) 100%);border:1px solid rgba(201,168,76,.18);border-radius:8px;padding:1.2rem .9rem;text-align:center;transition:all .3s;position:relative;overflow:hidden;}
     .nom-card.clickable{cursor:pointer;-webkit-tap-highlight-color:transparent;}
@@ -193,7 +184,7 @@
     .nom-card-votes{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.2em;color:rgba(201,168,76,.5);margin-top:.4rem;text-transform:uppercase;}
     .vote-hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.92rem;color:rgba(245,237,224,.3);text-align:center;margin-top:1.2rem;line-height:1.5;}
 
-    /* ACTION (nom form) */
+    /* ACTION */
     .action-card{background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,rgba(26,21,16,.6) 100%);border:1px solid rgba(201,168,76,.2);padding:1.75rem 1.25rem;position:relative;}
     .action-card::before,.action-card::after{content:'';position:absolute;width:14px;height:14px;border-color:rgba(201,168,76,.5);border-style:solid;}
     .action-card::before{top:9px;left:9px;border-width:1px 0 0 1px;}
@@ -255,7 +246,7 @@
     .footer-title{font-family:'Cinzel Decorative',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .footer-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:rgba(245,237,224,.3);letter-spacing:.1em;line-height:2.2;}
 
-    /* VOTING INFO — mobile-first readable */
+    /* VOTING INFO */
     .voting-info-card{background:linear-gradient(135deg,rgba(201,168,76,.04),rgba(13,10,6,.8));border:1px solid rgba(201,168,76,.2);padding:1.5rem 1.1rem;position:relative;}
     .voting-info-card::before,.voting-info-card::after{content:'';position:absolute;width:14px;height:14px;border-color:rgba(201,168,76,.5);border-style:solid;}
     .voting-info-card::before{top:9px;left:9px;border-width:1px 0 0 1px;}
@@ -277,8 +268,7 @@
     .lb-rank{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:rgba(201,168,76,.45);min-width:24px;text-align:center;flex-shrink:0;}
     .lb-rank.gold{color:var(--gold-light);font-size:.65rem;}
     .lb-name{flex:1;font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(245,237,224,.75);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .lb-name.gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;font-size:1.1rem;position:relative;}
-    .lb-name.gold::before{content:'';position:absolute;inset:-4px -8px;background:radial-gradient(ellipse,rgba(201,168,76,.18) 0%,transparent 70%);animation:glowPulse 2s ease-in-out infinite;pointer-events:none;border-radius:3px;}
+    .lb-name.gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;font-size:1.1rem;}
     .lb-score{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;color:rgba(201,168,76,.7);flex-shrink:0;}
     .lb-me{background:rgba(201,168,76,.06);}
 
@@ -304,15 +294,28 @@
     .gender-opt.active{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08));color:var(--gold-light);border-bottom:2px solid var(--gold);}
     .gender-opt:first-child{border-right:1px solid rgba(201,168,76,.15);}
 
-    /* ADMIN PANEL FULL */
-    .admin-full-panel{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.2);margin-bottom:1.5rem;}
-    .admin-panel-header{padding:1rem 1.25rem;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent;}
-    .admin-panel-header-title{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
-    .admin-panel-header-arrow{color:rgba(201,168,76,.5);font-size:.7rem;transition:transform .3s;}
-    .admin-panel-header-arrow.open{transform:rotate(180deg);}
-    .admin-panel-body{display:none;padding:1.25rem;}
-    .admin-panel-body.open{display:block;}
-    .admin-section-title{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.35em;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.1);}
+    /* ── ADMIN SCREEN — pantalla completa estilizada ── */
+    #adminScreen{position:fixed;inset:0;z-index:500;background:var(--black);overflow-y:auto;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+    #adminScreen.open{transform:translateX(0);}
+    .admin-screen-header{position:sticky;top:0;z-index:10;background:rgba(8,8,8,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.2);padding:.9rem 1.25rem;display:flex;align-items:center;gap:.8rem;}
+    .admin-screen-back{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:all .25s;flex-shrink:0;}
+    .admin-screen-back:hover{border-color:var(--gold);}
+    .admin-screen-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;flex:1;text-align:center;}
+    .admin-screen-body{padding:1.5rem 1.25rem 5rem;max-width:680px;margin:0 auto;}
+
+    /* Tarjeta panel admin — estilo refinado */
+    .admin-card{background:linear-gradient(135deg,rgba(201,168,76,.05) 0%,rgba(13,10,6,.92) 100%);border:1px solid rgba(201,168,76,.22);margin-bottom:1.2rem;position:relative;}
+    .admin-card::before,.admin-card::after{content:'';position:absolute;width:12px;height:12px;border-color:rgba(201,168,76,.45);border-style:solid;}
+    .admin-card::before{top:8px;left:8px;border-width:1px 0 0 1px;}
+    .admin-card::after{bottom:8px;right:8px;border-width:0 1px 1px 0;}
+    .admin-card-header{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent;border-bottom:1px solid rgba(201,168,76,.08);}
+    .admin-card-header:hover .admin-card-title{color:var(--gold-light);}
+    .admin-card-title{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;transition:color .25s;}
+    .admin-card-arrow{color:rgba(201,168,76,.5);font-size:.65rem;transition:transform .3s;}
+    .admin-card-arrow.open{transform:rotate(180deg);}
+    .admin-card-body{display:none;padding:1.25rem;}
+    .admin-card-body.open{display:block;}
+    .admin-section-title{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.35em;color:rgba(201,168,76,.55);text-transform:uppercase;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.08);}
     .admin-action-row{display:flex;gap:.5rem;align-items:stretch;margin-bottom:.7rem;}
     .admin-input{flex:1;background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;padding:.55rem 0;outline:none;-webkit-appearance:none;}
     .admin-input:focus{border-bottom-color:var(--gold);}
@@ -325,7 +328,9 @@
     .admin-toggle-btn{width:100%;margin-bottom:.7rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.65);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;padding:.85rem;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;}
     .admin-toggle-btn:hover{border-color:var(--gold);color:var(--gold);}
     .admin-toggle-btn.active{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold-light);}
-    .admin-list{margin-top:.5rem;max-height:200px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent;}
+    .admin-list{margin-top:.5rem;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent;}
+    .admin-list::-webkit-scrollbar{width:3px;}
+    .admin-list::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);}
     .admin-list-item{display:flex;align-items:center;justify-content:space-between;padding:.55rem .7rem;border-bottom:1px solid rgba(201,168,76,.06);font-family:'Cormorant Garamond',serif;font-size:.95rem;color:rgba(245,237,224,.7);}
     .admin-list-item:last-child{border-bottom:none;}
     .admin-list-item-btns{display:flex;gap:.35rem;}
@@ -334,9 +339,18 @@
     .admin-msg-text{flex:1;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(245,237,224,.6);line-height:1.4;word-break:break-word;}
     .admin-msg-author{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.15em;color:rgba(201,168,76,.6);margin-bottom:.2rem;}
 
+    /* Botón para abrir panel admin en main page */
+    .admin-open-btn{display:flex;align-items:center;gap:1rem;width:100%;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,rgba(13,10,6,.9) 100%);border:1px solid rgba(201,168,76,.3);padding:1.2rem 1.5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .35s;position:relative;overflow:hidden;}
+    .admin-open-btn::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.15),transparent);transform:skewX(-20deg);animation:shimmerSlide 3.5s ease-in-out infinite;}
+    @keyframes shimmerSlide{0%,100%{left:-60%}50%{left:120%}}
+    .admin-open-btn:hover,.admin-open-btn:active{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.1) 0%,rgba(13,10,6,.95) 100%);}
+    .admin-open-icon{font-size:1.4rem;flex-shrink:0;}
+    .admin-open-text{flex:1;text-align:left;}
+    .admin-open-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.25rem;}
+    .admin-open-sub{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.4);}
+    .admin-open-arrow{color:rgba(201,168,76,.5);font-family:'Cinzel',serif;font-size:.8rem;}
 
-
-    /* ADMIN PANEL */
+    /* Admin reveal buttons */
     .admin-panel{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.25);padding:1.5rem 1.25rem;margin-bottom:1.5rem;}
     .admin-panel-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
     .admin-panel-title::before{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3));}
@@ -346,14 +360,12 @@
     .admin-reveal-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.15),transparent);opacity:0;transition:opacity .3s;}
     .admin-reveal-btn:hover,.admin-reveal-btn:active{border-color:var(--gold);box-shadow:0 0 15px rgba(201,168,76,.2);}
     .admin-reveal-btn:hover::before,.admin-reveal-btn:active::before{opacity:1;}
-    .admin-reveal-btn.revealed{border-color:rgba(201,168,76,.5);color:var(--gold-light);}
     .admin-reveal-btn .btn-shimmer{position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);transform:skewX(-20deg);animation:shimmerSlide 3s ease-in-out infinite;}
-    @keyframes shimmerSlide{0%,100%{left:-60%}50%{left:120%}}
 
-    /* WINNER REVEAL ANIMATION */
+    /* WINNER REVEAL */
     #winnerReveal{position:fixed;inset:0;z-index:800;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s;}
     #winnerReveal.active{opacity:1;pointer-events:all;}
-    .spotlight{position:absolute;top:0;left:50%;transform:translateX(-50%);width:300px;height:100%;background:radial-gradient(ellipse 200px 600px at 50% 0%,rgba(201,168,76,.25) 0%,transparent 70%);opacity:0;animation:none;}
+    .spotlight{position:absolute;top:0;left:50%;transform:translateX(-50%);width:300px;height:100%;background:radial-gradient(ellipse 200px 600px at 50% 0%,rgba(201,168,76,.25) 0%,transparent 70%);opacity:0;}
     .spotlight.on{animation:spotOn 1.5s ease forwards;}
     @keyframes spotOn{0%{opacity:0;transform:translateX(-50%) scaleX(.3)}60%{opacity:1;transform:translateX(-50%) scaleX(1.1)}100%{opacity:1;transform:translateX(-50%) scaleX(1)}}
     .winner-stage{position:relative;z-index:2;text-align:center;padding:2rem;opacity:0;transform:translateY(30px);}
@@ -368,17 +380,13 @@
     .winner-desc{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,224,.6);max-width:300px;margin:0 auto 1.5rem;line-height:1.6;}
     .winner-close-btn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.6);background:transparent;border:1px solid rgba(201,168,76,.3);padding:.7rem 1.5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .3s;}
     .winner-close-btn:hover{border-color:var(--gold);color:var(--gold);}
-    /* Gold stars rain */
     .stars-canvas{position:absolute;inset:0;pointer-events:none;}
-
-    /* PAGE STARS CANVAS — fixed to viewport, not catPage */
     #pageStarsCanvas{position:fixed;inset:0;pointer-events:none;z-index:301;opacity:.7;}
 
-    /* MINI-GAME — all nominations done */
+    /* MINI-GAME */
     .minigame-wrap{text-align:center;padding:1.5rem 1rem;}
     .minigame-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;}
     .minigame-sub{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(245,237,224,.45);margin-bottom:1.5rem;line-height:1.5;}
-    #mgCanvas{display:block;margin:0 auto;border:1px solid rgba(201,168,76,.2);background:rgba(0,0,0,.4);cursor:none;touch-action:none;}
     .mg-score-row{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.25em;color:rgba(201,168,76,.6);text-transform:uppercase;}
     .mg-restart{margin-top:.8rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.6);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;padding:.55rem 1.2rem;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;}
     .mg-restart:hover{border-color:var(--gold);color:var(--gold);}
@@ -386,7 +394,7 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
     .fade-in.visible{opacity:1;transform:translateY(0);}
-    @media(max-width:480px){section{padding:3rem 1rem;}.reg-inner,.welcome-top,.welcome-bottom{padding-left:1.25rem;padding-right:1.25rem;}.apodo-block{padding-left:1.25rem;padding-right:1.25rem;}.nominado-banner{padding-left:1.25rem;padding-right:1.25rem;}}
+    @media(max-width:480px){section{padding:1.5rem 1rem 3rem;}.reg-inner,.welcome-top{padding-left:1.25rem;padding-right:1.25rem;}.apodo-block{padding-left:1.25rem;padding-right:1.25rem;}}
   </style>
 </head>
 <body>
@@ -402,12 +410,7 @@
   </svg>
   <div class="intro-seal-wrap">
     <div class="intro-seal">
-      <!-- LOGO: cambia width/height para ajustar tamaño -->
-      <img src="https://i.imgur.com/TAxrBiC.png"
-           width="300" height="300"
-           style="object-fit:contain;display:block;"
-           alt="Primos Awards"
-           onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/TAxrBiC.png" width="300" height="300" style="object-fit:contain;display:block;" alt="Primos Awards" onerror="this.style.display='none'">
     </div>
     <div class="oscar-glow"></div>
   </div>
@@ -456,30 +459,23 @@
           <div class="reg-ornament"><span>✦ Acceso Exclusivo ✦</span></div>
           <div class="reg-title">Identifícate</div>
           <div class="reg-sub">Escribe tu nombre tal como quedaste registrado.<br>El sistema verificará que eres un primo de la lista.</div>
-          <div id="loginByNameBlock">
-            <div class="gender-switch-wrap">
-              <span class="gender-label-top">¿Eres primo o prima?</span>
-              <div class="gender-toggle">
-                <div class="gender-opt active" id="genderMasc" onclick="setGenero('m')">👨 Primo</div>
-                <div class="gender-opt" id="genderFem" onclick="setGenero('f')">👩 Prima</div>
-              </div>
+          <div class="gender-switch-wrap">
+            <span class="gender-label-top">¿Eres primo o prima?</span>
+            <div class="gender-toggle">
+              <div class="gender-opt active" id="genderMasc" onclick="setGenero('m')">👨 Primo</div>
+              <div class="gender-opt" id="genderFem" onclick="setGenero('f')">👩 Prima</div>
             </div>
-            <div class="reg-field-wrap">
-              <label class="reg-field-label">Tu nombre</label>
-              <input class="reg-input" type="text" id="nameInput" placeholder="Escribe tu nombre…"
-                autocomplete="off" autocapitalize="words" maxlength="60"
-                onkeydown="if(event.key==='Enter')registrarPrimo()">
-            </div>
-            <button class="reg-btn" onclick="registrarPrimo()">Confirmar identidad &nbsp;✦</button>
           </div>
+          <div class="reg-field-wrap">
+            <label class="reg-field-label">Tu nombre</label>
+            <input class="reg-input" type="text" id="nameInput" placeholder="Escribe tu nombre…" autocomplete="off" autocapitalize="words" maxlength="60" onkeydown="if(event.key==='Enter')registrarPrimo()">
+          </div>
+          <button class="reg-btn" onclick="registrarPrimo()">Confirmar identidad &nbsp;✦</button>
           <button class="code-toggle-link" onclick="toggleCodeLogin()">¿Ya tienes cuenta en otro dispositivo? · Usar código</button>
           <div class="code-login-block" id="codeLoginBlock" style="display:none">
             <div class="reg-field-wrap">
               <label class="reg-field-label">Tu código único</label>
-              <input class="reg-input" type="text" id="codeInput" placeholder="PRIMO0000A"
-                autocomplete="off" autocapitalize="characters" maxlength="10"
-                style="letter-spacing:.18em;text-align:center"
-                onkeydown="if(event.key==='Enter')loginCodigo()">
+              <input class="reg-input" type="text" id="codeInput" placeholder="PRIMO0000A" autocomplete="off" autocapitalize="characters" maxlength="10" style="letter-spacing:.18em;text-align:center" onkeydown="if(event.key==='Enter')loginCodigo()">
             </div>
             <button class="reg-btn" onclick="loginCodigo()">Ingresar con código &nbsp;✦</button>
           </div>
@@ -494,7 +490,7 @@
             <span class="welcome-code-text">Código</span>
             <span class="code-value" id="codeValue">••••••••••</span>
             <button class="code-eye-btn" id="codeEyeBtn" onclick="toggleCode()" title="Mostrar/ocultar código">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
           </div>
         </div>
@@ -534,102 +530,25 @@
     </div>
   </section>
 
-  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+  <!-- ADMIN ENTRY divider — dinámico, solo visible cuando adminEntrySection está visible -->
+  <div class="divider dynamic" id="adminEntryDivider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
-  <!-- ADMIN PANEL — only shown to admins -->
-  <section class="fade-in" id="adminPanelSection" style="display:none">
-    <div class="section-label">Administración</div>
-    <div class="section-title">Panel de Control</div>
-    <div class="admin-full-panel" id="adminFullPanel">
-
-      <!-- NOMINAR TOGGLE -->
-      <div style="padding:1.25rem;border-bottom:1px solid rgba(201,168,76,.1);">
-        <div class="admin-section-title">Control de Nominaciones</div>
-        <button class="admin-toggle-btn" id="nomActivoBtn" onclick="toggleNominaciones()">
-          ⏸ Deshabilitar nominaciones
-        </button>
-        <p style="font-family:Cormorant Garamond,serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.35);line-height:1.5;">Al desactivar, nadie podrá nominar hasta que lo reactives.</p>
-      </div>
-
-      <!-- PRIMOS ACTIVOS -->
-      <div class="admin-panel-header" onclick="toggleAdminSection('secPrimos')">
-        <span class="admin-panel-header-title">👥 Primos Registrados</span>
-        <span class="admin-panel-header-arrow" id="arrowSecPrimos">▾</span>
-      </div>
-      <div class="admin-panel-body" id="secPrimos">
-        <div class="admin-section-title">Gestionar Primos</div>
-        <div class="admin-action-row">
-          <input class="admin-input" type="text" id="adminSearchPrimo" placeholder="Buscar primo…" oninput="adminLoadPrimos()">
-        </div>
-        <div class="admin-list" id="adminPrimosList">
-          <p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Cargando…</p>
-        </div>
-      </div>
-
-      <!-- BANS -->
-      <div class="admin-panel-header" onclick="toggleAdminSection('secBans')">
-        <span class="admin-panel-header-title">🚫 Bans Activos</span>
-        <span class="admin-panel-header-arrow" id="arrowSecBans">▾</span>
-      </div>
-      <div class="admin-panel-body" id="secBans">
-        <div class="admin-section-title">Banear Primo</div>
-        <div class="admin-action-row">
-          <input class="admin-input" type="text" id="banCodigoInput" placeholder="Código o nombre del primo…">
-          <select id="banDuracion" style="background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:Cormorant Garamond,serif;font-size:.95rem;padding:.55rem .3rem;outline:none;-webkit-appearance:none;flex-shrink:0;">
-            <option value="perm">Permanente</option>
-            <option value="1">1 hora</option>
-            <option value="24">24 horas</option>
-            <option value="168">7 días</option>
-          </select>
-          <button class="admin-btn danger" onclick="adminBan()">Ban</button>
-        </div>
-        <div class="admin-list" id="adminBansList">
-          <p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin bans activos.</p>
-        </div>
-      </div>
-
-      <!-- CHAT MOD -->
-      <div class="admin-panel-header" onclick="toggleAdminSection('secChat')">
-        <span class="admin-panel-header-title">💬 Moderar Chat</span>
-        <span class="admin-panel-header-arrow" id="arrowSecChat">▾</span>
-      </div>
-      <div class="admin-panel-body" id="secChat">
-        <div class="admin-section-title">Mensajes recientes</div>
-        <div class="admin-list" id="adminChatList">
-          <p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Cargando…</p>
-        </div>
-      </div>
-
-    </div>
+  <!-- ADMIN ENTRY — solo visible para admins/presentadores -->
+  <section class="fade-in" id="adminEntrySection" style="display:none">
+    <div class="section-label" id="adminEntryLabel">Panel Exclusivo</div>
+    <div class="section-title" id="adminEntryTitle">Control de la Gala</div>
+    <button class="admin-open-btn" onclick="openAdminScreen()">
+      <span class="admin-open-icon">⚙️</span>
+      <span class="admin-open-text">
+        <span class="admin-open-label" id="adminOpenLabel">Panel de Administración</span>
+        <span class="admin-open-sub">Gestión, moderación y control de la gala</span>
+      </span>
+      <span class="admin-open-arrow">›</span>
+    </button>
   </section>
 
-  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
-
-  <!-- PRESENTADOR PANEL — only shown to presenters -->
-  <section class="fade-in" id="presentadorPanelSection" style="display:none">
-    <div class="section-label">Panel de Presentador</div>
-    <div class="section-title">Estadísticas en Vivo</div>
-    <div class="admin-panel" id="presentadorPanel">
-      <div class="admin-panel-title">Información Actual</div>
-      <div style="padding:1.5rem;">
-        <div style="margin-bottom:1.5rem;">
-          <div style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.3em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.8rem;">Total de Primos Registrados</div>
-          <div style="font-family:Cinzel Decorative,serif;font-size:2rem;color:var(--gold-light);" id="statTotalPrimos">0</div>
-        </div>
-        <div style="margin-bottom:1.5rem;">
-          <div style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.3em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.8rem;">Estado Actual</div>
-          <div style="font-family:Cinzel,serif;font-size:1rem;color:rgba(201,168,76,.7);" id="statFase">Cargando...</div>
-        </div>
-        <div>
-          <div style="font-family:Cinzel,serif;font-size:.48rem;letter-spacing:.3em;color:rgba(201,168,76,.8);text-transform:uppercase;margin-bottom:.8rem;">Por Categoría</div>
-          <div id="statsCatsWrap" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;"></div>
-        </div>
-        <button class="btn-submit" onclick="actualizarStatsPresent()" style="margin-top:1.5rem;">🔄 Actualizar ahora</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+  <!-- ACTION divider — dinámico, solo visible cuando actionSection está visible -->
+  <div class="divider dynamic" id="actionDivider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
 
   <!-- ACTION SECTION -->
   <section class="fade-in" id="actionSection">
@@ -638,14 +557,15 @@
     <div id="actionContent"></div>
   </section>
 
-  <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+  <!-- Footer divider — dinámico, siempre visible (último) -->
+  <div class="divider dynamic" id="footerDivider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
   <footer>
     <div class="footer-title">Primos Awards</div>
     <div class="footer-sub">La gala más importante de la familia · 2026<br><br>Developed by AMMC</div>
   </footer>
 </div>
 
-<!-- CATEGORY PAGE (full screen) -->
+<!-- CATEGORY PAGE -->
 <div id="catPage">
   <div class="cat-page-header">
     <button class="cat-back-btn" onclick="closeCatPage()">
@@ -661,7 +581,21 @@
   </div>
 </div>
 
-<!-- GAMES SCREEN (fase 3) -->
+<!-- ADMIN SCREEN — pantalla completa -->
+<div id="adminScreen">
+  <div class="admin-screen-header">
+    <button class="admin-screen-back" onclick="closeAdminScreen()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span class="admin-screen-title" id="adminScreenTitle">✦ Panel de Administración ✦</span>
+    <div style="width:36px"></div>
+  </div>
+  <div class="admin-screen-body" id="adminScreenBody">
+    <!-- contenido cargado dinámicamente -->
+  </div>
+</div>
+
+<!-- GAMES SCREEN -->
 <div id="gamesScreen">
   <div class="games-header">
     <button class="games-back-btn" onclick="closeGamesScreen()">
@@ -672,21 +606,17 @@
   </div>
   <div class="games-body">
     <div class="game-tabs">
-      <div class="game-tab active" id="gameTab1" onclick="switchGame(1)">
-        <span class="game-tab-emoji">⭐</span>
-        <span class="game-tab-name">Atrapa Estrellas</span>
-      </div>
-      <div class="game-tab" id="gameTab2" onclick="switchGame(2)">
-        <span class="game-tab-emoji">🏃</span>
-        <span class="game-tab-name">Esquiva Bombas</span>
-      </div>
+      <div class="game-tab active" id="gameTab1" onclick="switchGame(1)"><span class="game-tab-emoji">⭐</span><span class="game-tab-name">Atrapa Estrellas</span></div>
+      <div class="game-tab" id="gameTab2" onclick="switchGame(2)"><span class="game-tab-emoji">🏃</span><span class="game-tab-name">Esquiva Bombas</span></div>
     </div>
-    <div id="gameZone1"><canvas id="mgCanvas" width="320" height="220"></canvas>
+    <div id="gameZone1">
+      <canvas id="mgCanvas" width="320" height="220"></canvas>
       <div class="mg-score-row"><span>Puntos: <strong id="mgScore">0</strong></span><span>Nivel: <strong id="mgLevel">1</strong></span><span>Vidas: <span id="mgLives">❤️❤️❤️</span></span></div>
       <button class="mg-restart" onclick="initMiniGame()">Reiniciar ↺</button>
       <div class="lb-wrap" id="lb1"><div class="lb-title">🏆 Ranking Global</div><div id="lb1rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>
     </div>
-    <div id="gameZone2" style="display:none"><canvas id="mgCanvas2" width="320" height="220"></canvas>
+    <div id="gameZone2" style="display:none">
+      <canvas id="mgCanvas2" width="320" height="220"></canvas>
       <div class="mg-score-row"><span>Puntos: <strong id="mg2Score">0</strong></span><span>Nivel: <strong id="mg2Level">1</strong></span><span>Vidas: <span id="mg2Lives">❤️❤️❤️</span></span></div>
       <button class="mg-restart" onclick="initDodgeGame()">Reiniciar ↺</button>
       <div class="lb-wrap" id="lb2"><div class="lb-title">🏆 Ranking Global</div><div id="lb2rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>
@@ -694,7 +624,7 @@
   </div>
 </div>
 
-<!-- WINNER REVEAL SCREEN -->
+<!-- WINNER REVEAL -->
 <div id="winnerReveal">
   <canvas class="stars-canvas" id="starsCanvas"></canvas>
   <div class="spotlight" id="spotlight"></div>
@@ -742,15 +672,7 @@
 // ─── CONFIG ───────────────────────────────────────────────────
 var API = 'https://script.google.com/macros/s/AKfycbyfrX10fqMEvq_wVIsUYzbIdW1-vLlgQk_ct3EOiTg11pt69HXsDcwQf4iSKnLmtoMM/exec';
 
-// ══════════════════════════════════════════════════════
-//  TESTING: cambia este número para forzar una fase:
-//  0 = automático (usa fechas)
-//  1 = Fase 1: Nominaciones
-//  2 = Fase 2: Votaciones  ← cámbialo a 2 para probar
-//  3 = Fase 3: Gala
-// ══════════════════════════════════════════════════════
 var FASE_OVERRIDE = 0;
-
 var FASE1_FIN = new Date('2026-05-11T00:00:00').getTime();
 var FASE2_FIN = new Date('2026-06-08T00:00:00').getTime();
 var GALA_DATE = new Date('2026-06-27T20:00:00').getTime();
@@ -780,10 +702,11 @@ var CAT_INFO = {
 
 // ─── STATE ────────────────────────────────────────────────────
 var primo = null;
-var acResults  = [[],[]];  // [slot0, slot1] for dupla support
+var acResults = [[],[]];
 var acSelected = [null,null];
 var pendingVote = null;
 var codeVisible = false;
+// FIX: flag para evitar envío doble de chat
 var chatSending = false;
 
 function getFase(){
@@ -792,37 +715,55 @@ function getFase(){
   return n<FASE1_FIN?1:n<FASE2_FIN?2:3;
 }
 function isAdmin(){ return primo && primo.rol==='admin'; }
+function isPresentador(){ return primo && primo.rol==='presentador'; }
+
+// ─── PRELOAD ──────────────────────────────────────────────────
+(function preloadIdentity(){
+  try{
+    var s=localStorage.getItem('primoID_v2');
+    if(s){ var d=JSON.parse(s); if(d&&d.codigo&&d.nombreDisplay) primo=d; }
+  }catch(e){}
+})();
 
 // ─── GÉNERO ───────────────────────────────────────────────────
-var generoSeleccionado = 'm'; // default: primo
-
+var generoSeleccionado = 'm';
 function setGenero(g){
-  generoSeleccionado = g;
-  document.getElementById('genderMasc').classList.toggle('active', g==='m');
-  document.getElementById('genderFem').classList.toggle('active', g==='f');
+  generoSeleccionado=g;
+  document.getElementById('genderMasc').classList.toggle('active',g==='m');
+  document.getElementById('genderFem').classList.toggle('active',g==='f');
 }
-
 function getTratamiento(){
-  var g = primo ? (primo.genero||'m') : 'm';
-  return g==='f' ? 'Prima' : 'Primo';
+  var g=primo?(primo.genero||'m'):'m';
+  return g==='f'?'Prima':'Primo';
 }
-
 function getDisplayName(){
   if(!primo||!primo.nombreDisplay) return '';
-  var trat = getTratamiento();
-  if(primo.apodo&&primo.apodo.trim()){
+  var trat=getTratamiento();
+  if(primo.apodo&&primo.apodo.trim())
     return trat+' '+primo.apodo.trim().replace(/^primo\s+/i,'').replace(/^prima\s+/i,'');
-  }
   return trat+' '+primo.nombreDisplay;
 }
+
+// FIX: Chat name — para primas sin apodo, solo "Prima Nombre" sin paréntesis
 function getChatName(){
   if(!primo||!primo.nombreDisplay) return 'Anónimo';
-  var first=(primo.nombreCompleto||primo.nombreDisplay||'').split(' ')[0];
   var trat=getTratamiento();
-  if(primo.apodo&&primo.apodo.trim()){
-    return trat+' '+primo.apodo.trim().replace(/^primo\s+/i,'').replace(/^prima\s+/i,'')+' ('+first+')';
+  var genero=primo.genero||'m';
+  var apodo=primo.apodo&&primo.apodo.trim()?primo.apodo.trim().replace(/^primo\s+/i,'').replace(/^prima\s+/i,''):'';
+  var firstName=(primo.nombreCompleto||primo.nombreDisplay||'').split(' ')[0];
+
+  if(apodo){
+    // Tiene apodo: "Primo/a Apodo (Nombre)"
+    // Solo añadir paréntesis si el nombre es diferente al apodo
+    var apodoLower=apodo.toLowerCase();
+    var firstLower=firstName.toLowerCase();
+    if(apodoLower!==firstLower){
+      return trat+' '+apodo+' ('+firstName+')';
+    }
+    return trat+' '+apodo;
   }
-  return trat+' '+primo.nombreDisplay+' ('+first+')';
+  // Sin apodo: solo "Primo/a Nombre" — sin paréntesis para nadie
+  return trat+' '+primo.nombreDisplay;
 }
 
 // ─── INTRO ────────────────────────────────────────────────────
@@ -854,37 +795,21 @@ function initCountdown(){
 function pad(n){return String(n).padStart(2,'0');}
 
 // ─── IDENTITY ─────────────────────────────────────────────────
-// ─── PRELOAD IDENTITY — called as soon as page loads ─────────
-(function preloadIdentity(){
-  try{
-    var s=localStorage.getItem('primoID_v2');
-    if(s){
-      var d=JSON.parse(s);
-      if(d&&d.codigo&&d.nombreDisplay){
-        // Store tentatively so getChatName works immediately
-        primo=d;
-      }
-    }
-  }catch(e){}
-})();
-
 function loadSavedIdentity(){
   try{
     var s=localStorage.getItem('primoID_v2');
     if(s){
       var d=JSON.parse(s);
       if(d&&d.codigo&&d.nombreDisplay&&d.nombreCompleto){
-        // Verify against server
         apiCall({action:'loginCodigo',codigo:d.codigo},function(res){
           if(res&&res.ok){
             primo=d;
             if(res.rol) primo.rol=res.rol;
             try{localStorage.setItem('primoID_v2',JSON.stringify(primo));}catch(e){}
-            showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminPanel();
+            showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminEntry();
           } else {
             try{localStorage.removeItem('primoID_v2');}catch(e){}
-            primo=null;
-            showRegisterView(); renderAction();
+            primo=null; showRegisterView(); renderAction();
             showToast('Tu sesión fue cerrada. Ingresa tu nombre de nuevo.');
           }
         });
@@ -892,8 +817,7 @@ function loadSavedIdentity(){
       }
     }
   }catch(e){}
-  primo=null;
-  showRegisterView(); renderAction();
+  primo=null; showRegisterView(); renderAction();
 }
 
 function saveIdentity(data){
@@ -914,6 +838,9 @@ function showWelcomeView(){
   if(isAdmin()){
     var tag=document.createElement('span'); tag.className='admin-tag'; tag.textContent='Admin';
     dnEl.appendChild(tag);
+  } else if(isPresentador()){
+    var tag2=document.createElement('span'); tag2.className='admin-tag'; tag2.textContent='Presentador';
+    dnEl.appendChild(tag2);
   }
   document.getElementById('welcomeRealName').textContent=primo.nombreCompleto||'';
   codeVisible=false;
@@ -929,42 +856,35 @@ function showRegisterView(){
   document.getElementById('identityLabel').textContent='Tu identidad';
 }
 
-// Code reveal
 function toggleCode(){
   codeVisible=!codeVisible;
   document.getElementById('codeValue').textContent=codeVisible?primo.codigo:'••••••••••';
   updateEyeIcon();
 }
 function updateEyeIcon(){
-  var btn=document.getElementById('codeEyeBtn');
-  if(!btn) return;
-  btn.innerHTML = codeVisible
-    ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
-    : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var btn=document.getElementById('codeEyeBtn'); if(!btn) return;
+  btn.innerHTML=codeVisible
+    ?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+    :'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 }
 
 // ─── REGISTER ─────────────────────────────────────────────────
 function registrarPrimo(){
   var nombre=(document.getElementById('nameInput').value||'').trim();
   if(!nombre){showToast('Escribe tu nombre');return;}
-  // Género ya tiene default 'm', siempre válido
   showToast('Verificando…');
   apiCall({action:'registrarPrimo',nombre:nombre,genero:generoSeleccionado},function(res){
     if(!res){showToast('Error de conexión');return;}
     if(res.ok){
-      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,
-        nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',
-        rol:res.rol||'participante',genero:generoSeleccionado});
-      showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminPanel();
-      showToast('¡Bienvenido'+( generoSeleccionado==='f'?'a':'')+'!, '+getDisplayName());
+      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,
+        apodo:res.apodo||'',rol:res.rol||'participante',genero:generoSeleccionado});
+      showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminEntry();
+      showToast('¡Bienvenid'+(generoSeleccionado==='f'?'a':'o')+'! '+getDisplayName());
     } else if(res.requiereCodigo){
       showToast(res.msg);
       var codeBlock=document.getElementById('codeLoginBlock');
       if(codeBlock) codeBlock.style.display='block';
-      setTimeout(function(){
-        var ci=document.getElementById('codeInput');
-        if(ci){ci.focus();ci.scrollIntoView({behavior:'smooth',block:'center'});}
-      },400);
+      setTimeout(function(){var ci=document.getElementById('codeInput');if(ci){ci.focus();ci.scrollIntoView({behavior:'smooth',block:'center'});}},400);
     } else {
       showToast(res.msg||'No encontrado. Verifica tu nombre.');
     }
@@ -983,10 +903,9 @@ function loginCodigo(){
   apiCall({action:'loginCodigo',codigo:c},function(res){
     if(!res){showToast('Error de conexión');return;}
     if(res.ok){
-      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,
-        nombreCompleto:res.nombreCompleto,apodo:res.apodo||'',
-        rol:res.rol||'participante',genero:res.genero||'m'});
-      showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminPanel();
+      saveIdentity({codigo:res.codigo,nombreDisplay:res.nombreDisplay,nombreCompleto:res.nombreCompleto,
+        apodo:res.apodo||'',rol:res.rol||'participante',genero:res.genero||'m'});
+      showWelcomeView(); renderAction(); loadMisNominaciones(); showAdminEntry();
       showToast('¡Bienvenid'+(primo.genero==='f'?'a':'o')+' de vuelta, '+getDisplayName()+'!');
     }else{ showToast(res.msg||'Código no válido'); }
   });
@@ -996,7 +915,7 @@ function loginCodigo(){
 function guardarApodo(){
   var ap=(document.getElementById('apodoInput').value||'').trim();
   if(!ap){showToast('Escribe un apodo');return;}
-  var apLimpio=ap.replace(/^primo\s+/i,'').trim();
+  var apLimpio=ap.replace(/^primo\s+/i,'').replace(/^prima\s+/i,'').trim();
   apiCall({action:'guardarApodo',codigo:primo.codigo,apodo:apLimpio},function(res){
     if(res&&res.ok){
       primo.apodo=apLimpio;
@@ -1010,12 +929,10 @@ function guardarApodo(){
 
 // ─── MIS NOMINACIONES ─────────────────────────────────────────
 function loadMisNominaciones(){
-  // Solo en fase 2 — cuando ya están definidos los nominados
   if(!primo||getFase()!==2) return;
   apiCall({action:'miNominaciones',nombre:primo.nombreCompleto},function(res){
     if(!res||!res.cats||res.cats.length===0) return;
-    var wrap=document.getElementById('nominadoBannerWrap');
-    if(!wrap) return;
+    var wrap=document.getElementById('nominadoBannerWrap'); if(!wrap) return;
     var catsList=res.cats.map(function(c){
       return '<div style="padding:.5rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-family:Cormorant Garamond,serif;font-size:1rem;color:rgba(245,237,224,.8);">'
         +'<span style="color:var(--gold);margin-right:.5rem">✦</span>'+esc(c.cat)+'</div>';
@@ -1030,14 +947,10 @@ function loadMisNominaciones(){
       +'<div style="margin-bottom:1.4rem;">'+catsList+'</div>'
       +'<div style="margin-bottom:1rem;">'
       +'<label style="display:block;font-family:Cinzel,serif;font-size:.44rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:.5rem;">Tu mensaje para los primos</label>'
-      +'<input type="text" id="miDescInput" placeholder="Diles algo especial…" maxlength="120" '
-      +'style="width:100%;background:rgba(8,8,8,.5);border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5ede0;font-family:Cormorant Garamond,serif;font-size:1.05rem;padding:.65rem 0;outline:none;-webkit-appearance:none;" '
-      +'onkeydown="if(event.key===\'Enter\')guardarMiDesc()"></div>'
+      +'<input type="text" id="miDescInput" placeholder="Diles algo especial…" maxlength="120" style="width:100%;background:rgba(8,8,8,.5);border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5ede0;font-family:Cormorant Garamond,serif;font-size:1.05rem;padding:.65rem 0;outline:none;-webkit-appearance:none;" onkeydown="if(event.key===\'Enter\')guardarMiDesc()"></div>'
       +'<div style="margin-bottom:1.2rem;">'
       +'<label style="display:block;font-family:Cinzel,serif;font-size:.44rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:.5rem;">Tu canción de entrada 🎵 <span style="color:rgba(245,237,224,.25);letter-spacing:.15em">(privada)</span></label>'
-      +'<input type="text" id="miCancionInput" placeholder="Artista — Canción…" maxlength="120" '
-      +'style="width:100%;background:rgba(8,8,8,.5);border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5ede0;font-family:Cormorant Garamond,serif;font-size:1.05rem;padding:.65rem 0;outline:none;-webkit-appearance:none;" '
-      +'onkeydown="if(event.key===\'Enter\')guardarMiCancion()"></div>'
+      +'<input type="text" id="miCancionInput" placeholder="Artista — Canción…" maxlength="120" style="width:100%;background:rgba(8,8,8,.5);border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5ede0;font-family:Cormorant Garamond,serif;font-size:1.05rem;padding:.65rem 0;outline:none;-webkit-appearance:none;" onkeydown="if(event.key===\'Enter\')guardarMiCancion()"></div>'
       +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">'
       +'<button onclick="guardarMiDesc()" style="background:transparent;border:1px solid rgba(201,168,76,.45);color:#c9a84c;font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;padding:.9rem .5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;">Guardar ✦</button>'
       +'<button onclick="guardarMiCancion()" style="background:transparent;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.5);font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;padding:.9rem .5rem;cursor:pointer;-webkit-tap-highlight-color:transparent;">Canción 🎵</button>'
@@ -1048,80 +961,308 @@ function loadMisNominaciones(){
 function guardarMiDesc(){
   var desc=(document.getElementById('miDescInput').value||'').trim();
   if(!desc){showToast('Escribe algo primero');return;}
-  apiCall({action:'guardarDesc',nombre:primo.nombreCompleto,desc:desc},function(res){
-    if(res&&res.ok) showToast('¡Mensaje guardado! ✦');
-  });
+  apiCall({action:'guardarDesc',nombre:primo.nombreCompleto,desc:desc},function(res){if(res&&res.ok) showToast('¡Mensaje guardado! ✦');});
 }
 function guardarMiCancion(){
   var cancion=(document.getElementById('miCancionInput').value||'').trim();
   if(!cancion){showToast('Escribe el nombre de la canción');return;}
-  apiCall({action:'guardarCancion',nombre:primo.nombreCompleto,cancion:cancion},function(res){
-    if(res&&res.ok) showToast('¡Canción guardada! 🎵');
+  apiCall({action:'guardarCancion',nombre:primo.nombreCompleto,cancion:cancion},function(res){if(res&&res.ok) showToast('¡Canción guardada! 🎵');});
+}
+
+// ─── ADMIN ENTRY (botón en main) ──────────────────────────────
+function showAdminEntry(){
+  var sec=document.getElementById('adminEntrySection');
+  var actionDiv=document.getElementById('actionDivider');
+  if(!sec) return;
+  if(isAdmin()){
+    sec.style.display='block';
+    document.getElementById('adminScreenTitle').textContent='✦ Panel de Administración ✦';
+    document.getElementById('adminOpenLabel').textContent='Panel de Administración';
+    document.getElementById('adminEntryLabel').textContent='Administración';
+    document.getElementById('adminEntryTitle').textContent='Control de la Gala';
+    document.querySelector('.admin-open-btn .admin-open-sub').textContent='Gestión, moderación y control en tiempo real';
+  } else if(isPresentador()){
+    sec.style.display='block';
+    document.getElementById('adminScreenTitle').textContent='✦ Panel del Presentador ✦';
+    document.getElementById('adminOpenLabel').textContent='Panel del Presentador';
+    document.getElementById('adminEntryLabel').textContent='Presentador';
+    document.getElementById('adminEntryTitle').textContent='Estadísticas en Vivo';
+    document.querySelector('.admin-open-btn .admin-open-sub').textContent='Acceso a estadísticas y nominaciones en tiempo real';
+  } else {
+    sec.style.display='none';
+  }
+  updateDividers();
+}
+function openAdminScreen(){
+  var screen=document.getElementById('adminScreen');
+  screen.classList.add('open');
+  document.body.style.overflow='hidden';
+  renderAdminScreenContent();
+}
+
+function closeAdminScreen(){
+  document.getElementById('adminScreen').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function renderAdminScreenContent(){
+  var body=document.getElementById('adminScreenBody');
+  if(!body) return;
+  if(isAdmin()){
+    renderAdminFullContent(body);
+  } else if(isPresentador()){
+    renderPresentadorContent(body);
+  }
+}
+
+// ── Admin completo ──
+function renderAdminFullContent(body){
+  body.innerHTML='<div id="adminNomCard" class="admin-card"></div>'
+    +'<div id="adminRevealCard" class="admin-card"></div>'
+    +'<div id="adminPrimosCard" class="admin-card"></div>'
+    +'<div id="adminBansCard" class="admin-card"></div>'
+    +'<div id="adminChatCard" class="admin-card"></div>';
+
+  // Nominaciones toggle
+  renderAdminCardSimple('adminNomCard','⚙️ Control de Nominaciones',function(bodyEl){
+    bodyEl.innerHTML='<div class="admin-section-title">Estado actual</div>'
+      +'<button class="admin-toggle-btn" id="nomActivoBtn" onclick="toggleNominaciones()">Cargando…</button>'
+      +'<p style="font-family:Cormorant Garamond,serif;font-size:.88rem;font-style:italic;color:rgba(245,237,224,.35);line-height:1.5;">Al desactivar, nadie podrá nominar hasta que lo reactives.</p>';
+    adminLoadNomStatus();
   });
+
+  // Revelar ganadores
+  renderAdminCardSimple('adminRevealCard','🏆 Revelar Ganadores',function(bodyEl){
+    var btns=CATS.map(function(c){
+      return '<button class="admin-reveal-btn" onclick="adminRevealWinner(\''+esc(c)+'\')">'
+        +'<div class="btn-shimmer"></div>'+esc(c)+'</button>';
+    }).join('');
+    bodyEl.innerHTML='<div class="admin-section-title">Toca una categoría para revelar</div>'
+      +'<div class="admin-cat-grid">'+btns+'</div>';
+  });
+
+  // Primos registrados
+  renderAdminCardSimple('adminPrimosCard','👥 Primos Registrados',function(bodyEl){
+    bodyEl.innerHTML='<div class="admin-section-title">Gestionar primos</div>'
+      +'<div class="admin-action-row"><input class="admin-input" type="text" id="adminSearchPrimo" placeholder="Buscar primo…" oninput="adminLoadPrimos()"></div>'
+      +'<div class="admin-list" id="adminPrimosList"><p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Cargando…</p></div>';
+    adminLoadPrimos();
+  });
+
+  // Bans
+  renderAdminCardSimple('adminBansCard','🚫 Bans Activos',function(bodyEl){
+    bodyEl.innerHTML='<div class="admin-section-title">Banear primo</div>'
+      +'<div class="admin-action-row">'
+      +'<input class="admin-input" type="text" id="banCodigoInput" placeholder="Código o nombre del primo…">'
+      +'<select id="banDuracion" style="background:rgba(8,8,8,.6);border:none;border-bottom:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:Cormorant Garamond,serif;font-size:.95rem;padding:.55rem .3rem;outline:none;-webkit-appearance:none;flex-shrink:0;">'
+      +'<option value="perm">Permanente</option><option value="1">1 hora</option><option value="24">24 horas</option><option value="168">7 días</option>'
+      +'</select>'
+      +'<button class="admin-btn danger" onclick="adminBan()">Ban</button></div>'
+      +'<div class="admin-list" id="adminBansList"><p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin bans activos.</p></div>';
+    adminLoadBans();
+  });
+
+  // Chat moderación — FIX: sin mensajes duplicados, solo lista simple
+  renderAdminCardSimple('adminChatCard','💬 Moderar Chat',function(bodyEl){
+    bodyEl.innerHTML='<div class="admin-section-title">Mensajes recientes</div>'
+      +'<div class="admin-list" id="adminChatList"><p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Cargando…</p></div>'
+      +'<button class="admin-toggle-btn" style="margin-top:.8rem" onclick="adminLoadChatMessages()">🔄 Actualizar mensajes</button>';
+    adminLoadChatMessages();
+  });
+}
+
+function renderAdminCardSimple(cardId, title, fillBody){
+  var card=document.getElementById(cardId); if(!card) return;
+  var headerId=cardId+'_h', bodyId=cardId+'_b', arrowId=cardId+'_a';
+  card.innerHTML='<div class="admin-card-header" onclick="toggleAdminCard(\''+bodyId+'\',\''+arrowId+'\')">'
+    +'<span class="admin-card-title">'+esc(title)+'</span>'
+    +'<span class="admin-card-arrow" id="'+arrowId+'">▾</span>'
+    +'</div>'
+    +'<div class="admin-card-body" id="'+bodyId+'"></div>';
+  // Fill body
+  var bodyEl=document.getElementById(bodyId);
+  fillBody(bodyEl);
+}
+
+function toggleAdminCard(bodyId, arrowId){
+  var body=document.getElementById(bodyId);
+  var arrow=document.getElementById(arrowId);
+  if(!body) return;
+  var isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  if(arrow) arrow.classList.toggle('open',!isOpen);
+}
+
+// ── Presentador: ve nominados con conteo, igual que admin en catPage ──
+function renderPresentadorContent(body){
+  body.innerHTML='<div style="margin-bottom:1.5rem;">'
+    +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.45);font-size:1rem;line-height:1.6;margin-bottom:1.2rem;">Selecciona una categoría para ver los nominados con su conteo de votos/nominaciones.</p>'
+    +'<div class="admin-cat-grid" id="presentadorCatGrid"></div>'
+    +'</div>'
+    +'<div id="presentadorCatContent"></div>';
+
+  var grid=document.getElementById('presentadorCatGrid');
+  var fase=getFase();
+  grid.innerHTML=CATS.map(function(c){
+    return '<button class="admin-reveal-btn" onclick="presentadorVerCat(\''+esc(c)+'\')">'
+      +'<div class="btn-shimmer"></div>'+esc(c)+'</button>';
+  }).join('');
+}
+
+function presentadorVerCat(cat){
+  var content=document.getElementById('presentadorCatContent');
+  if(!content) return;
+  content.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.35);text-align:center;padding:1.5rem">Cargando…</p>';
+  var fase=getFase();
+  // En fase 1: usar statsCategoria; en fase 2+: usar nominadosCategoria
+  if(fase===1){
+    apiCall({action:'statsCategoria',cat:cat},function(res){
+      if(!res||!res.items||!res.items.length){
+        content.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Sin nominados aún en esta categoría.</p></div>';
+        return;
+      }
+      var html='<div style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.28em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.12);">'+esc(cat)+'</div>';
+      html+='<div class="nom-matrix">';
+      res.items.forEach(function(item){
+        var d=cardDisplayName(item.display);
+        var isDupla=typeof d==='string';
+        var apodoLine=isDupla?'<span class="nom-card-apodo">'+esc(item.display)+'</span>':'<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';
+        var nameLine=isDupla?'':( d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'');
+        var initial=isDupla?'👯':d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
+        html+='<div class="nom-card"><div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine
+          +'<span class="nom-card-votes">'+item.count+' nominaciones</span></div>';
+      });
+      html+='</div>';
+      content.innerHTML=html;
+    });
+  } else {
+    apiCall({action:'nominadosCategoria',cat:cat},function(res){
+      if(!res||!res.nominados||!res.nominados.length){
+        content.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Sin nominados en esta categoría.</p></div>';
+        return;
+      }
+      var html='<div style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.28em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.12);">'+esc(cat)+'</div>';
+      html+='<div class="nom-matrix">';
+      res.nominados.forEach(function(n){
+        var d=cardDisplayName(n.display);
+        var isDupla=typeof d==='string';
+        var apodoLine=isDupla?'<span class="nom-card-apodo">'+esc(n.display)+'</span>':'<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';
+        var nameLine=isDupla?'':(d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'');
+        var initial=isDupla?'👯':d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
+        var desc=n.descripcion?'<div class="nom-card-desc">'+esc(n.descripcion)+'</div>':'';
+        html+='<div class="nom-card"><div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine+desc
+          +'<span class="nom-card-votes">'+n.count+' nominaciones</span></div>';
+      });
+      html+='</div>';
+      content.innerHTML=html;
+    });
+  }
 }
 
 // ─── RENDER ACTION ────────────────────────────────────────────
 function renderAction(){
   var fase=getFase();
   var L=document.getElementById('actionLabel'),T=document.getElementById('actionTitle'),C=document.getElementById('actionContent');
-
-  // Si es presentador, actualizar stats pero seguir mostrando acción
-  if(primo&&primo.rol==='presentador'){
-    actualizarStatsPresent();
-  }
+  var actionSec=document.getElementById('actionSection');
+  var actionDiv=document.getElementById('actionDivider');
 
   if(!primo){
+    if(actionSec) actionSec.style.display='block';
+    if(actionDiv) actionDiv.style.display='flex';
     L.textContent='Identificación requerida'; T.textContent='Ingresa tu nombre arriba';
-    C.innerHTML=closedHtml('🔐','Solo para Primos','Identifícate arriba para nominar y votar.'); return;
+    C.innerHTML=closedHtml('🔐','Solo para Primos','Identifícate arriba para nominar y votar.');
+    updateDividers();
+    return;
   }
+
   if(fase===1){
-    L.textContent='Tu voz cuenta'; T.textContent='Emite tu Nominación';
-    // Load nom status then check nominations done
     apiCall({action:'getNomStatus'},function(nomRes){
       window._nomActivo=(nomRes&&nomRes.activo!==false);
       updateNomBtn();
       if(!window._nomActivo){
+        if(actionSec) actionSec.style.display='block';
+        if(actionDiv) actionDiv.style.display='flex';
         L.textContent='Nominaciones pausadas'; T.textContent='Espera un momento';
         C.innerHTML=closedHtml('⏸','Nominaciones Pausadas','El organizador pausó las nominaciones temporalmente. Vuelve en un momento.');
+        updateDividers();
         return;
       }
       apiCall({action:'misEmitidas',codigo:primo.codigo},function(res){
         var porCat=(res&&res.porCat)||{};
-        var catsConNom=CATS.filter(function(c){return (porCat[c]||0)>=1;}).length;
-        var catsCompletos=CATS.filter(function(c){return (porCat[c]||0)>=2;}).length;
-        if(catsCompletos>=CATS.length){
-          L.textContent='¡Todo nominado!'; T.textContent='Emite más nominaciones';
-          C.innerHTML=buildMiniGame();
+        // FIX: contar cuántas cats tienen AL MENOS 2 nominaciones (las completas)
+        var catsCompletas=CATS.filter(function(c){return (porCat[c]||0)>=2;}).length;
+        var catsConAlguna=CATS.filter(function(c){return (porCat[c]||0)>=1;}).length;
+
+        if(catsCompletas>=CATS.length){
+          // Completó todas → ocultar sección acción, solo juego inline
+          if(actionSec) actionSec.style.display='none';
+          if(actionDiv) actionDiv.style.display='none';
+          var existingGame=document.getElementById('inlineGameWrap');
+          if(!existingGame){
+            var gameDiv=document.createElement('div');
+            gameDiv.id='inlineGameWrap';
+            gameDiv.style.cssText='max-width:680px;margin:0 auto;padding:1.5rem 1.25rem 3.5rem;';
+            gameDiv.innerHTML=buildMiniGame();
+            var footer=document.querySelector('footer');
+            if(footer) footer.parentNode.insertBefore(gameDiv,footer);
+          }
+          updateDividers();
           initMiniGame(); loadLeaderboard('stars','lb1rows');
-        } else {
+        } else if(catsConAlguna>=CATS.length){
+          if(actionSec) actionSec.style.display='block';
+          if(actionDiv) actionDiv.style.display='flex';
+          L.textContent='¡Nominaciones completadas!'; T.textContent='Emite tus segundas nominaciones';
           C.innerHTML=buildNomForm(); onCatChange();
+          updateDividers();
+        } else {
+          if(actionSec) actionSec.style.display='block';
+          if(actionDiv) actionDiv.style.display='flex';
+          L.textContent='Tu voz cuenta'; T.textContent='Emite tu Nominación';
+          C.innerHTML=buildNomForm(); onCatChange();
+          updateDividers();
         }
       });
     });
   }
   else if(fase===2){
-    L.textContent='Es hora de votar';T.textContent='Emite tu Voto';
-    // Check if all votes done
+    if(actionSec) actionSec.style.display='block';
+    if(actionDiv) actionDiv.style.display='flex';
+    L.textContent='Es hora de votar'; T.textContent='Emite tu Voto';
     apiCall({action:'misVotosEmitidos',codigo:primo.codigo},function(res){
       var total=(res&&res.total!==undefined)?res.total:0;
       if(total>=CATS.length){
-        L.textContent='¡Todo listo!'; T.textContent='Votaciones completadas';
-        C.innerHTML=buildMiniGame2(); initDodgeGame();
+        if(actionSec) actionSec.style.display='none';
+        if(actionDiv) actionDiv.style.display='none';
+        var existingGame=document.getElementById('inlineGameWrap');
+        if(!existingGame){
+          var gameDiv=document.createElement('div');
+          gameDiv.id='inlineGameWrap';
+          gameDiv.style.cssText='max-width:680px;margin:0 auto;padding:1.5rem 1.25rem 3.5rem;';
+          gameDiv.innerHTML=buildMiniGame2();
+          var footer=document.querySelector('footer');
+          if(footer) footer.parentNode.insertBefore(gameDiv,footer);
+        }
+        updateDividers();
+        initDodgeGame();
       } else {
         C.innerHTML=buildVotingInfo();
+        updateDividers();
       }
     });
   }
   else{
-    L.textContent='La Gran Noche';T.textContent='Revelación de Ganadores';
+    if(actionSec) actionSec.style.display='block';
+    if(actionDiv) actionDiv.style.display='flex';
+    L.textContent='La Gran Noche'; T.textContent='Revelación de Ganadores';
     C.innerHTML=buildFase3Info();
+    updateDividers();
   }
 }
+
 function closedHtml(i,h,p){return '<div class="phase-closed"><div class="phase-closed-icon">'+i+'</div><h3>'+esc(h)+'</h3><p>'+esc(p)+'</p></div>';}
 
 function buildNomForm(){
   var opts=CATS.map(function(c){return '<option value="'+esc(c)+'">'+esc(c)+'</option>';}).join('');
-  var isDupla=false; // will be checked dynamically
   return '<div class="action-card">'
     +'<p class="hint-text">Puedes nominar hasta 2 veces por categoría.</p>'
     +'<div class="field-group"><label class="field-label">Categoría</label>'
@@ -1132,14 +1273,9 @@ function buildNomForm(){
 }
 
 function onCatChange(){
-  var cat=(document.getElementById('catSelect').value||'');
-  var wrap=document.getElementById('nomFieldsWrap');
-  if(!wrap) return;
-  if(cat.indexOf('Dupla')!==-1){
-    wrap.innerHTML=buildDuplaFields();
-  } else {
-    wrap.innerHTML=buildSingleNomField();
-  }
+  var cat=(document.getElementById('catSelect')?document.getElementById('catSelect').value:'');
+  var wrap=document.getElementById('nomFieldsWrap'); if(!wrap) return;
+  wrap.innerHTML=(cat.indexOf('Dupla')!==-1)?buildDuplaFields():buildSingleNomField();
 }
 
 function buildSingleNomField(){
@@ -1147,8 +1283,7 @@ function buildSingleNomField(){
     +'<div class="autocomplete-wrap">'
     +'<input class="field-input" type="text" id="nominadoInput" placeholder="Busca por nombre o apodo…" autocomplete="off" oninput="onNomInput(0)" onkeydown="onNomKey(event,0)">'
     +'<div class="autocomplete-list" id="nomAcList0" style="display:none"></div>'
-    +'</div>'
-    +'<div class="nom-selected-display" id="nomSelDisplay0"></div></div>';
+    +'</div><div class="nom-selected-display" id="nomSelDisplay0"></div></div>';
 }
 
 function buildDuplaFields(){
@@ -1157,20 +1292,15 @@ function buildDuplaFields(){
     +'<div class="autocomplete-wrap">'
     +'<input class="field-input" type="text" id="nominadoInput0" placeholder="Busca primer primo…" autocomplete="off" oninput="onNomInput(0)" onkeydown="onNomKey(event,0)">'
     +'<div class="autocomplete-list" id="nomAcList0" style="display:none"></div>'
-    +'</div>'
-    +'<div class="nom-selected-display" id="nomSelDisplay0"></div></div>'
+    +'</div><div class="nom-selected-display" id="nomSelDisplay0"></div></div>'
     +'<div class="field-group"><label class="field-label">Primo 2 de la Dupla</label>'
     +'<div class="autocomplete-wrap">'
     +'<input class="field-input" type="text" id="nominadoInput1" placeholder="Busca segundo primo…" autocomplete="off" oninput="onNomInput(1)" onkeydown="onNomKey(event,1)">'
     +'<div class="autocomplete-list" id="nomAcList1" style="display:none"></div>'
-    +'</div>'
-    +'<div class="nom-selected-display" id="nomSelDisplay1"></div></div>';
+    +'</div><div class="nom-selected-display" id="nomSelDisplay1"></div></div>';
 }
 
-// ─── AUTOCOMPLETE NOMINADO — búsqueda instantánea ─────────────
-var acResults=[[],[]];
-var acSelected=[null,null];
-
+// ─── AUTOCOMPLETE ─────────────────────────────────────────────
 function onNomInput(idx){
   var slot=idx||0;
   acSelected[slot]=null;
@@ -1188,11 +1318,8 @@ function onNomInput(idx){
     }
     acResults[slot]=res.resultados;
     list.innerHTML=res.resultados.map(function(r,i){
-      var display=r.apodo
-        ? esc(r.nombreCompleto)+' <span style="color:rgba(201,168,76,.65);font-style:italic">(primo '+esc(r.apodo)+')</span>'
-        : esc(r.nombreCompleto);
-      return '<div class="ac-item" onclick="selectNomAc('+slot+','+i+')">'
-        +'<span class="ac-name">'+display+'</span></div>';
+      var display=r.apodo?esc(r.nombreCompleto)+' <span style="color:rgba(201,168,76,.65);font-style:italic">(primo '+esc(r.apodo)+')</span>':esc(r.nombreCompleto);
+      return '<div class="ac-item" onclick="selectNomAc('+slot+','+i+')"><span class="ac-name">'+display+'</span></div>';
     }).join('');
     list.style.display='block';
   });
@@ -1221,47 +1348,37 @@ function selectNomAc(slot,i){
 function enviarNominacion(){
   if(!primo){showToast('Ingresa tu nombre primero');return;}
   if(window._nomActivo===false){showToast('Las nominaciones están desactivadas temporalmente');return;}
-  checkBan(function(baneado){
-    if(baneado) return;
-    _doEnviarNominacion();
-  });
+  checkBan(function(baneado){if(baneado) return; _doEnviarNominacion();});
 }
 
 function _doEnviarNominacion(){
   if(!primo){showToast('Ingresa tu nombre primero');return;}
   var cat=document.getElementById('catSelect').value;
   var isDupla=cat.indexOf('Dupla')!==-1;
-
   if(isDupla){
     if(!acSelected[0]&&acResults[0]&&acResults[0].length>0) selectNomAc(0,0);
     if(!acSelected[1]&&acResults[1]&&acResults[1].length>0) selectNomAc(1,0);
     if(!acSelected[0]||!acSelected[1]){showToast('Busca y selecciona los 2 primos de la dupla');return;}
-    var r0=acSelected[0], r1=acSelected[1];
+    var r0=acSelected[0],r1=acSelected[1];
     if(r0.nombreCompleto===r1.nombreCompleto){showToast('No puedes nominar al mismo primo dos veces');return;}
-    // Normalize: sort alphabetically so order doesn't matter
     var names=[r0.nombreCompleto,r1.nombreCompleto].sort();
     var disps=[getNomDisplayName(r0),getNomDisplayName(r1)];
-    if(names[0]!==r0.nombreCompleto) disps=[disps[1],disps[0]]; // keep aligned
+    if(names[0]!==r0.nombreCompleto) disps=[disps[1],disps[0]];
     var codNom=names[0]+' & '+names[1];
     var dispNom=disps[0]+' & '+disps[1];
     showToast('Enviando…');
-    apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),
-      categoria:cat,codNominado:codNom,nominado:dispNom},
-    function(res){
+    apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),categoria:cat,codNominado:codNom,nominado:dispNom},function(res){
       if(!res){showToast('Error de conexión');return;}
       showToast(res.msg||(res.ok?'¡Dupla nominada!':'Error'));
       if(res.ok) resetNomForm();
     });
   } else {
-    // Auto-select first result if user typed but didn't click
     if(!acSelected[0]&&acResults[0]&&acResults[0].length>0) selectNomAc(0,0);
     if(!acSelected[0]){showToast('Busca el nombre del primo a nominar');return;}
     var r=acSelected[0];
     var dispNom=getNomDisplayName(r);
     showToast('Enviando…');
-    apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),
-      categoria:cat,codNominado:r.nombreCompleto,nominado:dispNom},
-    function(res){
+    apiCall({action:'nominar',codigo:primo.codigo,nombre:getDisplayName(),categoria:cat,codNominado:r.nombreCompleto,nominado:dispNom},function(res){
       if(!res){showToast('Error de conexión');return;}
       showToast(res.msg||(res.ok?'¡Nominación enviada!':'Error'));
       if(res.ok) resetNomForm();
@@ -1270,22 +1387,15 @@ function _doEnviarNominacion(){
 }
 
 function getNomDisplayName(r){
-  // Use only first name
   var firstName=r.nombreCompleto.split(' ')[0];
   return r.apodo?firstName+' (primo '+r.apodo+')':firstName;
 }
 
 function resetNomForm(){
   acSelected=[null,null]; acResults=[[],[]];
-  ['nominadoInput','nominadoInput0','nominadoInput1'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.value='';
-  });
-  ['nomSelDisplay0','nomSelDisplay1'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.style.display='none';
-  });
-  ['nomAcList0','nomAcList1'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.style.display='none';
-  });
+  ['nominadoInput','nominadoInput0','nominadoInput1'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  ['nomSelDisplay0','nomSelDisplay1'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+  ['nomAcList0','nomAcList1'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
 }
 
 // ─── CATEGORY PAGE ────────────────────────────────────────────
@@ -1296,19 +1406,18 @@ function openCatPage(cat){
   infoPanel.textContent=info; infoPanel.classList.remove('open');
   document.getElementById('catInfoToggleBtn').style.display=info?'flex':'none';
   document.getElementById('catSubLabel').textContent='Nominados';
-  document.getElementById('catPageContent').innerHTML=
-    '<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.35);text-align:center;padding:2rem">Cargando…</p>';
+  document.getElementById('catPageContent').innerHTML='<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.35);text-align:center;padding:2rem">Cargando…</p>';
   document.getElementById('catPage').classList.add('open');
   document.body.style.overflow='hidden';
   var fase=getFase();
   if(fase===1){
     apiCall({action:'statsCategoria',cat:cat},function(res){
-      if(!res) return showCatError('No se pudo conectar con el servidor. Verifica el link /exec.');
+      if(!res) return showCatError('No se pudo conectar. Verifica el link /exec.');
       renderCatFase1(res,cat);
     });
   } else {
     apiCall({action:'nominadosCategoria',cat:cat},function(res){
-      if(!res) return showCatError('No se pudo conectar con el servidor. Verifica el link /exec y que hayas hecho New Deployment.');
+      if(!res) return showCatError('No se pudo conectar. Verifica el link /exec y que hayas hecho New Deployment.');
       if(res.ok===false) return showCatError('Error del servidor: '+(res.msg||'desconocido'));
       renderCatFase2(res,cat);
     });
@@ -1316,13 +1425,10 @@ function openCatPage(cat){
 }
 
 function showCatError(msg){
-  document.getElementById('catPageContent').innerHTML=
-    '<div style="text-align:center;padding:2rem;">'
-    +'<div style="font-size:2rem;margin-bottom:1rem">⚠️</div>'
+  document.getElementById('catPageContent').innerHTML='<div style="text-align:center;padding:2rem;"><div style="font-size:2rem;margin-bottom:1rem">⚠️</div>'
     +'<p style="font-family:Cinzel,serif;font-size:.6rem;letter-spacing:.2em;color:rgba(201,168,76,.7);margin-bottom:.8rem">Error de conexión</p>'
     +'<p style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.45);font-size:.95rem;line-height:1.6">'+esc(msg)+'</p>'
-    +'<button onclick="openCatPage(document.getElementById(\'catPageTitle\').textContent)" '
-    +'style="margin-top:1.5rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;padding:.7rem 1.5rem;cursor:pointer;">Reintentar</button>'
+    +'<button onclick="openCatPage(document.getElementById(\'catPageTitle\').textContent)" style="margin-top:1.5rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;padding:.7rem 1.5rem;cursor:pointer;">Reintentar</button>'
     +'</div>';
 }
 
@@ -1332,21 +1438,14 @@ function closeCatPage(){
   stopPageStars();
 }
 
-function toggleCatInfo(){
-  document.getElementById('catInfoPanel').classList.toggle('open');
-}
+function toggleCatInfo(){document.getElementById('catInfoPanel').classList.toggle('open');}
 
-// Helper: extract display name from stored display string — first name + apodo only
 function cardDisplayName(display){
-  // Check if it's a dupla (contains &)
-  if(display.indexOf(' & ')!==-1) return display; // keep dupla as-is
+  if(display.indexOf(' & ')!==-1) return display;
   var parts=display.match(/^(.*?)\s*\(primo\s+(.*?)\)$/i);
-  if(parts){
-    var firstName=parts[1].trim().split(' ')[0];
-    return {apodo:'Primo '+parts[2].trim(), name:firstName};
-  }
+  if(parts){var firstName=parts[1].trim().split(' ')[0];return {apodo:'Primo '+parts[2].trim(),name:firstName};}
   var firstName=display.split(' ')[0];
-  return {apodo:'Primo '+firstName, name:null};
+  return {apodo:'Primo '+firstName,name:null};
 }
 
 function renderCatFase1(res,cat){
@@ -1355,27 +1454,21 @@ function renderCatFase1(res,cat){
     el.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Aún no hay nominados en esta categoría.<br>¡Sé el primero en nominar!</p></div>';
     return;
   }
-  var lista=isAdmin()?res.items:shuffleArr(res.items.slice());
+  // Admin y presentador ven con conteo; participantes ven sin conteo y desordenado
+  var canSeeCount=(isAdmin()||isPresentador());
+  var lista=canSeeCount?res.items:shuffleArr(res.items.slice());
   var html='<div class="nom-matrix">';
   lista.forEach(function(item){
     var d=cardDisplayName(item.display);
     var isDupla=typeof d==='string';
     var apodoLine,nameLine,initial;
-    if(isDupla){
-      apodoLine='<span class="nom-card-apodo">'+esc(item.display)+'</span>';
-      nameLine='';
-      initial='👯';
-    } else {
-      apodoLine='<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';
-      nameLine=d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'';
-      initial=d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
-    }
-    var adminLine=isAdmin()?'<span class="nom-card-votes">'+item.count+' nominaciones</span>':'';
+    if(isDupla){apodoLine='<span class="nom-card-apodo">'+esc(item.display)+'</span>';nameLine='';initial='👯';}
+    else{apodoLine='<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';nameLine=d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'';initial=d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();}
+    var adminLine=canSeeCount?'<span class="nom-card-votes">'+item.count+' nominaciones</span>':'';
     html+='<div class="nom-card"><div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine+adminLine+'</div>';
   });
   html+='</div>';
   el.innerHTML=html;
-  // Primo del Año: trigger star animation for everyone
   if(cat==='Primo del Año 🏆') startPageStars();
 }
 
@@ -1385,26 +1478,21 @@ function renderCatFase2(res,cat){
     el.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏅</div><p>Aún no hay nominados suficientes.<br>Los nominados aparecerán pronto.</p></div>';
     return;
   }
+  var canSeeCount=(isAdmin()||isPresentador());
   var html='<div class="nom-matrix">';
   res.nominados.forEach(function(n){
     var d=cardDisplayName(n.display);
     var isDupla=typeof d==='string';
     var apodoLine,nameLine,initial;
-    if(isDupla){
-      apodoLine='<span class="nom-card-apodo">'+esc(n.display)+'</span>';
-      nameLine='';
-      initial='👯';
-    } else {
-      apodoLine='<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';
-      nameLine=d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'';
-      initial=d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
-    }
+    if(isDupla){apodoLine='<span class="nom-card-apodo">'+esc(n.display)+'</span>';nameLine='';initial='👯';}
+    else{apodoLine='<span class="nom-card-apodo">'+esc(d.apodo)+'</span>';nameLine=d.name?'<span class="nom-card-name">'+esc(d.name)+'</span>':'';initial=d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();}
     var desc=n.descripcion?'<div class="nom-card-desc">'+esc(n.descripcion)+'</div>':'';
-    var adminLine=isAdmin()?'<span class="nom-card-votes">'+n.count+' nominaciones</span>':'';
-    html+='<div class="nom-card clickable" onclick="prepararVoto(\''+esc(cat)+'\',\''+esc(n.codigo)+'\',\''+esc(n.display)+'\')">'
-      +'<div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine+desc+adminLine+'</div>';
+    var adminLine=canSeeCount?'<span class="nom-card-votes">'+n.count+' nominaciones</span>':'';
+    var clickable=getFase()===2?'clickable':'';
+    var onclick=getFase()===2?' onclick="prepararVoto(\''+esc(cat)+'\',\''+esc(n.codigo)+'\',\''+esc(n.display)+'\')"':'';
+    html+='<div class="nom-card '+clickable+'"'+onclick+'><div class="nom-card-avatar">'+esc(initial)+'</div>'+apodoLine+nameLine+desc+adminLine+'</div>';
   });
-  html+='</div><p class="vote-hint">Toca a un nominado para votar por él.</p>';
+  html+='</div>'+(getFase()===2?'<p class="vote-hint">Toca a un nominado para votar por él.</p>':'');
   el.innerHTML=html;
   if(cat==='Primo del Año 🏆') startPageStars();
 }
@@ -1423,9 +1511,7 @@ function confirmarVoto(){
   checkBan(function(baneado){
     if(baneado){pendingVote=null;return;}
     showToast('Enviando voto…');
-    apiCall({action:'votar',codigo:primo.codigo,nombre:getDisplayName(),
-      categoria:pendingVote.cat,codNominado:pendingVote.codNominado,nominado:pendingVote.displayNominado},
-    function(res){
+    apiCall({action:'votar',codigo:primo.codigo,nombre:getDisplayName(),categoria:pendingVote.cat,codNominado:pendingVote.codNominado,nominado:pendingVote.displayNominado},function(res){
       if(!res){showToast('Error de conexión');return;}
       showToast(res.msg||(res.ok?'¡Voto registrado!':'Error'));
       pendingVote=null;
@@ -1435,49 +1521,48 @@ function confirmarVoto(){
 function cancelarVoto(){pendingVote=null;document.getElementById('confirmOverlay').classList.remove('open');}
 
 // ─── CHAT ─────────────────────────────────────────────────────
-var chatOpen=false,lastMsgCount=0,localMsgs=[],chatSending=false;
+var chatOpen=false,lastMsgCount=0,localMsgs=[];
+
 function toggleChat(){
   chatOpen=!chatOpen;
   document.getElementById('chatPanel').classList.toggle('open',chatOpen);
   var fab=document.getElementById('chatFab'); fab.classList.toggle('open',chatOpen);
   if(chatOpen){fab.classList.remove('has-unread');setTimeout(function(){var b=document.getElementById('mensajes');b.scrollTop=b.scrollHeight;},100);}
 }
+
+// FIX: prevenir doble envío — un solo mensaje por acción
 function mandarChat(){
   if(!primo){showToast('Identifícate para chatear');return;}
-  if(chatSending){showToast('Esperando respuesta...');return;}
-  var msg=(document.getElementById('msgChat').value||'').trim(); if(!msg) return;
+  // FIX: bloquear si ya está enviando
+  if(chatSending) return;
+  var msgInput=document.getElementById('msgChat');
+  var msg=(msgInput.value||'').trim();
+  if(!msg) return;
   checkBan(function(baneado){
     if(baneado) return;
-    var user=getChatName();
     chatSending=true;
-    document.getElementById('msgChat').value='';
+    var user=getChatName();
+    msgInput.value=''; // limpiar inmediatamente
     apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
       chatSending=false;
       if(res&&res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
-      setTimeout(function(){var b=document.getElementById('mensajes');if(b)b.scrollTop=b.scrollHeight;},50);
     });
   });
 }
+
 function renderMsgs(lista){
   if(!lista||!lista.length) return;
   var box=document.getElementById('mensajes');
   box.innerHTML=lista.map(function(m){
     var raw=String(m[0]||'');
-    // Format: "Primo Apodo (Nombre)" → bold "Primo Apodo" + subtle "(Nombre)"
-    // Format: "Primo Nombre (Nombre)" → just "Primo Nombre" (no redundant parens)
+    // FIX: formato correcto para primos/primas con y sin apodo
+    // Patrón: "Primo/Prima Nombre (Apellido)" o "Primo/Prima Apodo (Nombre)"
     var parts=raw.match(/^(.*?)\s*\(([^)]+)\)$/);
     var nh;
     if(parts){
       var displayPart=parts[1].trim();
       var namePart=parts[2].trim();
-      // Solo mostrar parens si el nombre real es diferente al nombre de display
-      var dpClean=displayPart.replace(/^primo\s+/i,'').trim().toLowerCase();
-      var npClean=namePart.toLowerCase();
-      if(dpClean!==npClean){
-        nh='<strong>'+esc(displayPart)+'</strong> <span class="chat-real-name">('+esc(namePart)+')</span>';
-      } else {
-        nh='<strong>'+esc(displayPart)+'</strong>';
-      }
+      nh='<strong>'+esc(displayPart)+'</strong> <span class="chat-real-name">('+esc(namePart)+')</span>';
     } else {
       nh='<strong>'+esc(raw)+'</strong>';
     }
@@ -1485,35 +1570,26 @@ function renderMsgs(lista){
   }).join('');
   box.scrollTop=box.scrollHeight;
 }
+
 function startChatPoll(){
-  function poll(){apiCall({action:'mensajes'},function(res){
-    if(!res||!res.mensajes||!Array.isArray(res.mensajes)) return;
-    localMsgs=res.mensajes; renderMsgs(localMsgs);
-    if(!chatOpen&&res.mensajes.length>lastMsgCount) document.getElementById('chatFab').classList.add('has-unread');
-    lastMsgCount=res.mensajes.length;
-  });}
+  function poll(){
+    apiCall({action:'mensajes'},function(res){
+      if(!res||!res.mensajes||!Array.isArray(res.mensajes)) return;
+      localMsgs=res.mensajes; renderMsgs(localMsgs);
+      if(!chatOpen&&res.mensajes.length>lastMsgCount) document.getElementById('chatFab').classList.add('has-unread');
+      lastMsgCount=res.mensajes.length;
+    });
+  }
   poll(); setInterval(poll,5000);
 }
 
-// ─── VOTING INFO (fase 2) ─────────────────────────────────────
+// ─── VOTING INFO ──────────────────────────────────────────────
 function buildVotingInfo(){
-  var adminPanel='';
-  if(isAdmin()){
-    var btns=CATS.map(function(c){
-      return '<button class="admin-reveal-btn" onclick="adminRevealWinner(\''+esc(c)+'\')">'
-        +'<div class="btn-shimmer"></div>'+esc(c)+'</button>';
-    }).join('');
-    adminPanel='<div class="admin-panel">'
-      +'<div class="admin-panel-title">Panel Admin · Revelar Ganadores</div>'
-      +'<div class="admin-cat-grid">'+btns+'</div>'
-      +'</div>';
-  }
-  return adminPanel
-    +'<div class="voting-info-card">'
+  return '<div class="voting-info-card">'
     +'<p style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.38em;color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:1rem;text-align:center">¿Cómo votar?</p>'
     +'<ul class="voting-steps">'
     +'<li><div class="step-num">1</div><div>Sube a <em>Categorías en Juego</em> y toca la que quieras votar.</div></li>'
-    +'<li><div class="step-num">2</div><div>Verás los primos más nominados. Lee sus nombres y descripciones.</div></li>'
+    +'<li><div class="step-num">2</div><div>Verás los primos nominados. Lee sus nombres y descripciones.</div></li>'
     +'<li><div class="step-num">3</div><div>Toca la tarjeta del primo y confirma tu voto.</div></li>'
     +'<li><div class="step-num">4</div><div>Solo puedes votar <em>una vez por categoría</em>. ¡No hay cambios!</div></li>'
     +'<li><div class="step-num">5</div><div>Puedes votar en <em>todas las categorías</em> de forma independiente.</div></li>'
@@ -1521,31 +1597,25 @@ function buildVotingInfo(){
     +'<div class="closing-date-box">'
     +'<span class="closing-label">Las votaciones cierran el</span>'
     +'<div class="closing-date">Lunes 8 de Junio, 2026</div>'
-    +'</div>'
-    +'</div>';
+    +'</div></div>';
 }
 
-// ─── FASE 3 INFO ──────────────────────────────────────────────
 function buildFase3Info(){
-  var adminPanel='';
+  var adminReveal='';
   if(isAdmin()){
     var btns=CATS.map(function(c){
       return '<button class="admin-reveal-btn" onclick="adminRevealWinner(\''+esc(c)+'\')">'
         +'<div class="btn-shimmer"></div>'+esc(c)+'</button>';
     }).join('');
-    adminPanel='<div class="admin-panel">'
-      +'<div class="admin-panel-title">Panel Admin · Revelar Ganadores</div>'
-      +'<div class="admin-cat-grid">'+btns+'</div>'
-      +'</div>';
+    adminReveal='<div class="admin-panel"><div class="admin-panel-title">Panel Admin · Revelar Ganadores</div>'
+      +'<div class="admin-cat-grid">'+btns+'</div></div>';
   }
-  return adminPanel
-    +'<div class="phase-closed">'
-    +'<div class="phase-closed-icon">🏆</div>'
+  return adminReveal
+    +'<div class="phase-closed"><div class="phase-closed-icon">🏆</div>'
     +'<h3>¡Nos vemos el 27 de Junio!</h3>'
     +'<p>Las votaciones han cerrado. La Gala está a punto de comenzar.<br><em>Esta noche se revelan los ganadores.</em></p>'
     +'</div>'
-    +'<button class="btn-submit" onclick="openGamesScreen()" style="margin-top:1rem">'
-    +'🎮 &nbsp;Jugar mientras esperas</button>';
+    +'<button class="btn-submit" onclick="openGamesScreen()" style="margin-top:1rem">🎮 &nbsp;Jugar mientras esperas</button>';
 }
 
 // ─── ADMIN: REVELAR GANADOR ───────────────────────────────────
@@ -1563,71 +1633,38 @@ function adminRevealWinner(cat){
   });
 }
 
-// También participantes pueden ver ganador si ya fue revelado
-function verGanador(cat){
-  apiCall({action:'ganadorCategoria',cat:cat}, function(res){
-    if(!res||!res.ganador){
-      showToast('El ganador aún no ha sido revelado');
-      return;
-    }
-    showWinnerReveal(cat, res.ganador);
-  });
-}
-
-
-// ─── PAGE STARS (Primo del Año ambient) ──────────────────────
+// ─── STARS DE FONDO (Primo del Año) ───────────────────────────
 var pageStarsId=null;
 function startPageStars(){
-  var existing=document.getElementById('pageStarsCanvas');
-  if(existing) existing.remove();
+  var existing=document.getElementById('pageStarsCanvas'); if(existing) existing.remove();
   var canvas=document.createElement('canvas');
   canvas.id='pageStarsCanvas';
-  // Attach to body so fixed positioning works correctly
   document.body.appendChild(canvas);
   canvas.width=window.innerWidth; canvas.height=window.innerHeight;
   var ctx=canvas.getContext('2d');
   var stars=[];
-  for(var i=0;i<50;i++){
-    stars.push({
-      x:Math.random()*canvas.width,
-      y:-10-Math.random()*canvas.height*0.5,
-      vx:(Math.random()-.5)*.9,
-      vy:1+Math.random()*2,
-      size:2.5+Math.random()*3.5,
-      rot:Math.random()*Math.PI*2,
-      vrot:(Math.random()-.5)*.08
-    });
-  }
+  for(var i=0;i<50;i++){stars.push({x:Math.random()*canvas.width,y:-10-Math.random()*canvas.height*0.5,vx:(Math.random()-.5)*.9,vy:1+Math.random()*2,size:2.5+Math.random()*3.5,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.08});}
   function frame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     stars.forEach(function(s){
-      s.x+=s.vx; s.y+=s.vy; s.rot+=s.vrot;
+      s.x+=s.vx;s.y+=s.vy;s.rot+=s.vrot;
       if(s.y>canvas.height+20){s.y=-15;s.x=Math.random()*canvas.width;}
       ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.rot);
       ctx.fillStyle='rgba(201,168,76,0.75)';
       ctx.beginPath();
-      for(var k=0;k<5;k++){
-        var a=k*4*Math.PI/5-Math.PI/2;
-        var ai=a+2*Math.PI/5;
-        if(k===0) ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);
-        else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);
-        ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);
-      }
+      for(var k=0;k<5;k++){var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;if(k===0)ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);}
       ctx.closePath();ctx.fill();ctx.restore();
     });
     pageStarsId=requestAnimationFrame(frame);
   }
   frame();
 }
-
 function stopPageStars(){
   if(pageStarsId){cancelAnimationFrame(pageStarsId);pageStarsId=null;}
-  var c=document.getElementById('pageStarsCanvas'); if(c) c.remove();
+  var c=document.getElementById('pageStarsCanvas');if(c)c.remove();
 }
 
-// Override closeCatPage to also stop page stars — merged below
-
-// ─── WINNER REVEAL — updated with winner/loser cards ──────────
+// ─── WINNER REVEAL ────────────────────────────────────────────
 function showWinnerReveal(cat,ganador,allNominados){
   var display=ganador.display||'';
   var d=cardDisplayName(display);
@@ -1635,30 +1672,17 @@ function showWinnerReveal(cat,ganador,allNominados){
   var apodoDisplay=isDupla?display:(d.apodo);
   var realName=isDupla?'':(d.name||'');
   var initial=isDupla?'👯':d.apodo.replace(/^primo\s+/i,'').charAt(0).toUpperCase();
-
   document.getElementById('winnerCatLabel').textContent=cat;
   document.getElementById('winnerAvatar').textContent=initial;
   document.getElementById('winnerName').textContent=apodoDisplay;
   document.getElementById('winnerRealName').textContent=realName;
   document.getElementById('winnerDesc').textContent=ganador.descripcion||'';
-
-  // Winner/loser notification for current user
-  if(primo){
-    var isWinner=ganador.codigo.indexOf(primo.nombreCompleto||'')!==-1||ganador.display.indexOf(primo.nombreDisplay||'')!==-1;
-    var isNominado=allNominados&&allNominados.some(function(n){return n.codigo.indexOf(primo.nombreCompleto||'')!==-1;});
-    // Show notification after reveal closes if applicable
-    ganador._isWinner=isWinner;
-    ganador._allNominados=allNominados;
-    ganador._cat=cat;
-  }
-
+  if(primo){ganador._allNominados=allNominados;ganador._cat=cat;}
   var reveal=document.getElementById('winnerReveal');
   var stage=document.getElementById('winnerStage');
   var spot=document.getElementById('spotlight');
-  stage.classList.remove('shown');
-  spot.classList.remove('on');
-  reveal.classList.add('active');
-  document.body.style.overflow='hidden';
+  stage.classList.remove('shown');spot.classList.remove('on');
+  reveal.classList.add('active');document.body.style.overflow='hidden';
   setTimeout(function(){spot.classList.add('on');},300);
   setTimeout(function(){stage.classList.add('shown');},1200);
   setTimeout(function(){startStars();},1500);
@@ -1667,10 +1691,7 @@ function showWinnerReveal(cat,ganador,allNominados){
 function closeWinnerReveal(){
   var reveal=document.getElementById('winnerReveal');
   var winner=reveal._pendingWinner;
-  reveal.classList.remove('active');
-  document.body.style.overflow='';
-  stopStars();
-  // Show winner/loser notification if applicable
+  reveal.classList.remove('active');document.body.style.overflow='';stopStars();
   if(winner&&primo){
     var myCode=primo.nombreCompleto||'';
     var isWinner=winner.codigo&&(winner.codigo===myCode||winner.codigo.indexOf(myCode)!==-1);
@@ -1680,7 +1701,6 @@ function closeWinnerReveal(){
   }
 }
 
-// ─── WINNER NOTIFICATION CARD ─────────────────────────────────
 function showWinnerCard(cat,ganador){
   var d=cardDisplayName(ganador.display||'');
   var name=typeof d==='string'?d:d.apodo;
@@ -1688,8 +1708,7 @@ function showWinnerCard(cat,ganador){
     +'<div style="background:linear-gradient(160deg,rgba(201,168,76,.15),rgba(13,10,6,.95));border:1px solid rgba(201,168,76,.5);padding:2.5rem 2rem;max-width:360px;width:100%;text-align:center;position:relative;">'
     +'<div style="position:absolute;inset:-2px;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.2) 25%,transparent 50%,rgba(201,168,76,.15) 75%,transparent);animation:auraSpin 4s linear infinite;pointer-events:none;"></div>'
     +'<div style="position:absolute;inset:1px;background:rgba(8,8,8,.92);z-index:0;"></div>'
-    +'<div style="position:relative;z-index:1;">'
-    +'<div style="font-size:2.5rem;margin-bottom:.8rem">🏆</div>'
+    +'<div style="position:relative;z-index:1;"><div style="font-size:2.5rem;margin-bottom:.8rem">🏆</div>'
     +'<div style="font-family:Cinzel,serif;font-size:.55rem;letter-spacing:.4em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:.6rem">¡Felicidades!</div>'
     +'<div style="font-family:Cinzel Decorative,serif;font-size:1.4rem;background:linear-gradient(135deg,#e8d08a,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem">'+esc(name)+'</div>'
     +'<div style="font-family:Cormorant Garamond,serif;font-style:italic;color:rgba(245,237,224,.6);font-size:1rem;line-height:1.6;margin-bottom:1.5rem">Eres el ganador de <em>'+esc(cat)+'</em>. Los primos lo decidieron. ¡Lo lograste!</div>'
@@ -1709,41 +1728,24 @@ function showLoserCard(cat){
     +'</div></div>';
   document.body.insertAdjacentHTML('beforeend',html);
 }
+
 var starsAnimId=null;
 function startStars(){
   var canvas=document.getElementById('starsCanvas');
   var ctx=canvas.getContext('2d');
-  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
   var stars=[];
-  for(var i=0;i<60;i++){
-    stars.push({
-      x:Math.random()*canvas.width,
-      y:-10-Math.random()*100,
-      vx:(Math.random()-.5)*1.5,
-      vy:1.5+Math.random()*2.5,
-      size:3+Math.random()*5,
-      alpha:1,
-      rot:Math.random()*Math.PI*2,
-      vrot:(Math.random()-.5)*.1
-    });
-  }
+  for(var i=0;i<60;i++){stars.push({x:Math.random()*canvas.width,y:-10-Math.random()*100,vx:(Math.random()-.5)*1.5,vy:1.5+Math.random()*2.5,size:3+Math.random()*5,alpha:1,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.1});}
   function frame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     stars.forEach(function(s){
-      s.x+=s.vx; s.y+=s.vy; s.rot+=s.vrot;
+      s.x+=s.vx;s.y+=s.vy;s.rot+=s.vrot;
       if(s.y>canvas.height+20){s.y=-10;s.x=Math.random()*canvas.width;}
-      ctx.save(); ctx.translate(s.x,s.y); ctx.rotate(s.rot);
+      ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.rot);
       ctx.fillStyle='rgba(201,168,76,'+s.alpha+')';
-      // 5-point star
       ctx.beginPath();
-      for(var k=0;k<5;k++){
-        var a=k*4*Math.PI/5-Math.PI/2;
-        var ai=a+2*Math.PI/5;
-        if(k===0) ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);
-        else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);
-        ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);
-      }
-      ctx.closePath(); ctx.fill(); ctx.restore();
+      for(var k=0;k<5;k++){var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;if(k===0)ctx.moveTo(Math.cos(a)*s.size,Math.sin(a)*s.size);else ctx.lineTo(Math.cos(a)*s.size,Math.sin(a)*s.size);ctx.lineTo(Math.cos(ai)*s.size*.4,Math.sin(ai)*s.size*.4);}
+      ctx.closePath();ctx.fill();ctx.restore();
     });
     starsAnimId=requestAnimationFrame(frame);
   }
@@ -1754,75 +1756,9 @@ function stopStars(){
   var canvas=document.getElementById('starsCanvas');
   if(canvas){var ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);}
 }
-// ─── ADMIN PANEL ──────────────────────────────────────────────
-window._nomActivo = true;
 
-function actualizarStatsPresent(){
-  if(!primo||primo.rol!=='presentador') return;
-  document.getElementById('presentadorPanelSection').style.display='block';
-  apiCall({action:'statsPublicas'},function(res){
-    if(!res) return;
-    // Total de primos
-    document.getElementById('statTotalPrimos').textContent=res.totalPrimos||0;
-    // Fase actual
-    var faseText='';
-    if(res.fase===1) faseText='Fase 1: Nominaciones abiertas';
-    else if(res.fase===2) faseText='Fase 2: Votaciones abiertas';
-    else faseText='Fase 3: Gala en vivo';
-    document.getElementById('statFase').textContent=faseText;
-    // Stats por categoría
-    var wrap=document.getElementById('statsCatsWrap');
-    var html='';
-    Object.keys(res.cats).forEach(function(cat){
-      var stat=res.cats[cat];
-      var label=res.fase===1?'Nominaciones':'Votos';
-      var count=stat.nominaciones||stat.votos||0;
-      html+='<div style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);padding:1rem;border-radius:4px;">'
-        +'<div style="font-family:Cinzel,serif;font-size:.42rem;letter-spacing:.2em;color:rgba(201,168,76,.7);text-transform:uppercase;margin-bottom:.4rem;word-break:break-word;">'+esc(cat)+'</div>'
-        +'<div style="font-family:Cinzel Decorative,serif;font-size:1.3rem;color:var(--gold-light);">'+count+'</div>'
-        +'<div style="font-family:Cormorant Garamond,serif;font-size:.75rem;color:rgba(245,237,224,.4);margin-top:.3rem;">'+label+'</div>'
-        +'</div>';
-    });
-    wrap.innerHTML=html||'<p style="grid-column:1/-1;text-align:center;color:rgba(245,237,224,.3)">Cargando datos...</p>';
-  });
-}
-
-function showAdminPanel(){
-  var sec=document.getElementById('adminPanelSection');
-  var psec=document.getElementById('presentadorPanelSection');
-  var asec=document.getElementById('actionSection');
-
-  if(!sec) return;
-
-  if(isAdmin()){
-    sec.style.display='block';
-    if(psec) psec.style.display='none';
-    if(asec) asec.style.display='block';
-    adminLoadPrimos();
-    adminLoadBans();
-    adminLoadChatMessages();
-    adminLoadNomStatus();
-  } else if(primo&&primo.rol==='presentador'){
-    sec.style.display='none';
-    if(psec) psec.style.display='block';
-    if(asec) asec.style.display='block'; // Mostrar ambas secciones
-    actualizarStatsPresent();
-  } else {
-    sec.style.display='none';
-    if(psec) psec.style.display='none';
-    if(asec) asec.style.display='block';
-  }
-}
-
-function toggleAdminSection(secId){
-  var body=document.getElementById(secId);
-  var arrowId='arrow'+secId.charAt(0).toUpperCase()+secId.slice(1);
-  var arrow=document.getElementById(arrowId);
-  if(!body) return;
-  var isOpen=body.classList.contains('open');
-  body.classList.toggle('open',!isOpen);
-  if(arrow) arrow.classList.toggle('open',!isOpen);
-}
+// ─── ADMIN PANEL FUNCTIONS ────────────────────────────────────
+window._nomActivo=true;
 
 function adminLoadNomStatus(){
   apiCall({action:'getNomStatus'},function(res){
@@ -1833,27 +1769,17 @@ function adminLoadNomStatus(){
 }
 
 function updateNomBtn(){
-  var btn=document.getElementById('nomActivoBtn');
-  if(!btn) return;
-  if(window._nomActivo){
-    btn.textContent='⏸ Deshabilitar Nominaciones';
-    btn.classList.remove('active');
-  } else {
-    btn.textContent='▶ Habilitar Nominaciones';
-    btn.classList.add('active');
-  }
+  var btn=document.getElementById('nomActivoBtn'); if(!btn) return;
+  if(window._nomActivo){btn.textContent='⏸ Deshabilitar Nominaciones';btn.classList.remove('active');}
+  else{btn.textContent='▶ Habilitar Nominaciones';btn.classList.add('active');}
 }
 
 function toggleNominaciones(){
   var nuevo=!window._nomActivo;
   apiCall({action:'setNomStatus',activo:nuevo?'1':'0',codigo:primo.codigo},function(res){
     if(!res){showToast('Error de conexión');return;}
-    if(res.ok){
-      window._nomActivo=nuevo;
-      updateNomBtn();
-      showToast(nuevo?'Nominaciones habilitadas ✦':'Nominaciones desactivadas ⏸');
-      renderAction();
-    } else showToast(res.msg||'Error');
+    if(res.ok){window._nomActivo=nuevo;updateNomBtn();showToast(nuevo?'Nominaciones habilitadas ✦':'Nominaciones desactivadas ⏸');renderAction();}
+    else showToast(res.msg||'Error');
   });
 }
 
@@ -1861,31 +1787,22 @@ function adminLoadPrimos(){
   var q=(document.getElementById('adminSearchPrimo')?document.getElementById('adminSearchPrimo').value:'').toLowerCase();
   apiCall({action:'getPrimos'},function(res){
     var list=document.getElementById('adminPrimosList'); if(!list) return;
-    if(!res||!res.primos||!res.primos.length){
-      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin primos registrados.</p>';
-      return;
-    }
-    var filtered=res.primos.filter(function(p){
-      return !q||(p.nombre||'').toLowerCase().indexOf(q)!==-1||(p.codigo||'').toLowerCase().indexOf(q)!==-1;
-    });
-    if(!filtered.length){
-      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin resultados.</p>';
-      return;
-    }
+    if(!res||!res.primos||!res.primos.length){list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin primos registrados.</p>';return;}
+    var filtered=res.primos.filter(function(p){return !q||(p.nombre||'').toLowerCase().indexOf(q)!==-1||(p.codigo||'').toLowerCase().indexOf(q)!==-1;});
+    if(!filtered.length){list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin resultados.</p>';return;}
     list.innerHTML=filtered.map(function(p){
       var genLabel=p.genero==='f'?' · Prima':' · Primo';
-      var rolLabel=p.rol==='admin'?' · 👑 Admin':'';
+      var rolLabel=p.rol==='admin'?' · 👑 Admin':p.rol==='presentador'?' · 🎤 Present.':'';
       return '<div class="admin-list-item">'
         +'<div><div style="font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.18em;color:var(--gold)">'+esc(p.nombre||'')+'</div>'
         +'<div style="font-family:Cormorant Garamond,serif;font-size:.82rem;color:rgba(245,237,224,.38)">'+esc(p.codigo||'')+genLabel+rolLabel+'</div></div>'
-        +'<div class="admin-list-item-btns">'
-        +'<button class="admin-btn danger" onclick="adminKick(\''+esc(p.codigo)+'\',\''+esc(p.nombre)+'\')">Sacar</button>'
-        +'</div></div>';
+        +'<div class="admin-list-item-btns"><button class="admin-btn danger" onclick="adminKick(\''+esc(p.codigo)+'\',\''+esc(p.nombre)+'\')">Sacar</button></div>'
+        +'</div>';
     }).join('');
   });
 }
 
-function adminKick(codigo, nombre){
+function adminKick(codigo,nombre){
   if(!confirm('¿Sacar a '+nombre+'? Deberá registrarse de nuevo.')) return;
   apiCall({action:'kickPrimo',codigo:codigo,adminCodigo:primo.codigo},function(res){
     if(!res){showToast('Error de conexión');return;}
@@ -1897,10 +1814,7 @@ function adminKick(codigo, nombre){
 function adminLoadBans(){
   apiCall({action:'getBans'},function(res){
     var list=document.getElementById('adminBansList'); if(!list) return;
-    if(!res||!res.bans||!res.bans.length){
-      list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin bans activos.</p>';
-      return;
-    }
+    if(!res||!res.bans||!res.bans.length){list.innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3);padding:.5rem">Sin bans activos.</p>';return;}
     list.innerHTML=res.bans.map(function(b){
       var expText=b.expiry==='perm'?'Permanente':new Date(parseInt(b.expiry)).toLocaleString();
       return '<div class="admin-list-item">'
@@ -1935,12 +1849,13 @@ function checkBan(cb){
   apiCall({action:'checkBan',codigo:primo.codigo},function(res){
     if(res&&res.baneado){
       var msg=res.expiry==='perm'?'Estás baneado permanentemente de Primos Awards.':'Estás baneado hasta: '+new Date(parseInt(res.expiry)).toLocaleString();
-      showToast(msg); if(cb)cb(true); return;
+      showToast(msg);if(cb)cb(true);return;
     }
     if(cb)cb(false);
   });
 }
 
+// FIX: admin chat — solo lista los mensajes, sin duplicar con el chat del panel
 function adminLoadChatMessages(){
   apiCall({action:'getMensajesAdmin',codigo:primo.codigo},function(res){
     var list=document.getElementById('adminChatList'); if(!list) return;
@@ -1958,26 +1873,20 @@ function adminLoadChatMessages(){
   });
 }
 
-function adminDeleteMsg(timestamp, texto){
+function adminDeleteMsg(timestamp,texto){
   apiCall({action:'deleteMensaje',timestamp:timestamp,texto:texto,codigo:primo.codigo},function(res){
     if(res&&res.ok){showToast('Mensaje eliminado');adminLoadChatMessages();}
     else showToast('No se pudo eliminar');
   });
 }
 
-function shuffleArr(arr){
-  for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
-  return arr;
-}
-
 // ─── LEADERBOARD ──────────────────────────────────────────────
-function saveScore(game, score){
+function saveScore(game,score){
   if(!primo||score<=0) return;
-  var display=getDisplayName();
-  apiCall({action:'guardarScore',codigo:primo.codigo,display:display,game:game,score:score},function(){});
+  apiCall({action:'guardarScore',codigo:primo.codigo,display:getDisplayName(),game:game,score:score},function(){});
 }
 
-function loadLeaderboard(game, containerId){
+function loadLeaderboard(game,containerId){
   apiCall({action:'getScores',game:game},function(res){
     var el=document.getElementById(containerId); if(!el) return;
     if(!res||!res.scores||res.scores.length===0){
@@ -1988,16 +1897,14 @@ function loadLeaderboard(game, containerId){
       var isMe=primo&&r.codigo===primo.codigo;
       var rank=i+1;
       var rankClass=rank===1?'gold':'';
-      var nameClass=rank===1?'gold gold-aura':(isMe?'':'' );
+      var nameClass=rank===1?'gold':'';
       var medal=rank===1?'👑 ':rank===2?'🥈 ':rank===3?'🥉 ':rank+'.';
-      return '<div class="lb-row'+(isMe?' lb-me':'')+'">'+
-        '<span class="lb-rank '+rankClass+'">'+medal+'</span>'+
-        '<span class="lb-name '+nameClass+'">'+esc(r.nombre)+'</span>'+
-        '<span class="lb-score">'+r.score+' pts</span>'+
-        '</div>';
+      return '<div class="lb-row'+(isMe?' lb-me':'')+'"><span class="lb-rank '+rankClass+'">'+medal+'</span><span class="lb-name '+nameClass+'">'+esc(r.nombre)+'</span><span class="lb-score">'+r.score+' pts</span></div>';
     }).join('');
   });
 }
+
+function shuffleArr(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
 
 // ─── GAMES SCREEN ─────────────────────────────────────────────
 var activeGame=1;
@@ -2022,125 +1929,123 @@ function switchGame(n){
   else{initDodgeGame();loadLeaderboard('dodge','lb2rows');}
 }
 
-// ─── DODGE GAME — Esquiva las Bombas ──────────────────────────
+// ─── MINI GAME 1: Atrapa Estrellas ────────────────────────────
+var mgRAF=null;
+function initMiniGame(){
+  if(mgRAF){cancelAnimationFrame(mgRAF);mgRAF=null;}
+  var canvas=document.getElementById('mgCanvas'); if(!canvas) return;
+  var W=Math.min(320,window.innerWidth-56);
+  var H=Math.round(W*0.68);
+  canvas.width=W;canvas.height=H;
+  var ctx=canvas.getContext('2d');
+  var state={score:0,level:1,lives:3,frame:0,spawnRate:70,running:true,gameover:false,paddle:{x:W/2-32,w:64,h:9,y:H-16},stars:[],bombs:[]};
+  function getX(e){var r=canvas.getBoundingClientRect();return(e.touches?e.touches[0].clientX:e.clientX)-r.left;}
+  canvas.onmousemove=function(e){if(!state.running)return;state.paddle.x=Math.max(0,Math.min(W-state.paddle.w,getX(e)-state.paddle.w/2));};
+  canvas.ontouchmove=function(e){e.preventDefault();if(!state.running)return;state.paddle.x=Math.max(0,Math.min(W-state.paddle.w,getX(e)-state.paddle.w/2));};
+  canvas.onclick=function(){if(state.gameover)initMiniGame();};
+  function updUI(){var s=document.getElementById('mgScore');if(s)s.textContent=state.score;var l=document.getElementById('mgLevel');if(l)l.textContent=state.level;var v=document.getElementById('mgLives');if(v)v.textContent=state.lives>0?'❤️'.repeat(state.lives):'💔';}
+  function drawStar(ctx,x,y,size,rot,color){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.shadowColor=color;ctx.shadowBlur=10;ctx.fillStyle=color;ctx.beginPath();for(var k=0;k<5;k++){var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;if(k===0)ctx.moveTo(Math.cos(a)*size,Math.sin(a)*size);else ctx.lineTo(Math.cos(a)*size,Math.sin(a)*size);ctx.lineTo(Math.cos(ai)*size*.42,Math.sin(ai)*size*.42);}ctx.closePath();ctx.fill();ctx.restore();}
+  function loop(){
+    if(!state.running){
+      ctx.fillStyle='rgba(0,0,0,0.82)';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='rgba(201,168,76,0.9)';ctx.font='bold '+Math.round(W*.065)+'px Cinzel,serif';ctx.textAlign='center';ctx.fillText('FIN DEL JUEGO',W/2,H*.38);
+      ctx.font=Math.round(W*.048)+'px Cinzel,serif';ctx.fillText('Puntos: '+state.score,W/2,H*.54);
+      ctx.fillStyle='rgba(245,237,224,.4)';ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';ctx.fillText('Toca para reiniciar',W/2,H*.7);
+      if(!state._scoreSaved){state._scoreSaved=true;saveScore('stars',state.score);loadLeaderboard('stars','lb1rows');}
+      state.gameover=true;return;
+    }
+    state.frame++;
+    if(state.frame%420===0){state.level=Math.min(12,state.level+1);state.spawnRate=Math.max(28,state.spawnRate-7);}
+    if(state.frame%state.spawnRate===0)state.stars.push({x:10+Math.random()*(W-20),y:-12,vy:1.2+state.level*.35+Math.random()*.7,size:7+Math.random()*5,rot:Math.random()*Math.PI*2,vrot:.05+Math.random()*.05});
+    if(state.frame%(state.spawnRate*4)===0&&state.level>=2)state.bombs.push({x:10+Math.random()*(W-20),y:-12,vy:.9+state.level*.25+Math.random()*.4,r:7});
+    ctx.fillStyle='rgba(8,8,8,0.97)';ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(201,168,76,0.04)';ctx.lineWidth=1;
+    for(var gx=0;gx<W;gx+=36){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
+    for(var gy=0;gy<H;gy+=36){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
+    var p=state.paddle;
+    var g=ctx.createLinearGradient(p.x,0,p.x+p.w,0);
+    g.addColorStop(0,'rgba(138,106,32,0.9)');g.addColorStop(.5,'rgba(232,208,138,0.95)');g.addColorStop(1,'rgba(138,106,32,0.9)');
+    ctx.fillStyle=g;ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=8;ctx.fillRect(p.x,p.y,p.w,p.h);ctx.shadowBlur=0;
+    state.stars=state.stars.filter(function(s){
+      s.y+=s.vy;s.rot+=s.vrot;
+      var caught=(s.y+s.size>p.y&&s.y-s.size<p.y+p.h&&s.x>p.x&&s.x<p.x+p.w);
+      if(caught){state.score+=10*state.level;updUI();return false;}
+      if(s.y>H+16){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
+      drawStar(ctx,s.x,s.y,s.size,s.rot,'rgba(201,168,76,.92)');return true;
+    });
+    state.bombs=state.bombs.filter(function(b){
+      b.y+=b.vy;
+      var hit=(b.y+b.r>p.y&&b.y-b.r<p.y+p.h&&b.x>p.x&&b.x<p.x+p.w);
+      if(hit){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
+      if(b.y>H+16) return false;
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle='rgba(210,55,55,.88)';ctx.shadowColor='rgba(210,55,55,.5)';ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;
+      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.fillText('✕',b.x,b.y+3.5);
+      return true;
+    });
+    ctx.fillStyle='rgba(201,168,76,.35)';ctx.font=Math.round(W*.042)+'px Cinzel,serif';ctx.textAlign='right';ctx.fillText('Lvl '+state.level,W-8,16);
+    mgRAF=requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// ─── MINI GAME 2: Esquiva Bombas ──────────────────────────────
 var mg2RAF=null;
 function initDodgeGame(){
   if(mg2RAF){cancelAnimationFrame(mg2RAF);mg2RAF=null;}
   var canvas=document.getElementById('mgCanvas2'); if(!canvas) return;
   var W=Math.min(320,window.innerWidth-56);
   var H=Math.round(W*0.78);
-  canvas.width=W; canvas.height=H;
+  canvas.width=W;canvas.height=H;
   var ctx=canvas.getContext('2d');
-
-  var state={
-    score:0,level:1,lives:3,frame:0,spawnRate:60,running:true,gameover:false,
-    player:{x:W/2,y:H-30,r:12,vx:0},
-    bombs:[],coins:[]
-  };
-
-  // Touch/mouse controls — move player horizontally
+  var state={score:0,level:1,lives:3,frame:0,spawnRate:60,running:true,gameover:false,player:{x:W/2,y:H-30,r:12},bombs:[],coins:[]};
   function getX(e){var r=canvas.getBoundingClientRect();return(e.touches?e.touches[0].clientX:e.clientX)-r.left;}
   canvas.ontouchmove=function(e){e.preventDefault();if(!state.running)return;state.player.x=Math.max(state.player.r,Math.min(W-state.player.r,getX(e)));};
   canvas.onmousemove=function(e){if(!state.running)return;state.player.x=Math.max(state.player.r,Math.min(W-state.player.r,getX(e)));};
   canvas.onclick=function(){if(state.gameover)initDodgeGame();};
-
-  function updUI(){
-    var s=document.getElementById('mg2Score');if(s)s.textContent=state.score;
-    var l=document.getElementById('mg2Level');if(l)l.textContent=state.level;
-    var v=document.getElementById('mg2Lives');if(v)v.textContent=state.lives>0?'❤️'.repeat(state.lives):'💔';
-  }
-
+  function updUI(){var s=document.getElementById('mg2Score');if(s)s.textContent=state.score;var l=document.getElementById('mg2Level');if(l)l.textContent=state.level;var v=document.getElementById('mg2Lives');if(v)v.textContent=state.lives>0?'❤️'.repeat(state.lives):'💔';}
   function loop(){
     if(!state.running){
-      ctx.fillStyle='rgba(0,0,0,.82)';ctx.fillRect(0,0,W,H);
-      ctx.fillStyle='rgba(201,168,76,.9)';
-      ctx.font='bold '+Math.round(W*.065)+'px Cinzel,serif';ctx.textAlign='center';
-      ctx.fillText('FIN',W/2,H*.35);
-      ctx.font=Math.round(W*.048)+'px Cinzel,serif';
-      ctx.fillText('Puntos: '+state.score,W/2,H*.5);
-      ctx.fillStyle='rgba(245,237,224,.4)';
-      ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';
-      ctx.fillText('Toca para reiniciar',W/2,H*.65);
-      // Save score
-      saveScore('dodge',state.score);
-      loadLeaderboard('dodge','lb2rows');
-      state.gameover=true; return;
+      ctx.fillStyle='rgba(0,0,0,.82)';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(201,168,76,.9)';ctx.font='bold '+Math.round(W*.065)+'px Cinzel,serif';ctx.textAlign='center';ctx.fillText('FIN',W/2,H*.35);
+      ctx.font=Math.round(W*.048)+'px Cinzel,serif';ctx.fillText('Puntos: '+state.score,W/2,H*.5);ctx.fillStyle='rgba(245,237,224,.4)';ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';ctx.fillText('Toca para reiniciar',W/2,H*.65);
+      saveScore('dodge',state.score);loadLeaderboard('dodge','lb2rows');state.gameover=true;return;
     }
-
     state.frame++;
     if(state.frame%380===0){state.level=Math.min(12,state.level+1);state.spawnRate=Math.max(25,state.spawnRate-6);}
-    if(state.frame%state.spawnRate===0){
-      state.bombs.push({x:10+Math.random()*(W-20),y:-12,vy:1.5+state.level*.35+Math.random()*.6,r:9});
-    }
-    if(state.frame%(state.spawnRate*2+10)===0){
-      state.coins.push({x:10+Math.random()*(W-20),y:-12,vy:.9+state.level*.2,r:7,rot:0,vrot:.08});
-    }
-
-    // BG
-    ctx.fillStyle='rgba(8,8,6,0.97)';ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(201,168,76,.04)';ctx.lineWidth=1;
+    if(state.frame%state.spawnRate===0)state.bombs.push({x:10+Math.random()*(W-20),y:-12,vy:1.5+state.level*.35+Math.random()*.6,r:9});
+    if(state.frame%(state.spawnRate*2+10)===0)state.coins.push({x:10+Math.random()*(W-20),y:-12,vy:.9+state.level*.2,r:7,rot:0,vrot:.08});
+    ctx.fillStyle='rgba(8,8,6,0.97)';ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(201,168,76,.04)';ctx.lineWidth=1;
     for(var gx=0;gx<W;gx+=36){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
     for(var gy=0;gy<H;gy+=36){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
-
-    // Player — stylized primo figure
     var px=state.player.x,py=state.player.y,pr=state.player.r;
-    ctx.fillStyle='rgba(201,168,76,.9)';ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=10;
-    ctx.beginPath();ctx.arc(px,py-pr*.4,pr*.55,0,Math.PI*2);ctx.fill(); // head
-    ctx.fillRect(px-pr*.35,py-pr*.2,pr*.7,pr*.9); // body
-    ctx.shadowBlur=0;
-
-    // Bombs
+    ctx.fillStyle='rgba(201,168,76,.9)';ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=10;ctx.beginPath();ctx.arc(px,py-pr*.4,pr*.55,0,Math.PI*2);ctx.fill();ctx.fillRect(px-pr*.35,py-pr*.2,pr*.7,pr*.9);ctx.shadowBlur=0;
     state.bombs=state.bombs.filter(function(b){
-      b.y+=b.vy;
-      var hit=Math.hypot(b.x-px,b.y-py)<b.r+pr*.6;
+      b.y+=b.vy;var hit=Math.hypot(b.x-px,b.y-py)<b.r+pr*.6;
       if(hit){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
       if(b.y>H+16) return false;
-      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(210,55,55,.88)';ctx.shadowColor='rgba(210,55,55,.4)';ctx.shadowBlur=6;
-      ctx.fill();ctx.shadowBlur=0;
-      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
-      ctx.fillText('💣',b.x,b.y+4);
-      return true;
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle='rgba(210,55,55,.88)';ctx.shadowColor='rgba(210,55,55,.4)';ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;
+      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.fillText('💣',b.x,b.y+4);return true;
     });
-
-    // Coins
     state.coins=state.coins.filter(function(c){
-      c.y+=c.vy;c.rot+=c.vrot;
-      var hit=Math.hypot(c.x-px,c.y-py)<c.r+pr*.6;
+      c.y+=c.vy;c.rot+=c.vrot;var hit=Math.hypot(c.x-px,c.y-py)<c.r+pr*.6;
       if(hit){state.score+=15*state.level;updUI();return false;}
       if(c.y>H+16) return false;
-      ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rot);
-      ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(201,168,76,.9)';ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=8;
-      ctx.fill();ctx.shadowBlur=0;
-      ctx.fillStyle='rgba(8,8,8,.8)';ctx.font='bold 8px sans-serif';ctx.textAlign='center';
-      ctx.fillText('★',0,3);
-      ctx.restore();
-      return true;
+      ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rot);ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);ctx.fillStyle='rgba(201,168,76,.9)';ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+      ctx.fillStyle='rgba(8,8,8,.8)';ctx.font='bold 8px sans-serif';ctx.textAlign='center';ctx.fillText('★',0,3);ctx.restore();return true;
     });
-
-    // Level HUD
-    ctx.fillStyle='rgba(201,168,76,.35)';
-    ctx.font=Math.round(W*.04)+'px Cinzel,serif';ctx.textAlign='right';
-    ctx.fillText('Lvl '+state.level,W-8,16);
-
+    ctx.fillStyle='rgba(201,168,76,.35)';ctx.font=Math.round(W*.04)+'px Cinzel,serif';ctx.textAlign='right';ctx.fillText('Lvl '+state.level,W-8,16);
     mg2RAF=requestAnimationFrame(loop);
   }
   loop();
 }
+
 function buildMiniGame(){
   return '<div class="minigame-wrap">'
     +'<div class="minigame-title">✦ Mientras esperas ✦</div>'
     +'<div class="minigame-sub">Completaste todas tus nominaciones. Atrapa las estrellas doradas, esquiva las rojas.</div>'
     +'<canvas id="mgCanvas" width="320" height="220"></canvas>'
-    +'<div class="mg-score-row">'
-    +'<span>Puntos: <strong id="mgScore">0</strong></span>'
-    +'<span>Nivel: <strong id="mgLevel">1</strong></span>'
-    +'<span>Vidas: <span id="mgLives">❤️❤️❤️</span></span>'
-    +'</div>'
+    +'<div class="mg-score-row"><span>Puntos: <strong id="mgScore">0</strong></span><span>Nivel: <strong id="mgLevel">1</strong></span><span>Vidas: <span id="mgLives">❤️❤️❤️</span></span></div>'
     +'<button class="mg-restart" onclick="initMiniGame()">Reiniciar ↺</button>'
-    +'<div class="lb-wrap" id="lb1"><div class="lb-title">🏆 Ranking Global</div>'
-    +'<div id="lb1rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>'
+    +'<div class="lb-wrap" id="lb1"><div class="lb-title">🏆 Ranking Global</div><div id="lb1rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>'
     +'</div>';
 }
 
@@ -2149,174 +2054,53 @@ function buildMiniGame2(){
     +'<div class="minigame-title">✦ ¡Esquiva las Bombas! ✦</div>'
     +'<div class="minigame-sub">Votaste en todo. Mueve el primo para esquivar las bombas y atrapar monedas doradas.</div>'
     +'<canvas id="mgCanvas2" width="320" height="260"></canvas>'
-    +'<div class="mg-score-row">'
-    +'<span>Puntos: <strong id="mg2Score">0</strong></span>'
-    +'<span>Nivel: <strong id="mg2Level">1</strong></span>'
-    +'<span>Vidas: <span id="mg2Lives">❤️❤️❤️</span></span>'
-    +'</div>'
+    +'<div class="mg-score-row"><span>Puntos: <strong id="mg2Score">0</strong></span><span>Nivel: <strong id="mg2Level">1</strong></span><span>Vidas: <span id="mg2Lives">❤️❤️❤️</span></span></div>'
     +'<button class="mg-restart" onclick="initDodgeGame()">Reiniciar ↺</button>'
-    +'<div class="lb-wrap" id="lb2"><div class="lb-title">🏆 Ranking Global · Esquiva</div>'
-    +'<div id="lb2rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>'
+    +'<div class="lb-wrap" id="lb2"><div class="lb-title">🏆 Ranking Global · Esquiva</div><div id="lb2rows" style="padding:.5rem 0;text-align:center;font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(245,237,224,.3)">Cargando…</div></div>'
     +'</div>';
 }
 
-var mgRAF=null;
-function initMiniGame(){
-  if(mgRAF){cancelAnimationFrame(mgRAF);mgRAF=null;}
-  var canvas=document.getElementById('mgCanvas');
-  if(!canvas) return;
-  var W=Math.min(320,window.innerWidth-56);
-  var H=Math.round(W*0.68);
-  canvas.width=W; canvas.height=H;
-  var ctx=canvas.getContext('2d');
+// ─── DIVIDERS DINÁMICOS ───────────────────────────────────────
+// Recalcula qué dividers mostrar según qué secciones están visibles.
+// Regla: solo mostrar un divider entre dos secciones consecutivas visibles.
+// Estructura: [categories] → [adminEntry?] → [action?] → [footer]
+function updateDividers(){
+  var adminVisible = document.getElementById('adminEntrySection').style.display !== 'none';
+  var actionVisible = document.getElementById('actionSection').style.display !== 'none';
 
-  var state={
-    score:0,level:1,lives:3,frame:0,spawnRate:70,
-    running:true,gameover:false,
-    paddle:{x:W/2-32,w:64,h:9,y:H-16},
-    stars:[],bombs:[]
-  };
+  // Divider entre categories y la siguiente sección visible
+  // adminEntryDivider: mostrar si adminEntry está visible
+  document.getElementById('adminEntryDivider').style.display = adminVisible ? 'flex' : 'none';
 
-  // Controls
-  function getX(e){
-    var r=canvas.getBoundingClientRect();
-    return (e.touches?e.touches[0].clientX:e.clientX)-r.left;
-  }
-  canvas.onmousemove=function(e){
-    if(!state.running) return;
-    state.paddle.x=Math.max(0,Math.min(W-state.paddle.w,getX(e)-state.paddle.w/2));
-  };
-  canvas.ontouchmove=function(e){
-    e.preventDefault();
-    if(!state.running) return;
-    state.paddle.x=Math.max(0,Math.min(W-state.paddle.w,getX(e)-state.paddle.w/2));
-  };
-  canvas.onclick=function(){if(state.gameover) initMiniGame();};
+  // actionDivider: mostrar si action está visible Y hay algo antes de él visible
+  // (siempre hay categories, así que si no hay admin, igual se necesita antes de action)
+  document.getElementById('actionDivider').style.display = actionVisible ? 'flex' : 'none';
 
-  function updUI(){
-    var s=document.getElementById('mgScore');if(s)s.textContent=state.score;
-    var l=document.getElementById('mgLevel');if(l)l.textContent=state.level;
-    var v=document.getElementById('mgLives');if(v)v.textContent=state.lives>0?'❤️'.repeat(state.lives):'💔';
-  }
+  // footerDivider: siempre visible (siempre hay footer)
+  document.getElementById('footerDivider').style.display = 'flex';
 
-  function drawStarShape(ctx,x,y,size,rot,color,glow){
-    ctx.save();ctx.translate(x,y);ctx.rotate(rot);
-    if(glow){ctx.shadowColor=color;ctx.shadowBlur=10;}
-    ctx.fillStyle=color;
-    ctx.beginPath();
-    for(var k=0;k<5;k++){
-      var a=k*4*Math.PI/5-Math.PI/2,ai=a+2*Math.PI/5;
-      if(k===0)ctx.moveTo(Math.cos(a)*size,Math.sin(a)*size);
-      else ctx.lineTo(Math.cos(a)*size,Math.sin(a)*size);
-      ctx.lineTo(Math.cos(ai)*size*.42,Math.sin(ai)*size*.42);
-    }
-    ctx.closePath();ctx.fill();ctx.restore();
-  }
-
-  function loop(){
-    if(!state.running){
-      // Game over screen
-      ctx.fillStyle='rgba(0,0,0,0.82)';ctx.fillRect(0,0,W,H);
-      ctx.fillStyle='rgba(201,168,76,0.9)';
-      ctx.font='bold '+Math.round(W*.065)+'px Cinzel,serif';ctx.textAlign='center';
-      ctx.fillText('FIN DEL JUEGO',W/2,H*.38);
-      ctx.font=Math.round(W*.048)+'px Cinzel,serif';
-      ctx.fillText('Puntos: '+state.score,W/2,H*.54);
-      ctx.fillStyle='rgba(245,237,224,.4)';
-      ctx.font=Math.round(W*.036)+'px Cormorant Garamond,serif';
-      ctx.fillText('Toca para reiniciar',W/2,H*.7);
-      if(!state._scoreSaved){
-        state._scoreSaved=true;
-        saveScore('stars',state.score);
-        loadLeaderboard('stars','lb1rows');
-      }
-      state.gameover=true; return;
-    }
-
-    state.frame++;
-    // Level up
-    if(state.frame%420===0){
-      state.level=Math.min(12,state.level+1);
-      state.spawnRate=Math.max(28,state.spawnRate-7);
-    }
-    // Spawn
-    if(state.frame%state.spawnRate===0){
-      state.stars.push({x:10+Math.random()*(W-20),y:-12,
-        vy:1.2+state.level*.35+Math.random()*.7,
-        size:7+Math.random()*5,rot:Math.random()*Math.PI*2,vrot:.05+Math.random()*.05});
-    }
-    if(state.frame%(state.spawnRate*4)===0&&state.level>=2){
-      state.bombs.push({x:10+Math.random()*(W-20),y:-12,
-        vy:.9+state.level*.25+Math.random()*.4,r:7});
-    }
-
-    // Draw BG
-    ctx.fillStyle='rgba(8,8,8,0.97)';ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(201,168,76,0.04)';ctx.lineWidth=1;
-    for(var gx=0;gx<W;gx+=36){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
-    for(var gy=0;gy<H;gy+=36){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
-
-    // Paddle
-    var p=state.paddle;
-    var g=ctx.createLinearGradient(p.x,0,p.x+p.w,0);
-    g.addColorStop(0,'rgba(138,106,32,0.9)');g.addColorStop(.5,'rgba(232,208,138,0.95)');g.addColorStop(1,'rgba(138,106,32,0.9)');
-    ctx.fillStyle=g;ctx.shadowColor='rgba(201,168,76,.5)';ctx.shadowBlur=8;
-    ctx.fillRect(p.x,p.y,p.w,p.h);ctx.shadowBlur=0;
-
-    // Stars
-    state.stars=state.stars.filter(function(s){
-      s.y+=s.vy;s.rot+=s.vrot;
-      var caught=(s.y+s.size>p.y&&s.y-s.size<p.y+p.h&&s.x>p.x&&s.x<p.x+p.w);
-      if(caught){state.score+=10*state.level;updUI();return false;}
-      if(s.y>H+16){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
-      drawStarShape(ctx,s.x,s.y,s.size,s.rot,'rgba(201,168,76,.92)',true);
-      return true;
-    });
-
-    // Bombs
-    state.bombs=state.bombs.filter(function(b){
-      b.y+=b.vy;
-      var hit=(b.y+b.r>p.y&&b.y-b.r<p.y+p.h&&b.x>p.x&&b.x<p.x+p.w);
-      if(hit){state.lives--;updUI();if(state.lives<=0)state.running=false;return false;}
-      if(b.y>H+16) return false;
-      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(210,55,55,.88)';ctx.shadowColor='rgba(210,55,55,.5)';ctx.shadowBlur=6;
-      ctx.fill();ctx.shadowBlur=0;
-      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
-      ctx.fillText('✕',b.x,b.y+3.5);
-      return true;
-    });
-
-    // Score overlay
-    ctx.fillStyle='rgba(201,168,76,.35)';
-    ctx.font=Math.round(W*.042)+'px Cinzel,serif';ctx.textAlign='right';
-    ctx.fillText('Lvl '+state.level,W-8,16);
-
-    mgRAF=requestAnimationFrame(loop);
-  }
-  loop();
+  // Si adminEntry está visible pero action NO → no poner doble divider
+  // La lógica ya lo maneja: actionDivider solo aparece si action está visible
 }
+
+
 function apiCall(params,cb){
-  // Add cache-buster to prevent Apps Script caching stale responses
   params._cb=Date.now();
-  var url=API+'?'+Object.keys(params).map(function(k){
-    return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);
-  }).join('&');
-  fetch(url)
-    .then(function(r){return r.json();})
-    .then(function(d){if(cb)cb(d);})
-    .catch(function(){if(cb)cb(null);});
+  var url=API+'?'+Object.keys(params).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}).join('&');
+  fetch(url).then(function(r){return r.json();}).then(function(d){if(cb)cb(d);}).catch(function(){if(cb)cb(null);});
 }
+
 function showToast(msg){
-  var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   setTimeout(function(){t.classList.remove('show');},3200);
 }
-function esc(s){
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
 function observeFadeIns(){
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
   document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
+  updateDividers();
   startChatPoll();
 }
 </script>
