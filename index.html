@@ -1530,23 +1530,38 @@ function toggleChat(){
   if(chatOpen){fab.classList.remove('has-unread');setTimeout(function(){var b=document.getElementById('mensajes');b.scrollTop=b.scrollHeight;},100);}
 }
 
-// FIX: prevenir doble envío — un solo mensaje por acción
 function mandarChat(){
   if(!primo){showToast('Identifícate para chatear');return;}
-  // FIX: bloquear si ya está enviando
   if(chatSending) return;
   var msgInput=document.getElementById('msgChat');
+  var sendBtn=document.querySelector('.chat-send');
   var msg=(msgInput.value||'').trim();
   if(!msg) return;
-  checkBan(function(baneado){
-    if(baneado) return;
-    chatSending=true;
-    var user=getChatName();
-    msgInput.value=''; // limpiar inmediatamente
+  chatSending=true;
+  msgInput.value='';
+  msgInput.disabled=true;
+  if(sendBtn) sendBtn.disabled=true;
+  var user=getChatName();
+  function doSend(){
     apiCall({action:'chat',usuario:user,mensaje:msg},function(res){
       chatSending=false;
-      if(res&&res.mensajes&&Array.isArray(res.mensajes)){localMsgs=res.mensajes;renderMsgs(localMsgs);}
+      msgInput.disabled=false;
+      if(sendBtn) sendBtn.disabled=false;
+      msgInput.focus();
+      if(res&&res.mensajes&&Array.isArray(res.mensajes)){
+        localMsgs=res.mensajes;
+        renderMsgs(localMsgs);
+      }
     });
+  }
+  checkBan(function(baneado){
+    if(baneado){
+      chatSending=false;
+      msgInput.disabled=false;
+      if(sendBtn) sendBtn.disabled=false;
+      return;
+    }
+    doSend();
   });
 }
 
